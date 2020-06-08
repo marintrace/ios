@@ -9,6 +9,16 @@
 import Foundation
 import UIKit
 
+struct Colors {
+    
+    //school colors
+    struct SchoolColors {
+        static let MA = UIColor(hexString: "#BE2828")
+        static let branson = UIColor(hexString: "#017BD6")
+    }
+    
+}
+
 extension UIColor {
     convenience init(hexString: String, alpha: CGFloat = 1.0) {
         let hexString: String = hexString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
