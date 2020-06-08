@@ -18,13 +18,21 @@ class LoginTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        tableView.separatorColor = UIColor.clear
+        tableView.allowsSelection = false
+        
     }
 
     // MARK: - Table view data source
     
+    
+    //these functions create the spacing between the sectios
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 25
+    }
+    
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width height: 25))
-        
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 25))
         return view
     }
     

@@ -3,7 +3,7 @@
 //  MarinTraceTests
 //
 //  Created by Beck Lorsch on 6/7/20.
-//  Copyright © 2020 Couch Potato Studios. All rights reserved.
+//  Copyright © 2020 Marin Trace. All rights reserved.
 //
 
 import XCTest

@@ -9,12 +9,13 @@
 /* Begin PBXBuildFile section */
 		3481D07F248DBC6A005215EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3481D07E248DBC6A005215EE /* AppDelegate.swift */; };
 		3481D081248DBC6A005215EE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3481D080248DBC6A005215EE /* SceneDelegate.swift */; };
-		3481D083248DBC6A005215EE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3481D082248DBC6A005215EE /* ViewController.swift */; };
 		3481D086248DBC6A005215EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3481D084248DBC6A005215EE /* Main.storyboard */; };
 		3481D088248DBC6F005215EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3481D087248DBC6F005215EE /* Assets.xcassets */; };
 		3481D08B248DBC6F005215EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3481D089248DBC6F005215EE /* LaunchScreen.storyboard */; };
 		3481D096248DBC6F005215EE /* MarinTraceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3481D095248DBC6F005215EE /* MarinTraceTests.swift */; };
 		3481D0A1248DBC6F005215EE /* MarinTraceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3481D0A0248DBC6F005215EE /* MarinTraceUITests.swift */; };
+		3481D0AF248DCA9D005215EE /* LoginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3481D0AE248DCA9D005215EE /* LoginTableViewController.swift */; };
+		3481D0B3248DCE6D005215EE /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3481D0B2248DCE6D005215EE /* Helpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +39,6 @@
 		3481D07B248DBC6A005215EE /* MarinTrace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarinTrace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3481D07E248DBC6A005215EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3481D080248DBC6A005215EE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3481D082248DBC6A005215EE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3481D085248DBC6A005215EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3481D087248DBC6F005215EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3481D08A248DBC6F005215EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +49,8 @@
 		3481D09C248DBC6F005215EE /* MarinTraceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MarinTraceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3481D0A0248DBC6F005215EE /* MarinTraceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarinTraceUITests.swift; sourceTree = "<group>"; };
 		3481D0A2248DBC6F005215EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3481D0AE248DCA9D005215EE /* LoginTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTableViewController.swift; sourceTree = "<group>"; };
+		3481D0B2248DCE6D005215EE /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,8 +103,9 @@
 			children = (
 				3481D07E248DBC6A005215EE /* AppDelegate.swift */,
 				3481D080248DBC6A005215EE /* SceneDelegate.swift */,
-				3481D082248DBC6A005215EE /* ViewController.swift */,
+				3481D0B0248DCE17005215EE /* View Controllers */,
 				3481D084248DBC6A005215EE /* Main.storyboard */,
+				3481D0B1248DCE4A005215EE /* Helpers */,
 				3481D087248DBC6F005215EE /* Assets.xcassets */,
 				3481D089248DBC6F005215EE /* LaunchScreen.storyboard */,
 				3481D08C248DBC6F005215EE /* Info.plist */,
@@ -126,6 +129,22 @@
 				3481D0A2248DBC6F005215EE /* Info.plist */,
 			);
 			path = MarinTraceUITests;
+			sourceTree = "<group>";
+		};
+		3481D0B0248DCE17005215EE /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3481D0AE248DCA9D005215EE /* LoginTableViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		3481D0B1248DCE4A005215EE /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				3481D0B2248DCE6D005215EE /* Helpers.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -192,7 +211,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1150;
 				LastUpgradeCheck = 1150;
-				ORGANIZATIONNAME = "Couch Potato Studios";
+				ORGANIZATIONNAME = "Marin Trace";
 				TargetAttributes = {
 					3481D07A248DBC6A005215EE = {
 						CreatedOnToolsVersion = 11.5;
@@ -259,9 +278,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3481D083248DBC6A005215EE /* ViewController.swift in Sources */,
 				3481D07F248DBC6A005215EE /* AppDelegate.swift in Sources */,
 				3481D081248DBC6A005215EE /* SceneDelegate.swift in Sources */,
+				3481D0AF248DCA9D005215EE /* LoginTableViewController.swift in Sources */,
+				3481D0B3248DCE6D005215EE /* Helpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,7 +461,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.couchpotatostudios.MarinTrace;
+				PRODUCT_BUNDLE_IDENTIFIER = com.marintrace.marintrace;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -459,7 +479,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.couchpotatostudios.MarinTrace;
+				PRODUCT_BUNDLE_IDENTIFIER = com.marintrace.marintrace;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
