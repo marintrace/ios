@@ -310,6 +310,9 @@
                                                                     <integer key="value" value="10"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <segue destination="IHQ-78-Oze" kind="show" id="Rzc-hh-3CS"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -394,6 +397,9 @@
                                                                     <integer key="value" value="10"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <action selector="reportPositiveTest:" destination="CD2-0t-fvS" eventType="touchUpInside" id="ien-eN-x99"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -631,7 +637,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="2V8-d5-Sfb" firstAttribute="trailing" secondItem="JAf-fY-iMA" secondAttribute="trailing" constant="14" id="2kP-LA-Twb"/>
                             <constraint firstItem="JAf-fY-iMA" firstAttribute="top" secondItem="2V8-d5-Sfb" secondAttribute="top" constant="14" id="7y8-az-Mg6"/>
@@ -649,6 +655,83 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2hF-Pn-i8F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4654" y="814"/>
+        </scene>
+        <!--Report Symptoms-->
+        <scene sceneID="nQY-GQ-RpE">
+            <objects>
+                <tableViewController id="IHQ-78-Oze" customClass="SymptomTableViewController" customModule="MarinTrace" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="X8b-F2-aDV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="gS6-va-2KO" customClass="SymptomTableViewCell" customModule="MarinTrace" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gS6-va-2KO" id="Pkf-ET-BcU">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2CA-li-cpz">
+                                            <rect key="frame" x="16" y="0.0" width="343" height="43.666666666666664"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qh2-Fo-POf">
+                                                    <rect key="frame" x="46" y="11.333333333333336" width="289" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l7t-r6-M3v" customClass="CircularCheckbox" customModule="MarinTrace" customModuleProvider="target">
+                                                    <rect key="frame" x="10" y="9.3333333333333357" width="25" height="25"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="25" id="nq8-0k-w12"/>
+                                                        <constraint firstAttribute="width" constant="25" id="qYb-6O-NMd"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="qh2-Fo-POf" secondAttribute="trailing" constant="8" id="1aU-Kd-18Y"/>
+                                                <constraint firstItem="qh2-Fo-POf" firstAttribute="centerY" secondItem="2CA-li-cpz" secondAttribute="centerY" id="V25-Vw-25i"/>
+                                                <constraint firstItem="l7t-r6-M3v" firstAttribute="centerY" secondItem="2CA-li-cpz" secondAttribute="centerY" id="Z6F-X3-Qs3"/>
+                                                <constraint firstItem="l7t-r6-M3v" firstAttribute="leading" secondItem="2CA-li-cpz" secondAttribute="leading" constant="10" id="a8w-zA-cnK"/>
+                                                <constraint firstItem="qh2-Fo-POf" firstAttribute="leading" secondItem="l7t-r6-M3v" secondAttribute="trailing" constant="11" id="iJz-BD-PE4"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="2CA-li-cpz" secondAttribute="trailing" constant="16" id="56L-D5-Syc"/>
+                                        <constraint firstAttribute="bottom" secondItem="2CA-li-cpz" secondAttribute="bottom" id="OAN-jz-vLl"/>
+                                        <constraint firstItem="2CA-li-cpz" firstAttribute="top" secondItem="Pkf-ET-BcU" secondAttribute="top" id="X5q-AW-yDs"/>
+                                        <constraint firstItem="2CA-li-cpz" firstAttribute="leading" secondItem="Pkf-ET-BcU" secondAttribute="leading" constant="16" id="rIP-yw-TXl"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="separatorInset" minX="14" minY="0.0" maxX="14" maxY="0.0"/>
+                                <connections>
+                                    <outlet property="backgroundRoundedView" destination="2CA-li-cpz" id="cKJ-X8-Ega"/>
+                                    <outlet property="checkbox" destination="l7t-r6-M3v" id="zQL-jk-0xI"/>
+                                    <outlet property="symptomLabel" destination="qh2-Fo-POf" id="AKu-PD-0ml"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="IHQ-78-Oze" id="wCv-yw-F85"/>
+                            <outlet property="delegate" destination="IHQ-78-Oze" id="ZYA-kT-GSf"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Report Symptoms" id="fkp-bD-fJa">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="cXB-Fj-6yg">
+                            <connections>
+                                <action selector="donePressed:" destination="IHQ-78-Oze" id="PPT-E1-OrT"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aBh-PX-aUn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3912.8000000000002" y="1512.5615763546798"/>
         </scene>
     </scenes>
 </document>

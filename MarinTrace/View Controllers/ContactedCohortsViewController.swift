@@ -12,6 +12,8 @@ class ContactedCohortsViewController: UIViewController, UITableViewDelegate, UIT
     
     @IBOutlet weak var cohortTableView: UITableView!
     
+    var names = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -23,7 +25,8 @@ class ContactedCohortsViewController: UIViewController, UITableViewDelegate, UIT
     
     //MARK: IBAction
     @IBAction func reportContacts(_ sender: Any) {
-        
+        //TODO - submit
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     //MARK: Table View Functions
@@ -32,12 +35,12 @@ class ContactedCohortsViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return names.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = cohortTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "Cohort"
+        cell.textLabel?.text = names[indexPath.row]
         return cell
     }
 

@@ -9,7 +9,7 @@
 import UIKit
 
 @IBDesignable class CircularCheckbox: UIButton {
-    let checkedImage = UIImage(named: "circular_checkbox_filled")! as UIImage
+    let checkedImage = UIImage(named: "circular_checkbox_filled_ma")! as UIImage
     let uncheckedImage = UIImage(named: "circular_checkbox_empty")! as UIImage
 
     var isChecked: Bool = false {

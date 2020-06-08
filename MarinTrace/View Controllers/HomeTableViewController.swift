@@ -31,9 +31,16 @@ class HomeTableViewController: UITableViewController {
         }
     }
 
+    @IBAction func reportPositiveTest(_ sender: Any) {
+        let alert = UIAlertController(title: "Are you sure?", message: "Reporting a positive test cannot be undone and will notify the school immediately.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Report", style: .destructive, handler: { (_) in
+            //report positive test
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     // MARK: - Table view data source
-    
-    
     //these functions create the spacing between the sectios
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 25
