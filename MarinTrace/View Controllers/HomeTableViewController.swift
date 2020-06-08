@@ -12,6 +12,8 @@ import GoogleSignIn
 
 class HomeTableViewController: UITableViewController {
 
+    @IBOutlet weak var profileButton: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,6 +23,29 @@ class HomeTableViewController: UITableViewController {
         
         goToLogin()
         //try! Auth.auth().signOut()
+        
+        setupProfile()
+    }
+    
+    func setupProfile() {
+        
+        //todo - configure image to be ma or branson
+        let image = UIImage(named: "profile_ma")?.withRenderingMode(.alwaysOriginal)
+        profileButton.setBackgroundImage(image, for: .normal, barMetrics: .default)
+        
+        guard let user = Auth.auth().currentUser else {return}
+        guard let name = user.displayName else {return}
+        let namesSplit = name.components(separatedBy: " ") //split into first and last
+        if namesSplit.count > 1 { //if first and last name, use initials, else just use first initial
+            let firstName = namesSplit[0]
+            let lastName = namesSplit[1]
+            profileButton.title = String(firstName[firstName.startIndex]) + String(lastName[lastName.startIndex])
+        } else {
+            let firstName = namesSplit[0]
+            profileButton.title = String(firstName[firstName.startIndex])
+        }
+        
+        profileButton.tintColor = .white
         
     }
     
@@ -38,6 +63,10 @@ class HomeTableViewController: UITableViewController {
             //report positive test
         }))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func profileTapped(_ sender: Any) {
+        
     }
     
     // MARK: - Table view data source

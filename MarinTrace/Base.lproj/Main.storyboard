@@ -442,8 +442,15 @@
                             <outlet property="delegate" destination="CD2-0t-fvS" id="UMP-1Q-Qmd"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Trace" id="U5J-f6-Yqf"/>
+                    <navigationItem key="navigationItem" title="Trace" id="U5J-f6-Yqf">
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="fRk-BH-ZFb">
+                            <connections>
+                                <action selector="profileTapped:" destination="CD2-0t-fvS" id="Qbq-2k-BDM"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="profileButton" destination="fRk-BH-ZFb" id="HUQ-7j-D8N"/>
                         <segue destination="JF7-8e-U7F" kind="presentation" identifier="toLogin" modalPresentationStyle="fullScreen" id="Ybd-Im-IFR"/>
                     </connections>
                 </tableViewController>
