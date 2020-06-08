@@ -1,5 +1,5 @@
 //
-//  LoginTableViewController.swift
+//  HomeTableViewController.swift
 //  MarinTrace
 //
 //  Created by Beck Lorsch on 6/7/20.
@@ -7,20 +7,28 @@
 //
 
 import UIKit
+import Firebase
+import GoogleSignIn
 
-class LoginTableViewController: UITableViewController {
+class HomeTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        //hide hairline and dont allow selection
         tableView.separatorColor = UIColor.clear
         tableView.allowsSelection = false
         
+        goToLogin()
+        //try! Auth.auth().signOut()
+        
+    }
+    
+    //if no signed in user, go to login
+    func goToLogin() {
+        if Auth.auth().currentUser == nil {
+            self.performSegue(withIdentifier: "toLogin", sender: self)
+        }
     }
 
     // MARK: - Table view data source

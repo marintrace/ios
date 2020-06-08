@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JF7-8e-U7F">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eF6-RW-VCe">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -58,7 +58,7 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
-                                                        <segue destination="eF6-RW-VCe" kind="presentation" modalPresentationStyle="fullScreen" id="s2A-hx-p0Y"/>
+                                                        <action selector="bransonLogIn:" destination="NdU-8W-uCg" eventType="touchUpInside" id="gi7-PK-CMZ"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -106,6 +106,9 @@
                                                                     <integer key="value" value="10"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <action selector="maLogIn:" destination="NdU-8W-uCg" eventType="touchUpInside" id="1ur-ZR-TSv"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -170,7 +173,7 @@
         <!--Trace-->
         <scene sceneID="4Dk-3Z-G2i">
             <objects>
-                <tableViewController id="CD2-0t-fvS" customClass="LoginTableViewController" customModule="MarinTrace" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="CD2-0t-fvS" customClass="HomeTableViewController" customModule="MarinTrace" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="qPI-0Y-EJ1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -434,6 +437,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Trace" id="U5J-f6-Yqf"/>
+                    <connections>
+                        <segue destination="JF7-8e-U7F" kind="presentation" identifier="toLogin" modalPresentationStyle="fullScreen" id="Ybd-Im-IFR"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Lj-RD-KRT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -442,7 +448,7 @@
         <!--Navigation Controller-->
         <scene sceneID="i55-Hd-EAc">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eF6-RW-VCe" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="HomeTableViewController" automaticallyAdjustsScrollViewInsets="NO" id="eF6-RW-VCe" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="iq4-VA-awU"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="tXR-la-9l8">
