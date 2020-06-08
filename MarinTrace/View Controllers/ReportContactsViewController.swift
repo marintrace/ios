@@ -20,8 +20,11 @@ class ReportContactsViewController: UIViewController, VENTokenFieldDelegate, VEN
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        //Setup token field
+        setupTokenField()
+        setupTableView()
+    }
+    
+    func setupTokenField() {
         searchField.delegate = self
         searchField.dataSource = self
         searchField.placeholderText = "Search for a name"
@@ -29,21 +32,21 @@ class ReportContactsViewController: UIViewController, VENTokenFieldDelegate, VEN
         searchField.toLabelText = ""
         searchField.delimiters = [","]
         searchField.becomeFirstResponder()
-        
-        //Setup table view
-        suggestionTableView.delegate = self
-        suggestionTableView.dataSource = self
-        
     }
     
-    func getSuggestions(text: String) {
+    func setupTableView() {
+        suggestionTableView.delegate = self
+        suggestionTableView.dataSource = self
+    }
+    
+    func getSuggestions(text: String) { //filter for user input, also make sure user not already selected
         suggestions = suggestionOptions.filter({$0.contains(text) && !names.contains(text)})
         suggestionTableView.reloadData()
     }
         
-    //MARK: SearchField Code
+    //MARK: Search Field Code
     
-    //when user types, filter suggestions for input, also make sure user not already selected
+    //when user types, filter suggestions
     func tokenField(_ tokenField: VENTokenField, didChangeText text: String?) {
         if let text = text {
             getSuggestions(text: text)
@@ -76,6 +79,7 @@ class ReportContactsViewController: UIViewController, VENTokenFieldDelegate, VEN
     }
     
     //MARK: Table View Code
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return suggestions.count
     }
@@ -100,7 +104,7 @@ class ReportContactsViewController: UIViewController, VENTokenFieldDelegate, VEN
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? ContactedCohortsViewController {
-            destination.names = names
+            destination.names = names //send selected names to summary screen
         }
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
