@@ -19,6 +19,7 @@ class HomeTableViewController: UITableViewController {
         checkUser()
         setupProfile()
         setupTableView()
+                
     }
     
     func setupTableView() {

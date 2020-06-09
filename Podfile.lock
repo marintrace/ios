@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (5.2.1)
   - AppAuth (1.4.0):
     - AppAuth/Core (= 1.4.0)
     - AppAuth/ExternalUserAgent (= 1.4.0)
@@ -99,6 +100,7 @@ PODS:
     - FrameAccessor (~> 1.0)
 
 DEPENDENCIES:
+  - Alamofire (~> 5.2)
   - Firebase/Analytics
   - Firebase/Auth
   - GoogleSignIn
@@ -106,6 +108,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - AppAuth
     - Firebase
     - FirebaseAnalytics
@@ -128,6 +131,7 @@ SPEC REPOS:
     - VENTokenField
 
 SPEC CHECKSUMS:
+  Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   Firebase: b28e55c60efd98963cd9011fe2fac5a10c2ba124
   FirebaseAnalytics: 7386fc2176e3f93ad8ef34b5b1f2b33a891e4962
@@ -149,6 +153,6 @@ SPEC CHECKSUMS:
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   VENTokenField: 5a19b838fb97f040e3d4c93f584b4adeaf3fc1ee
 
-PODFILE CHECKSUM: d2fe61846c3cf347d7206cf3a56277a258ffe3ab
+PODFILE CHECKSUM: df06cc14269d3878b09092125b869e03457a25a3
 
 COCOAPODS: 1.9.1

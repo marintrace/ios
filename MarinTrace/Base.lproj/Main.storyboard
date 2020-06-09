@@ -389,7 +389,7 @@
                                                                 <constraint firstAttribute="height" constant="42" id="NKu-I3-15S"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
-                                                            <state key="normal" title="Report Contact">
+                                                            <state key="normal" title="Report Positive Test">
                                                                 <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </state>
                                                             <userDefinedRuntimeAttributes>

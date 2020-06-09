@@ -14,8 +14,8 @@ struct User {
     
     //MARK: Enum for MA/Branson with raw value for DB functions
     enum School: String {
-        case MA = "MA"
-        case Branson = "Branson"
+        case MA = "ma"
+        case Branson = "branson"
     }
     
     //MARK: User Properties
@@ -24,11 +24,13 @@ struct User {
     static var lastName = ""
     static var initials = ""
     static var fullName = ""
+    static var email = ""
     
     //MARK: Get User Details
     static func getDetails() {
         
         guard let user = Auth.auth().currentUser else {return}
+        email = user.email!
         
         //setup name details
         guard let name = user.displayName else {return}
