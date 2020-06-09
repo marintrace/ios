@@ -9,12 +9,44 @@
 import Foundation
 import UIKit
 
+struct AlertHelperFunctions {
+    
+    //function for presenting an error from app delegate
+    static func presentErrorAlertOnWindow(title: String, message: String, window: UIWindow) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
+            UIAlertAction in
+        }
+        alertController.addAction(okAction)
+        window.rootViewController?.present(alertController, animated: true, completion: nil)
+    }
+    
+}
+
 struct Colors {
     
     //school colors
-    struct SchoolColors {
-        static let MA = UIColor(hexString: "#BE2828")
-        static let branson = UIColor(hexString: "#017BD6")
+    static func colorFor(forSchool school:User.School) -> UIColor {
+        if school == .MA {
+            return UIColor(hexString: "#BE2828")
+        } else {
+            return UIColor(hexString: "#017BD6")
+        }
+    }
+    
+}
+
+struct FontHelper {
+    
+    //modified from https://stackoverflow.com/a/58123083/4777497
+    static func roundedFont(ofSize size: CGFloat, weight: UIFont.Weight) -> UIFont {
+        // Will be SF Compact or standard SF in case of failure.
+        let fontSize = size
+        if let descriptor = UIFont.systemFont(ofSize: fontSize, weight: weight).fontDescriptor.withDesign(.rounded) {
+            return UIFont(descriptor: descriptor, size: fontSize)
+        } else {
+            return UIFont.preferredFont(forTextStyle: .subheadline)
+        }
     }
     
 }

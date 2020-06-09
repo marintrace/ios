@@ -13,6 +13,7 @@ class ProfileViewController: UIViewController {
 
     @IBOutlet weak var initialLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var labelImage: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,10 +25,13 @@ class ProfileViewController: UIViewController {
         
         //configure image to be ma or branson
         if User.school == .MA {
-            initialLabel.backgroundColor = UIColor(patternImage: UIImage(named: "profile_ma")!)
+            labelImage.image = UIImage(named: "profile_ma")
         } else {
-            initialLabel.backgroundColor = UIColor(patternImage: UIImage(named: "profile_branson")!)
+            labelImage.image = UIImage(named: "profile_branson")
         }
+        
+        //round text
+        initialLabel.font = FontHelper.roundedFont(ofSize: 29, weight: .medium)
         
         nameLabel.text = User.fullName
         initialLabel.text = User.initials

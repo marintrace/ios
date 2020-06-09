@@ -37,7 +37,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
         
         if let error = error {
-            print(error) //TODO - show error
+            print(error)
+            AlertHelperFunctions.presentErrorAlertOnWindow(title: "Error", message: error.localizedDescription, window: UIApplication.shared.windows.first!)
             return
         }
         
@@ -54,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                 if let error = error {
                     let authError = error as NSError
                     print(authError)
-                    //TODO - show error
+                    AlertHelperFunctions.presentErrorAlertOnWindow(title: "Error", message: authError.localizedDescription, window: UIApplication.shared.windows.first!)
                 } else {
                     //user signed in, go to homes
                     let story = UIStoryboard(name: "Main", bundle: nil)
@@ -67,7 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             }
             
         } else {
-            //TODO - show error
+            AlertHelperFunctions.presentErrorAlertOnWindow(title: "Error", message: "Your account must be @ma.org or @branson.org. Please try signing in with that.", window: UIApplication.shared.windows.first!)
         }
         
     }

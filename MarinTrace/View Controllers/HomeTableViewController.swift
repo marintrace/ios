@@ -37,6 +37,9 @@ class HomeTableViewController: UITableViewController {
             profileButton.setBackgroundImage(image, for: .normal, barMetrics: .default)
         }
         
+        //round font
+        profileButton.setTitleTextAttributes([NSAttributedString.Key.font:FontHelper.roundedFont(ofSize: 17, weight: .medium)], for: .normal)
+        
         //setup text
         profileButton.title = User.initials
         profileButton.tintColor = .white

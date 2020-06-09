@@ -9,13 +9,16 @@
 import UIKit
 
 @IBDesignable class CircularCheckbox: UIButton {
-    let checkedImage = UIImage(named: "circular_checkbox_filled_ma")! as UIImage
     let uncheckedImage = UIImage(named: "circular_checkbox_empty")! as UIImage
-
+    
     var isChecked: Bool = false {
         didSet {
             if isChecked == true {
-                self.setImage(checkedImage, for: UIControl.State.normal)
+                if User.school == .MA {
+                    self.setImage(UIImage(named: "circular_checkbox_filled_ma")! as UIImage, for: .normal)
+                } else {
+                    self.setImage(UIImage(named: "circular_checkbox_filled_branson")! as UIImage, for: .normal)
+                }
             } else {
                 self.setImage(uncheckedImage, for: UIControl.State.normal)
             }

@@ -28,7 +28,7 @@ class ReportContactsViewController: UIViewController, VENTokenFieldDelegate, VEN
         searchField.delegate = self
         searchField.dataSource = self
         searchField.placeholderText = "Search for a name"
-        searchField.setColorScheme(Colors.SchoolColors.MA)
+        searchField.setColorScheme(Colors.colorFor(forSchool: User.school))
         searchField.toLabelText = ""
         searchField.delimiters = [","]
         searchField.becomeFirstResponder()
