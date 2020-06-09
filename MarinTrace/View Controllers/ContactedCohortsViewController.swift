@@ -12,7 +12,8 @@ class ContactedCohortsViewController: UIViewController, UITableViewDelegate, UIT
     
     @IBOutlet weak var cohortTableView: UITableView!
     
-    var names = [String]()
+    var contacts = [Contact]() //a list of the people they've contacted
+    var cohorts = [String]() //a list of the unique cohorts they've contacted
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,12 +22,41 @@ class ContactedCohortsViewController: UIViewController, UITableViewDelegate, UIT
         cohortTableView.dataSource = self
         cohortTableView.delegate = self
         
+        processData()
+        
     }
     
-    //MARK: IBAction
+    func processData() {
+        //get list of cohort names and remove duplicates
+        let cohortNames: [String] = contacts.map({$0.cohort})
+        cohorts = cohortNames.uniques
+        cohortTableView.reloadData()
+    }
+    
     @IBAction func reportContacts(_ sender: Any) {
-        //TODO - submit
-        self.navigationController?.popToRootViewController(animated: true)
+  
+        let dispatch = DispatchGroup() //dispatch group to track completion of all posts
+        var error: Error? //if there's an error track it
+        
+        //report each contact
+        for contact in contacts {
+            dispatch.enter()
+            DataService.reportInteraction(personBID: contact.id) { (requestError) in
+                if requestError != nil {
+                    error = requestError as! Error
+                }
+                dispatch.leave()
+            }
+        }
+        
+        //wait for all posts to finish
+        dispatch.notify(queue: .main) {
+            if error != nil { //if an error showed up, report it
+                AlertHelperFunctions.presentAlertOnVC(title: "Error", message: error!.localizedDescription, vc: self)
+            } else { //else go back
+                self.navigationController?.popToRootViewController(animated: true)
+            }
+        }
     }
     
     //MARK: Table View Functions
@@ -35,12 +65,12 @@ class ContactedCohortsViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return names.count
+        return cohorts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = cohortTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = names[indexPath.row]
+        cell.textLabel?.text = cohorts[indexPath.row]
         return cell
     }
 

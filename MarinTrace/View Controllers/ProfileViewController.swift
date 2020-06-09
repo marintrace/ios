@@ -49,7 +49,7 @@ class ProfileViewController: UIViewController {
             UIApplication.shared.windows.first?.rootViewController = homeVC
             UIApplication.shared.windows.first?.makeKeyAndVisible()
         } catch let signOutError as NSError {
-            //todo - handle error
+            AlertHelperFunctions.presentAlertOnVC(title: "Error", message: signOutError.localizedDescription, vc: self)
             print(signOutError)
         }
     }

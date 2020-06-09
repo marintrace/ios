@@ -14,12 +14,13 @@ class ReportContactsViewController: UIViewController, VENTokenFieldDelegate, VEN
     @IBOutlet weak var searchField: VENTokenField!
     @IBOutlet weak var suggestionTableView: UITableView!
     
-    var names = [String]()
-    var suggestionOptions = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"] //all possible suggestions
-    var suggestions = [String]() //suggestions for currently entered text
+    var contacts = [Contact]() //contacted people
+    var contactOptions = [Contact]() //all contacts
+    var suggestions = [Contact]() //suggestions for currently entered text
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        getData()
         setupTokenField()
         setupTableView()
     }
@@ -39,8 +40,24 @@ class ReportContactsViewController: UIViewController, VENTokenFieldDelegate, VEN
         suggestionTableView.dataSource = self
     }
     
+    func getData() {
+        
+        let test = [Contact(id: "xxx1", name: "Person 1", cohort: "Cohort 1"), Contact(id: "xxx2", name: "Person 2", cohort: "Cohort 1"), Contact(id: "xxx3", name: "Person 3", cohort: "Cohort 1"), Contact(id: "xxx4", name: "Person 4", cohort: "Cohort 2"), Contact(id: "xxx5", name: "Person 5", cohort: "Cohort 3")]
+        self.contactOptions = test
+//        DataService.listUsers { (returnedContacts, error) in
+//            if error != nil {
+//                //AlertHelperFunctions.presentErrorOnVC(title: "Error", message: error?.localizedDescription, vc: self)
+//            } else {
+//                self.contactOptions = returnedContacts!
+//            }
+//        }
+    }
+    
     func getSuggestions(text: String) { //filter for user input, also make sure user not already selected
-        suggestions = suggestionOptions.filter({$0.contains(text) && !names.contains(text)})
+        suggestions = contactOptions.filter({$0.name.contains(text)})
+        suggestions = suggestions.filter { (contact) -> Bool in
+            return !contacts.contains(where: {$0.id == contact.id})
+        }
         suggestionTableView.reloadData()
     }
         
@@ -57,25 +74,26 @@ class ReportContactsViewController: UIViewController, VENTokenFieldDelegate, VEN
     func tokenField(_ tokenField: VENTokenField, didEnterText text: String) {
         if !suggestions.isEmpty {
             let suggestion = suggestions[0]
-            names.append(suggestion)
+            contacts.append(suggestion)
             searchField.reloadData()
-            suggestions.removeAll(where: {$0 == suggestion}) //remove selection from suggestions
+            suggestions.removeAll(where: {$0.id == suggestion.id}) //remove selection from suggestions
             suggestionTableView.reloadData()
         }
     }
     
     func tokenField(_ tokenField: VENTokenField, didDeleteTokenAt index: UInt) {
-        names.remove(at: Int(index))
+        suggestions.append(contacts[Int(index)]) //re add to suggestions
+        contacts.remove(at: Int(index))
         searchField.reloadData()
         suggestionTableView.reloadData()
     }
     
     func numberOfTokens(in tokenField: VENTokenField) -> UInt {
-        return UInt(names.count)
+        return UInt(contacts.count)
     }
     
     func tokenField(_ tokenField: VENTokenField, titleForTokenAt index: UInt) -> String {
-        return names[Int(index)]
+        return contacts[Int(index)].name
     }
     
     //MARK: Table View Code
@@ -86,16 +104,16 @@ class ReportContactsViewController: UIViewController, VENTokenFieldDelegate, VEN
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = suggestionTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = suggestions[indexPath.row]
+        cell.textLabel?.text = suggestions[indexPath.row].name
         return cell
     }
     
     //if user selects row, add person as token
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let suggestion = suggestions[indexPath.row]
-        names.append(suggestion)
+        contacts.append(suggestion)
         searchField.reloadData()
-        suggestions.removeAll(where: {$0 == suggestion}) //remove selection from suggestions
+        suggestions.removeAll(where: {$0.id == suggestion.id})  //remove selection from suggestions
         suggestionTableView.reloadData()
     }
         
@@ -104,7 +122,7 @@ class ReportContactsViewController: UIViewController, VENTokenFieldDelegate, VEN
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? ContactedCohortsViewController {
-            destination.names = names //send selected names to summary screen
+            destination.contacts = contacts //send selected names to summary screen
         }
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.

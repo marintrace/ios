@@ -38,8 +38,29 @@ class SymptomTableViewController: UITableViewController {
     }
 
     @IBAction func donePressed(_ sender: Any) {
-        //TODO - submit
-        self.navigationController?.popViewController(animated: true)
+        
+        //get checked symptoms by looking at table view rows and seeing which are checked
+        var checkedSymptoms = [String]()
+        for symptomIndex in 0..<symptoms.count {
+            let cell = tableView.cellForRow(at: IndexPath(row: symptomIndex, section: 0)) as! SymptomTableViewCell
+            if cell.checkbox.isChecked {
+                checkedSymptoms.append(symptoms[symptomIndex])
+            }
+        }
+        
+        //report if there are 2+ symptoms
+        if checkedSymptoms.count > 1 {
+            DataService.notifyRisk(criteria: checkedSymptoms) { (error) in
+                if error != nil {
+                    AlertHelperFunctions.presentAlertOnVC(title: "Error", message: error!.localizedDescription, vc: self)
+                } else {
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
+        
     }
     
     // MARK: - Table view data source

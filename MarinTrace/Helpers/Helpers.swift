@@ -9,9 +9,11 @@
 import Foundation
 import UIKit
 
+//MARK: Structs
+
 struct AlertHelperFunctions {
     
-    //function for presenting an error from app delegate
+    //function for presenting a simple error from app delegate
     static func presentErrorAlertOnWindow(title: String, message: String, window: UIWindow) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
         let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
@@ -19,6 +21,16 @@ struct AlertHelperFunctions {
         }
         alertController.addAction(okAction)
         window.rootViewController?.present(alertController, animated: true, completion: nil)
+    }
+    
+    //function for presenting a simple error from a view controller
+    static func presentAlertOnVC(title: String, message: String, vc: UIViewController) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
+            UIAlertAction in
+        }
+        alertController.addAction(okAction)
+       vc.present(alertController, animated: true, completion: nil)
     }
     
 }
@@ -49,6 +61,24 @@ struct FontHelper {
         }
     }
     
+}
+
+//MARK: Extensions
+
+//remove duplicates
+//https://stackoverflow.com/a/25739498/4777497
+extension Array where Element: Hashable {
+    var uniques: Array {
+        var buffer = Array()
+        var added = Set<Element>()
+        for elem in self {
+            if !added.contains(elem) {
+                buffer.append(elem)
+                added.insert(elem)
+            }
+        }
+        return buffer
+    }
 }
 
 //rounding certain corners

@@ -24,7 +24,7 @@ struct DataService {
             if error != nil {
                 completion(nil, error)
             } else {
-                let headers: HTTPHeaders = ["Authorization":"Bearer \(token!)", "X-School":User.school.rawValue]
+                let headers: HTTPHeaders = ["Authorization":"Bearer \(token!)", "X-School":User.school.rawValue, "Content-Type":"application/json"]
                 completion(headers, nil)
             }
         })
@@ -40,7 +40,7 @@ struct DataService {
             if error != nil {
                 completion(nil, error)
             } else {
-                AF.request("", method: .get, parameters: ["operation":"list_users"], headers: headers).responseDecodable(of: [Contact].self) { (response) in
+                AF.request("http://44.227.83.187/api", method: .post, parameters: ListUsersInput(), encoder: JSONParameterEncoder.default, headers: headers).validate().responseDecodable(of: [Contact].self) { (response) in
                     completion(response.value, response.error)
                 }
             }
@@ -57,10 +57,10 @@ struct DataService {
             if error != nil {
                 completion(error)
             } else {
-                let email = User.email
-                let range = email.range(of: "@")
-                let personAID = String(email[..<range!.lowerBound]) //get this user's id as email before @
-                AF.request("", method: .post, parameters: ReportInteractionInput(memberA: getUserID(), memberB: personBID), headers: headers).response { (response) in
+                AF.request("http://44.227.83.187/api", method: .post, parameters: ReportInteractionInput(memberA: getUserID(), memberB: personBID), headers: headers).validate().response { (response) in
+                    let result = response.result
+                    let request = response.request
+                    print(request)
                     completion(response.error)
                 }
             }
@@ -77,8 +77,7 @@ struct DataService {
             if error != nil {
                 completion(error)
             } else {
-                 //get this user's id as email before @
-                AF.request("", method: .post, parameters: NotifyRiskInput(member: getUserID(), criteria: criteria), headers: headers).response { (response) in
+                AF.request("http://44.227.83.187/api", method: .post, parameters: NotifyRiskInput(member: getUserID(), criteria: criteria), headers: headers).validate().response { (response) in
                     completion(response.error)
                 }
             }
@@ -101,6 +100,10 @@ struct DataService {
     
 }
 
+struct ListUsersInput: Codable {
+    let operation = "list_users"
+}
+
 //MARK: Data Structures
 struct ReportInteractionInput: Codable {
     let operation = "report_interaction"
@@ -117,4 +120,5 @@ struct NotifyRiskInput: Codable {
 struct Contact: Codable {
     let id: String
     let name: String
+    let cohort: String
 }
