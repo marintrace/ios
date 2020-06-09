@@ -73,8 +73,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     }
         
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-        // Perform any operations when the user disconnects from app here.
-        // ...
+        //go to log in
+        let story = UIStoryboard(name: "Main", bundle: nil)
+        let homeVC = story.instantiateViewController(withIdentifier: "LoginTableViewController") as? UINavigationController
+        homeVC!.modalPresentationStyle = .fullScreen
+        UIApplication.shared.windows.first?.rootViewController = homeVC
+        UIApplication.shared.windows.first?.makeKeyAndVisible()
     }
 
     // MARK: UISceneSession Lifecycle

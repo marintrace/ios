@@ -155,7 +155,7 @@
         <!--Navigation Controller-->
         <scene sceneID="C8A-Os-Fjh">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="JF7-8e-U7F" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="LoginTableViewController" automaticallyAdjustsScrollViewInsets="NO" id="JF7-8e-U7F" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="elM-Zd-H94">
                         <rect key="frame" x="0.0" y="44" width="375" height="96"/>
@@ -446,6 +446,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Item" id="fRk-BH-ZFb">
                             <connections>
                                 <action selector="profileTapped:" destination="CD2-0t-fvS" id="Qbq-2k-BDM"/>
+                                <segue destination="ZD5-aN-ZkN" kind="show" id="AKx-x9-9f8"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -739,6 +740,101 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aBh-PX-aUn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3912.8000000000002" y="1512.5615763546798"/>
+        </scene>
+        <!--Profile View Controller-->
+        <scene sceneID="KIP-XG-OVg">
+            <objects>
+                <viewController id="ZD5-aN-ZkN" customClass="ProfileViewController" customModule="MarinTrace" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="oFG-hh-kyH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beck Lorsch" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XWB-aE-948">
+                                <rect key="frame" x="16" y="191" width="343" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="ecz-pV-6j8"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9fN-8I-x4y">
+                                <rect key="frame" x="150" y="102" width="75" height="75"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="33a-uB-Rmx"/>
+                                    <constraint firstAttribute="width" constant="75" id="jK5-65-xw0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4MQ-f6-o8H">
+                                <rect key="frame" x="14" y="235" width="347" height="111"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WPB-JY-kk8">
+                                        <rect key="frame" x="14" y="14" width="319" height="27"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="28d-aS-oNj">
+                                        <rect key="frame" x="29" y="55" width="288" height="42"/>
+                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="42" id="iyK-OQ-sA7"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                        <state key="normal" title="Sign Out"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="signOut:" destination="ZD5-aN-ZkN" eventType="touchUpInside" id="WY1-nx-U6G"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="WPB-JY-kk8" firstAttribute="leading" secondItem="4MQ-f6-o8H" secondAttribute="leading" constant="14" id="3m2-N4-tIZ"/>
+                                    <constraint firstItem="WPB-JY-kk8" firstAttribute="top" secondItem="4MQ-f6-o8H" secondAttribute="top" constant="14" id="DPR-6Y-El2"/>
+                                    <constraint firstAttribute="trailing" secondItem="28d-aS-oNj" secondAttribute="trailing" constant="30" id="U5E-VW-QwN"/>
+                                    <constraint firstAttribute="height" constant="111" id="Xco-d8-iWq"/>
+                                    <constraint firstAttribute="trailing" secondItem="WPB-JY-kk8" secondAttribute="trailing" constant="14" id="n4h-e6-QqN"/>
+                                    <constraint firstItem="28d-aS-oNj" firstAttribute="leading" secondItem="4MQ-f6-o8H" secondAttribute="leading" constant="29" id="wdM-JS-J5T"/>
+                                    <constraint firstItem="28d-aS-oNj" firstAttribute="top" secondItem="WPB-JY-kk8" secondAttribute="bottom" constant="14" id="z7M-K4-ySZ"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="9fN-8I-x4y" firstAttribute="top" secondItem="VxL-Bp-eGW" secondAttribute="top" constant="14" id="3sM-rd-gMw"/>
+                            <constraint firstItem="VxL-Bp-eGW" firstAttribute="trailing" secondItem="4MQ-f6-o8H" secondAttribute="trailing" constant="14" id="92X-e7-beO"/>
+                            <constraint firstItem="XWB-aE-948" firstAttribute="leading" secondItem="VxL-Bp-eGW" secondAttribute="leading" constant="16" id="L0c-2N-2uU"/>
+                            <constraint firstItem="XWB-aE-948" firstAttribute="top" secondItem="9fN-8I-x4y" secondAttribute="bottom" constant="14" id="NBt-hp-EQe"/>
+                            <constraint firstItem="9fN-8I-x4y" firstAttribute="centerX" secondItem="oFG-hh-kyH" secondAttribute="centerX" id="bid-se-15V"/>
+                            <constraint firstItem="4MQ-f6-o8H" firstAttribute="top" secondItem="XWB-aE-948" secondAttribute="bottom" constant="12" id="jnu-9h-txX"/>
+                            <constraint firstItem="4MQ-f6-o8H" firstAttribute="leading" secondItem="VxL-Bp-eGW" secondAttribute="leading" constant="14" id="rZi-iY-Wws"/>
+                            <constraint firstItem="XWB-aE-948" firstAttribute="top" secondItem="9fN-8I-x4y" secondAttribute="bottom" constant="14" id="xLp-h8-7yK"/>
+                            <constraint firstItem="VxL-Bp-eGW" firstAttribute="trailing" secondItem="XWB-aE-948" secondAttribute="trailing" constant="16" id="y0z-Ro-weX"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="VxL-Bp-eGW"/>
+                    </view>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="3YJ-Je-UdG"/>
+                    <connections>
+                        <outlet property="initialLabel" destination="9fN-8I-x4y" id="8XT-9v-fCv"/>
+                        <outlet property="nameLabel" destination="XWB-aE-948" id="Zr9-sY-0mW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zDU-YN-agv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3912.8000000000002" y="-616.25615763546796"/>
         </scene>
     </scenes>
 </document>

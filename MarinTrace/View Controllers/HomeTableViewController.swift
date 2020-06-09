@@ -16,8 +16,7 @@ class HomeTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        goToLogin()
-        //try! Auth.auth().signOut()
+        checkUser()
         setupProfile()
         setupTableView()
     }
@@ -29,31 +28,28 @@ class HomeTableViewController: UITableViewController {
     }
     
     func setupProfile() {
-        
-        //todo - configure image to be ma or branson
-        let image = UIImage(named: "profile_ma")?.withRenderingMode(.alwaysOriginal)
-        profileButton.setBackgroundImage(image, for: .normal, barMetrics: .default)
-        
-        guard let user = Auth.auth().currentUser else {return}
-        guard let name = user.displayName else {return}
-        let namesSplit = name.components(separatedBy: " ") //split into first and last
-        if namesSplit.count > 1 { //if first and last name, use initials, else just use first initial
-            let firstName = namesSplit[0]
-            let lastName = namesSplit[1]
-            profileButton.title = String(firstName[firstName.startIndex]) + String(lastName[lastName.startIndex])
+        //configure image to be ma or branson
+        if User.school == .MA {
+            let image = UIImage(named: "profile_ma")?.withRenderingMode(.alwaysOriginal)
+            profileButton.setBackgroundImage(image, for: .normal, barMetrics: .default)
         } else {
-            let firstName = namesSplit[0]
-            profileButton.title = String(firstName[firstName.startIndex])
+            let image = UIImage(named: "profile_branson")?.withRenderingMode(.alwaysOriginal)
+            profileButton.setBackgroundImage(image, for: .normal, barMetrics: .default)
         }
         
+        //setup text
+        profileButton.title = User.initials
         profileButton.tintColor = .white
         
     }
     
     //if no signed in user, go to login
-    func goToLogin() {
+    func checkUser() {
         if Auth.auth().currentUser == nil {
             self.performSegue(withIdentifier: "toLogin", sender: self)
+        } else {
+            //user exists, get details
+            User.getDetails()
         }
     }
 

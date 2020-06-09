@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		340CE277248F3A110094AC52 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340CE276248F3A110094AC52 /* User.swift */; };
+		340CE279248F407B0094AC52 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340CE278248F407B0094AC52 /* ProfileViewController.swift */; };
 		3481D07F248DBC6A005215EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3481D07E248DBC6A005215EE /* AppDelegate.swift */; };
 		3481D081248DBC6A005215EE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3481D080248DBC6A005215EE /* SceneDelegate.swift */; };
 		3481D086248DBC6A005215EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3481D084248DBC6A005215EE /* Main.storyboard */; };
@@ -51,6 +53,8 @@
 		15476E3AEA977906800ABB02 /* Pods-MarinTrace-MarinTraceUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarinTrace-MarinTraceUITests.debug.xcconfig"; path = "Target Support Files/Pods-MarinTrace-MarinTraceUITests/Pods-MarinTrace-MarinTraceUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		2171C4653C6FFF93F4478E05 /* Pods_MarinTraceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MarinTraceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B182E6BB6ECC6C39C5EB11D /* Pods_MarinTrace.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MarinTrace.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		340CE276248F3A110094AC52 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		340CE278248F407B0094AC52 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		3481D07B248DBC6A005215EE /* MarinTrace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarinTrace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3481D07E248DBC6A005215EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3481D080248DBC6A005215EE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -185,6 +189,7 @@
 				3481D0C2248E0636005215EE /* ContactedCohortsViewController.swift */,
 				3481D0C4248E0903005215EE /* ReportContactsViewController.swift */,
 				3481D0C6248EB7D0005215EE /* SymptomTableViewController.swift */,
+				340CE278248F407B0094AC52 /* ProfileViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -193,6 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				3481D0B2248DCE6D005215EE /* Helpers.swift */,
+				340CE276248F3A110094AC52 /* User.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -511,7 +517,9 @@
 				3481D0B3248DCE6D005215EE /* Helpers.swift in Sources */,
 				3481D0C5248E0903005215EE /* ReportContactsViewController.swift in Sources */,
 				3481D0B9248DF847005215EE /* LoginTableViewController copy.swift in Sources */,
+				340CE277248F3A110094AC52 /* User.swift in Sources */,
 				3481D0C3248E0636005215EE /* ContactedCohortsViewController.swift in Sources */,
+				340CE279248F407B0094AC52 /* ProfileViewController.swift in Sources */,
 				3481D0C7248EB7D0005215EE /* SymptomTableViewController.swift in Sources */,
 				3481D0BC248DF95E005215EE /* CircularCheckbox.swift in Sources */,
 			);
