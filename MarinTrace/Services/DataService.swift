@@ -9,6 +9,7 @@
 import Foundation
 import Firebase
 import Alamofire
+import FirebaseCrashlytics
 
 //MARK: Data Service
 struct DataService {
@@ -23,6 +24,9 @@ struct DataService {
         Auth.auth().currentUser?.getIDToken(completion: { (token, error) in
             if error != nil {
                 completion(nil, error)
+                if error != nil {
+                    logError(error: error!)
+                }
             } else {
                 let headers: HTTPHeaders = ["Authorization":"Bearer \(token!)", "X-School":User.school.rawValue, "Content-Type":"application/json"]
                 completion(headers, nil)
@@ -42,6 +46,9 @@ struct DataService {
             } else {
                 AF.request("http://44.227.83.187/api", method: .post, parameters: ListUsersInput(), encoder: JSONParameterEncoder.default, headers: headers).validate().responseDecodable(of: [Contact].self) { (response) in
                     completion(response.value, response.error)
+                    if response.error != nil {
+                        logError(error: response.error!)
+                    }
                 }
             }
         }
@@ -59,6 +66,9 @@ struct DataService {
             } else {
                 AF.request("http://44.227.83.187/api", method: .post, parameters: ReportInteractionInput(memberA: getUserID(), memberB: personBID), headers: headers).validate().response { (response) in
                     completion(response.error)
+                    if response.error != nil {
+                        logError(error: response.error!)
+                    }
                 }
             }
         }
@@ -76,6 +86,9 @@ struct DataService {
             } else {
                 AF.request("http://44.227.83.187/api", method: .post, parameters: NotifyRiskInput(member: getUserID(), criteria: criteria), headers: headers).validate().response { (response) in
                     completion(response.error)
+                    if response.error != nil {
+                        logError(error: response.error!)
+                    }
                 }
             }
         }
@@ -90,10 +103,13 @@ struct DataService {
         return id
     }
     
-    //if positive diagnoses or 2+ symptoms
-    //operation: notify_risk
-    //member: id
-    //criteria: ["Positive Test"] or ["Loss of smell/taste"]
+    //log error to crashlytics/firebase, use function here so we don't have to import firebase everywhere
+    static func logError(error: Error) {
+        //add localized description in
+        let nsError = error as NSError
+        let newError = NSError(domain: nsError.domain, code: nsError.code, userInfo: [NSLocalizedDescriptionKey:nsError.localizedDescription])
+        Crashlytics.crashlytics().record(error: newError)
+    }
     
 }
 

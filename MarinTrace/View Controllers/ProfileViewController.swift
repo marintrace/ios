@@ -51,6 +51,7 @@ class ProfileViewController: UIViewController {
         } catch let signOutError as NSError {
             AlertHelperFunctions.presentAlertOnVC(title: "Error", message: signOutError.localizedDescription, vc: self)
             print(signOutError)
+            DataService.logError(error: signOutError)
         }
     }
     

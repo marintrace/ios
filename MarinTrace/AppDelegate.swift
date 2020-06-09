@@ -39,6 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         if let error = error {
             print(error)
             AlertHelperFunctions.presentErrorAlertOnWindow(title: "Error", message: error.localizedDescription, window: UIApplication.shared.windows.first!)
+            DataService.logError(error: error)
             return
         }
         
@@ -56,6 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                     let authError = error as NSError
                     print(authError)
                     AlertHelperFunctions.presentErrorAlertOnWindow(title: "Error", message: authError.localizedDescription, window: UIApplication.shared.windows.first!)
+                    DataService.logError(error: authError)
                 } else {
                     //user signed in, go to homes
                     let story = UIStoryboard(name: "Main", bundle: nil)
