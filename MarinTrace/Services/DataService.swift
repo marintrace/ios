@@ -58,9 +58,6 @@ struct DataService {
                 completion(error)
             } else {
                 AF.request("http://44.227.83.187/api", method: .post, parameters: ReportInteractionInput(memberA: getUserID(), memberB: personBID), headers: headers).validate().response { (response) in
-                    let result = response.result
-                    let request = response.request
-                    print(request)
                     completion(response.error)
                 }
             }

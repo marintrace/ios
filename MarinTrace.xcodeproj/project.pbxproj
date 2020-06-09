@@ -246,6 +246,7 @@
 				3481D079248DBC6A005215EE /* Resources */,
 				CE2237B16BC37C55898BFB75 /* [CP] Embed Pods Frameworks */,
 				D278C05C60687B14E0DE61B7 /* [CP] Copy Pods Resources */,
+				340CE27A2490266A0094AC52 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -384,6 +385,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MarinTrace-MarinTraceUITests/Pods-MarinTrace-MarinTraceUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		340CE27A2490266A0094AC52 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
 		3EB3FB26E4BC2B1E722A9833 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -696,6 +714,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = L8AY63NH7H;
 				INFOPLIST_FILE = MarinTrace/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -8,6 +8,8 @@ target 'MarinTrace' do
   # Pods for MarinTrace
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
+  pod 'Firebase/Performance'
+  pod 'Firebase/Crashlytics'
   pod 'VENTokenField', '~> 2.0'
   pod 'GoogleSignIn'
   pod 'Alamofire', '~> 5.2'
