@@ -13,7 +13,7 @@ class ContactedCohortsViewController: UIViewController, UITableViewDelegate, UIT
     @IBOutlet weak var cohortTableView: UITableView!
     
     var contacts = [Contact]() //a list of the people they've contacted
-    var cohorts = [String]() //a list of the unique cohorts they've contacted
+    var cohorts = [Int]() //a list of the unique cohorts they've contacted
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +28,7 @@ class ContactedCohortsViewController: UIViewController, UITableViewDelegate, UIT
     
     func processData() {
         //get list of cohort names and remove duplicates
-        let cohortNames: [String] = contacts.map({$0.cohort})
+        let cohortNames: [Int] = contacts.map({$0.cohort})
         cohorts = cohortNames.uniques
         cohortTableView.reloadData()
     }
@@ -41,7 +41,7 @@ class ContactedCohortsViewController: UIViewController, UITableViewDelegate, UIT
         //report each contact
         for contact in contacts {
             dispatch.enter()
-            DataService.reportInteraction(personBID: contact.id) { (requestError) in
+            DataService.reportInteraction(personBID: contact.email) { (requestError) in
                 if requestError != nil {
                     error = requestError as! Error
                 }
@@ -70,7 +70,7 @@ class ContactedCohortsViewController: UIViewController, UITableViewDelegate, UIT
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = cohortTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = cohorts[indexPath.row]
+        cell.textLabel?.text = String(cohorts[indexPath.row])
         return cell
     }
 

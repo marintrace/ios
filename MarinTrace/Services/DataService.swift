@@ -14,6 +14,10 @@ import FirebaseCrashlytics
 //MARK: Data Service
 struct DataService {
     
+    /// Endpoint for API
+    //static let apiURL = "http://bmaapp.de/api"
+    static let apiURL = "http://44.227.83.187/api"
+    
     /// Get headers for HTTP requests
     /// - Parameters:
     ///   - completion: Completion handler callback
@@ -44,8 +48,8 @@ struct DataService {
             if error != nil {
                 completion(nil, error)
             } else {
-                AF.request("http://44.227.83.187/api", method: .post, parameters: ListUsersInput(), encoder: JSONParameterEncoder.default, headers: headers).validate().responseDecodable(of: [Contact].self) { (response) in
-                    completion(response.value, response.error)
+                AF.request(apiURL, method: .post, parameters: ListUsersInput(), encoder: JSONParameterEncoder.default, headers: headers).validate().responseDecodable(of: ReturnedContacts.self) { (response) in
+                    completion(response.value?.data, response.error)
                     if response.error != nil {
                         logError(error: response.error!)
                     }
@@ -64,7 +68,7 @@ struct DataService {
             if error != nil {
                 completion(error)
             } else {
-                AF.request("http://44.227.83.187/api", method: .post, parameters: ReportInteractionInput(memberA: getUserID(), memberB: personBID), headers: headers).validate().response { (response) in
+                AF.request(apiURL, method: .post, parameters: ReportInteractionInput(memberA: getUserID(), memberB: personBID), encoder: JSONParameterEncoder.default, headers: headers).validate().response { (response) in
                     completion(response.error)
                     if response.error != nil {
                         logError(error: response.error!)
@@ -84,7 +88,7 @@ struct DataService {
             if error != nil {
                 completion(error)
             } else {
-                AF.request("http://44.227.83.187/api", method: .post, parameters: NotifyRiskInput(member: getUserID(), criteria: criteria), headers: headers).validate().response { (response) in
+                AF.request(apiURL, method: .post, parameters: NotifyRiskInput(member: getUserID(), criteria: criteria), encoder: JSONParameterEncoder.default, headers: headers).validate().response { (response) in
                     completion(response.error)
                     if response.error != nil {
                         logError(error: response.error!)
@@ -129,9 +133,17 @@ struct NotifyRiskInput: Codable {
     let member: String
     let criteria: [String]
 }
+
+struct ReturnedContacts: Decodable {
+    let data: [Contact]
+    
+    enum CodingKeys: String, CodingKey {
+        case data = "data"
+    }
+}
     
 struct Contact: Codable {
-    let id: String
+    let cohort: Int
+    let email: String
     let name: String
-    let cohort: String
 }

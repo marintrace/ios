@@ -41,22 +41,20 @@ class ReportContactsViewController: UIViewController, VENTokenFieldDelegate, VEN
     }
     
     func getData() {
-        
-        let test = [Contact(id: "xxx1", name: "Person 1", cohort: "Cohort 1"), Contact(id: "xxx2", name: "Person 2", cohort: "Cohort 1"), Contact(id: "xxx3", name: "Person 3", cohort: "Cohort 1"), Contact(id: "xxx4", name: "Person 4", cohort: "Cohort 2"), Contact(id: "xxx5", name: "Person 5", cohort: "Cohort 3")]
-        self.contactOptions = test
-//        DataService.listUsers { (returnedContacts, error) in
-//            if error != nil {
-//                //AlertHelperFunctions.presentErrorOnVC(title: "Error", message: error?.localizedDescription, vc: self)
-//            } else {
-//                self.contactOptions = returnedContacts!
-//            }
-//        }
+        DataService.listUsers { (returnedContacts, error) in
+            if error != nil {
+                AlertHelperFunctions.presentAlertOnVC(title: "Error", message: error!.localizedDescription, vc: self)
+            } else {
+                //filter for not this user
+                self.contactOptions = returnedContacts!.filter({$0.email != DataService.getUserID()})
+            }
+        }
     }
     
     func getSuggestions(text: String) { //filter for user input, also make sure user not already selected
         suggestions = contactOptions.filter({$0.name.contains(text)})
         suggestions = suggestions.filter { (contact) -> Bool in
-            return !contacts.contains(where: {$0.id == contact.id})
+            return !contacts.contains(where: {$0.email  == contact.email})
         }
         suggestionTableView.reloadData()
     }
@@ -76,7 +74,7 @@ class ReportContactsViewController: UIViewController, VENTokenFieldDelegate, VEN
             let suggestion = suggestions[0]
             contacts.append(suggestion)
             searchField.reloadData()
-            suggestions.removeAll(where: {$0.id == suggestion.id}) //remove selection from suggestions
+            suggestions.removeAll(where: {$0.email == suggestion.email}) //remove selection from suggestions
             suggestionTableView.reloadData()
         }
     }
@@ -113,7 +111,7 @@ class ReportContactsViewController: UIViewController, VENTokenFieldDelegate, VEN
         let suggestion = suggestions[indexPath.row]
         contacts.append(suggestion)
         searchField.reloadData()
-        suggestions.removeAll(where: {$0.id == suggestion.id})  //remove selection from suggestions
+        suggestions.removeAll(where: {$0.email == suggestion.email})  //remove selection from suggestions
         suggestionTableView.reloadData()
     }
         
