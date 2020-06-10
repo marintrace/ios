@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Marin Contact Tracing-->
+        <!--Marin Trace-->
         <scene sceneID="56n-Bh-w4W">
             <objects>
                 <tableViewController id="NdU-8W-uCg" customClass="LoginTableViewController" customModule="MarinTrace" customModuleProvider="target" sceneMemberID="viewController">
@@ -28,7 +28,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eFK-AT-26Z">
                                                     <rect key="frame" x="14" y="0.0" width="347" height="219"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NIS-AE-hId">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="branson_logo" translatesAutoresizingMaskIntoConstraints="NO" id="NIS-AE-hId">
                                                             <rect key="frame" x="53" y="14" width="240" height="138"/>
                                                         </imageView>
                                                     </subviews>
@@ -90,7 +90,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nyr-KE-GmV">
                                                     <rect key="frame" x="14" y="0.0" width="347" height="219"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NfY-nO-5WC">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ma_logo" translatesAutoresizingMaskIntoConstraints="NO" id="NfY-nO-5WC">
                                                             <rect key="frame" x="53" y="14" width="240" height="138"/>
                                                         </imageView>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gKv-iW-V0J">
@@ -146,7 +146,7 @@
                             <outlet property="delegate" destination="NdU-8W-uCg" id="C3M-CJ-NWJ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Marin Contact Tracing" id="oAk-4P-tFe"/>
+                    <navigationItem key="navigationItem" title="Marin Trace" id="oAk-4P-tFe"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h1L-8w-Oo9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -849,4 +849,8 @@
             <point key="canvasLocation" x="3912.8000000000002" y="-616.25615763546796"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="branson_logo" width="37.333332061767578" height="46.333332061767578"/>
+        <image name="ma_logo" width="493.66665649414062" height="493"/>
+    </resources>
 </document>

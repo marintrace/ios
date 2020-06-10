@@ -17,7 +17,7 @@ class HomeTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         checkUser()
-        setupProfile()
+        configViewsForUser()
         setupTableView()
                 
     }
@@ -28,14 +28,16 @@ class HomeTableViewController: UITableViewController {
         tableView.allowsSelection = false
     }
     
-    func setupProfile() {
-        //configure image to be ma or branson
+    func configViewsForUser() {
+        //configure image to be ma or branson, set nav bar title
         if User.school == .MA {
             let image = UIImage(named: "profile_ma")?.withRenderingMode(.alwaysOriginal)
             profileButton.setBackgroundImage(image, for: .normal, barMetrics: .default)
+            self.title = "MA Trace"
         } else {
             let image = UIImage(named: "profile_branson")?.withRenderingMode(.alwaysOriginal)
             profileButton.setBackgroundImage(image, for: .normal, barMetrics: .default)
+            self.title = "Branson Trace"
         }
         
         //round font
@@ -44,6 +46,8 @@ class HomeTableViewController: UITableViewController {
         //setup text
         profileButton.title = User.initials
         profileButton.tintColor = .white
+        
+        
         
     }
     
