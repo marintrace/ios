@@ -61,7 +61,9 @@ class HomeTableViewController: UITableViewController {
         let alert = UIAlertController(title: "Are you sure?", message: "Reporting a positive test cannot be undone and will notify the school immediately.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Report", style: .destructive, handler: { (_) in
+            self.showSpinner(onView: self.view)
             DataService.notifyRisk(criteria: ["Positive Test"]) { (error) in
+                self.removeSpinner()
                 if error != nil {
                     AlertHelperFunctions.presentAlertOnVC(title: "Error", message: error!.localizedDescription, vc: self)
                 } else {

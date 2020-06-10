@@ -35,28 +35,18 @@ class ContactedCohortsViewController: UIViewController, UITableViewDelegate, UIT
     
     @IBAction func reportContacts(_ sender: Any) {
   
-        let dispatch = DispatchGroup() //dispatch group to track completion of all posts
-        var error: Error? //if there's an error track it
-        
-        //report each contact
-        for contact in contacts {
-            dispatch.enter()
-            DataService.reportInteraction(personBID: contact.email) { (requestError) in
-                if requestError != nil {
-                    error = requestError as! Error
-                }
-                dispatch.leave()
-            }
-        }
-        
-        //wait for all posts to finish
-        dispatch.notify(queue: .main) {
-            if error != nil { //if an error showed up, report it
+        //process contacts into ids
+        let targets = contacts.map({$0.email})
+        showSpinner(onView: self.view)
+        DataService.reportInteractions(targetIDS: targets) { (error) in
+            self.removeSpinner()
+            if error != nil {
                 AlertHelperFunctions.presentAlertOnVC(title: "Error", message: error!.localizedDescription, vc: self)
-            } else { //else go back
+            } else {
                 self.navigationController?.popToRootViewController(animated: true)
             }
         }
+        
     }
     
     //MARK: Table View Functions

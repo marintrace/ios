@@ -29,10 +29,12 @@ class LoginTableViewController: UITableViewController {
 
     //MARK: IBActions
     @IBAction func bransonLogIn(_ sender: Any) {
+        self.showSpinner(onView: self.view)
         GIDSignIn.sharedInstance()?.signIn()
     }
     
     @IBAction func maLogIn(_ sender: Any) {
+        self.showSpinner(onView: self.view)
         GIDSignIn.sharedInstance()?.signIn()
     }
     

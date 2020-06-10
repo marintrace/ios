@@ -41,7 +41,9 @@ class ReportContactsViewController: UIViewController, VENTokenFieldDelegate, VEN
     }
     
     func getData() {
+        self.showSpinner(onView: self.view)
         DataService.listUsers { (returnedContacts, error) in
+            self.removeSpinner()
             if error != nil {
                 AlertHelperFunctions.presentAlertOnVC(title: "Error", message: error!.localizedDescription, vc: self)
             } else {

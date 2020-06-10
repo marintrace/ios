@@ -60,15 +60,15 @@ struct DataService {
     
     /// Report an interaction
     /// - Parameters:
-    ///   - personBID: The id (email before @) of the person interacted with
+    ///   - targetIDS: The ids (email before @) of the people interacted with
     ///   - completion: Completion handler callback
     ///   -  error: An error
-    static func reportInteraction(personBID: String, completion: @escaping(_ error: Error?) -> Void) {
+    static func reportInteractions(targetIDS: [String], completion: @escaping(_ error: Error?) -> Void) {
         getHeaders { (headers, error) in
             if error != nil {
                 completion(error)
             } else {
-                AF.request(apiURL, method: .post, parameters: ReportInteractionInput(memberA: getUserID(), memberB: personBID), encoder: JSONParameterEncoder.default, headers: headers).validate().response { (response) in
+                AF.request(apiURL, method: .post, parameters: ReportInteractionInput(reporter: getUserID(), targets: targetIDS), encoder: JSONParameterEncoder.default, headers: headers).validate().response { (response) in
                     completion(response.error)
                     if response.error != nil {
                         logError(error: response.error!)
@@ -124,8 +124,8 @@ struct ListUsersInput: Codable {
 //MARK: Data Structures
 struct ReportInteractionInput: Codable {
     let operation = "report_interaction"
-    let memberA: String
-    let memberB: String
+    let reporter: String
+    let targets: [String]
 }
 
 struct NotifyRiskInput: Codable {

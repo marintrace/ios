@@ -50,7 +50,9 @@ class SymptomTableViewController: UITableViewController {
         
         //report if there are 2+ symptoms
         if checkedSymptoms.count > 1 {
+            self.showSpinner(onView: self.view)
             DataService.notifyRisk(criteria: checkedSymptoms) { (error) in
+                self.removeSpinner()
                 if error != nil {
                     AlertHelperFunctions.presentAlertOnVC(title: "Error", message: error!.localizedDescription, vc: self)
                 } else {

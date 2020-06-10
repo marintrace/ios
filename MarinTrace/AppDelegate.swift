@@ -36,7 +36,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
         
+        //view to remove spinner from
+        let view = UIApplication.shared.windows.first?.rootViewController
+        
         if let error = error {
+            view?.removeSpinner()
             print(error)
             AlertHelperFunctions.presentErrorAlertOnWindow(title: "Error", message: error.localizedDescription, window: UIApplication.shared.windows.first!)
             DataService.logError(error: error)
@@ -53,6 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         if userEmail.contains("ma.org") || userEmail.contains("branson.org") {
             
             Auth.auth().signIn(with: credential) { (authResult, error) in
+                view?.removeSpinner()
                 if let error = error {
                     let authError = error as NSError
                     print(authError)
@@ -70,6 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             }
             
         } else {
+            view?.removeSpinner()
             AlertHelperFunctions.presentErrorAlertOnWindow(title: "Error", message: "Your account must be @ma.org or @branson.org. Please try signing in with that.", window: UIApplication.shared.windows.first!)
         }
         
