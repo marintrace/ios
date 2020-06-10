@@ -39,6 +39,10 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func signOut(_ sender: Any) {
+        
+        //clear cache
+        URLCache.shared.removeAllCachedResponses()
+        
         do {
             try Auth.auth().signOut()
             
