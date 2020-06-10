@@ -18,6 +18,15 @@ struct DataService {
     //static let apiURL = "http://bmaapp.de/api"
     static let apiURL = "http://44.227.83.187/api"
     
+    ///The custom cache policy to use for list users
+    //https://stackoverflow.com/a/57423326/4777497
+    private static var cacheManager: Session? = {
+        let configuration = URLSessionConfiguration.default
+        configuration.requestCachePolicy = .returnCacheDataElseLoad
+        let alamofireManager = Session(configuration: configuration)
+        return alamofireManager
+    }()
+    
     /// Get headers for HTTP requests
     /// - Parameters:
     ///   - completion: Completion handler callback
@@ -48,7 +57,8 @@ struct DataService {
             if error != nil {
                 completion(nil, error)
             } else {
-                AF.request(apiURL, method: .post, parameters: ListUsersInput(), encoder: JSONParameterEncoder.default, headers: headers).validate().responseDecodable(of: ReturnedContacts.self) { (response) in
+                //use cache
+                cacheManager!.request(apiURL, method: .post, parameters: ListUsersInput(), encoder: JSONParameterEncoder.default, headers: headers).validate().responseDecodable(of: ReturnedContacts.self) { (response) in
                     completion(response.value?.data, response.error)
                     if response.error != nil {
                         logError(error: response.error!)
