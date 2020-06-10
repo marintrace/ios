@@ -15,14 +15,22 @@ import FirebaseCrashlytics
 struct DataService {
     
     /// Endpoint for API
-    //static let apiURL = "http://bmaapp.de/api"
-    static let apiURL = "http://44.227.83.187/api"
+    static let apiURL = "https://bmaapp.de/api"
     
-    ///The custom cache policy to use for list users
+    ///The  original cache policy to use for list users (don't use DB if we have a cached versionn)
     //https://stackoverflow.com/a/57423326/4777497
-    private static var cacheManager: Session? = {
+    private static var cache: Session? = {
         let configuration = URLSessionConfiguration.default
         configuration.requestCachePolicy = .returnCacheDataElseLoad
+        let alamofireManager = Session(configuration: configuration)
+        return alamofireManager
+    }()
+    
+    ///The  cache policy to use for list users if cache is corrupted; force fetching from DB
+    //https://stackoverflow.com/a/57423326/4777497
+    private static var databaseOnly: Session? = {
+        let configuration = URLSessionConfiguration.default
+        configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
         let alamofireManager = Session(configuration: configuration)
         return alamofireManager
     }()
@@ -58,11 +66,25 @@ struct DataService {
                 completion(nil, error)
             } else {
                 //use cache
-                cacheManager!.request(apiURL, method: .post, parameters: ListUsersInput(), encoder: JSONParameterEncoder.default, headers: headers).validate().responseDecodable(of: ReturnedContacts.self) { (response) in
-                    completion(response.value?.data, response.error)
-                    if response.error != nil {
-                        logError(error: response.error!)
+                cache!.request(apiURL, method: .post, parameters: ListUsersInput(), encoder: JSONParameterEncoder.default, headers: headers).validate().responseDecodable(of: ReturnedContacts.self) { (response) in
+                    
+                    //if error couldn't be read (error code 10), cache is somehow corrupted -> fallback on db
+                    if let afError = response.error as NSError? {
+                        if afError.code == 10 {
+                            databaseOnly!.request(apiURL, method: .post, parameters: ListUsersInput(), encoder: JSONParameterEncoder.default, headers: headers).validate().responseDecodable(of: ReturnedContacts.self) { (dbResponse) in
+                                completion(dbResponse.value?.data, dbResponse.error)
+                                if dbResponse.error != nil {
+                                    logError(error: dbResponse.error!)
+                                }
+                            }
+                        }
+                    } else {
+                        completion(response.value?.data, response.error)
+                        if response.error != nil {
+                            logError(error: response.error!)
+                        }
                     }
+                    
                 }
             }
         }
@@ -117,7 +139,8 @@ struct DataService {
         return id
     }
     
-    //log error to crashlytics/firebase, use function here so we don't have to import firebase everywhere
+    /// Logs error in firebase/crashlytics with domain, code, and localized description
+    /// - Parameter error: Error to report
     static func logError(error: Error) {
         //add localized description in
         let nsError = error as NSError
@@ -127,23 +150,27 @@ struct DataService {
     
 }
 
+/// Codable representation of the HTTP body for a list users request
 struct ListUsersInput: Codable {
     let operation = "list_users"
 }
 
 //MARK: Data Structures
+/// Codable representation of the HTTP body for a report interaction request
 struct ReportInteractionInput: Codable {
     let operation = "report_interaction"
     let reporter: String
     let targets: [String]
 }
 
+/// Codable representation of the HTTP body for a notify risk request
 struct NotifyRiskInput: Codable {
     let operation = "notify_risk"
     let member: String
     let criteria: [String]
 }
 
+/// Codable representation of the HTTP result for a list users request
 struct ReturnedContacts: Decodable {
     let data: [Contact]
     
@@ -152,6 +179,7 @@ struct ReturnedContacts: Decodable {
     }
 }
     
+/// Codable representation of the user/contact data structure used by the app as well as the database
 struct Contact: Codable {
     let cohort: Int
     let email: String
