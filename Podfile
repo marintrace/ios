@@ -13,6 +13,7 @@ target 'MarinTrace' do
   pod 'VENTokenField', '~> 2.0'
   pod 'GoogleSignIn'
   pod 'Alamofire', '~> 5.2'
+  pod 'M13Checkbox'
 
   target 'MarinTraceTests' do
     inherit! :search_paths

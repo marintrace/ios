@@ -43,7 +43,7 @@ class SymptomTableViewController: UITableViewController {
         var checkedSymptoms = [String]()
         for symptomIndex in 0..<symptoms.count {
             let cell = tableView.cellForRow(at: IndexPath(row: symptomIndex, section: 0)) as! SymptomTableViewCell
-            if cell.checkbox.isChecked {
+            if cell.checkbox.checkState == .checked {
                 checkedSymptoms.append(symptoms[symptomIndex])
             }
         }
@@ -77,8 +77,7 @@ class SymptomTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SymptomTableViewCell
-
-        cell.checkbox.isChecked = false
+        
         cell.symptomLabel.text = symptoms[indexPath.row]
         
         //if its the first or last cell, round corners

@@ -7,20 +7,20 @@
 //
 
 import UIKit
+import M13Checkbox
 
 class SymptomTableViewCell: UITableViewCell {
 
     @IBOutlet weak var symptomLabel: UILabel!
-    @IBOutlet weak var checkbox: CircularCheckbox!
+    @IBOutlet weak var checkbox: M13Checkbox!
     @IBOutlet weak var backgroundRoundedView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         
-        //self.backgroundColor = .white
-        //self.preservesSuperviewLayoutMargins = false
-        //self.layoutMargins = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
+        //setup checkbox
+        checkbox.stateChangeAnimation = .bounce(.fill)
+        checkbox.tintColor = Colors.colorFor(forSchool: User.school)
         
     }
 
