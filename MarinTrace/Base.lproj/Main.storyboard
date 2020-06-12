@@ -304,7 +304,7 @@
                                                                 <constraint firstAttribute="height" constant="42" id="2pA-TN-oMk"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
-                                                            <state key="normal" title="Report Contact"/>
+                                                            <state key="normal" title="Report Symptoms"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                                     <integer key="value" value="10"/>
