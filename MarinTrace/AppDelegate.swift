@@ -11,7 +11,7 @@ import Firebase
 import GoogleSignIn
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUserNotificationCenterDelegate {
     
     var window: UIWindow?
 
@@ -24,6 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         //google auth
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
+        
+        //register default value for user defaults if user hasnt selected otherwise
+        UserDefaults.standard.register(defaults: ["asked_for_notification": false])
         
         return true
     }
@@ -88,6 +91,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         homeVC!.modalPresentationStyle = .fullScreen
         UIApplication.shared.windows.first?.rootViewController = homeVC
         UIApplication.shared.windows.first?.makeKeyAndVisible()
+    }
+    
+    //MARK: Notification Delegate
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+         completionHandler([.alert])
     }
 
     // MARK: UISceneSession Lifecycle

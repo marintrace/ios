@@ -8,6 +8,8 @@
 
 import Foundation
 import UIKit
+import CoreLocation
+import UserNotifications
 
 //MARK: Structs
 
@@ -32,6 +34,75 @@ struct AlertHelperFunctions {
         alertController.addAction(okAction)
        vc.present(alertController, animated: true, completion: nil)
     }
+    
+}
+
+struct NotificationScheduler {
+    
+    static func scheduleNotifications() {
+        
+        //clear any prexisting notifications and setup notification center
+        let center = UNUserNotificationCenter.current()
+        center.removeAllPendingNotificationRequests()
+        
+        //setup location to be ma or branson
+        var location = CLLocationCoordinate2D()
+        if User.school == .MA {
+            location = CLLocationCoordinate2D(latitude: 37.9752352, longitude: -122.5353663)
+        } else {
+            location = CLLocationCoordinate2D(latitude: 37.9657723, longitude: -122.565353)
+        }
+        
+        //ARRIVAL NOTIFICATION
+        //set title and body
+        let arrivalContent = UNMutableNotificationContent()
+        arrivalContent.title = "Report your symptoms!"
+        arrivalContent.body = "Remember to report your symptoms."
+        
+        //create 250m radius from school notifying on entry
+        let arrivalLocation = CLCircularRegion(center: location, radius: 250, identifier: "arrival")
+        arrivalLocation.notifyOnEntry = true
+        arrivalLocation.notifyOnExit = false
+        
+        //repeat notification
+        let arrivalTrigger = UNLocationNotificationTrigger(region: arrivalLocation, repeats: false)
+        
+        //create request
+        let arrivalRequest = UNNotificationRequest(identifier: "arrival", content: arrivalContent, trigger: arrivalTrigger)
+        
+        //schedule notification
+        center.add(arrivalRequest) { (error) in
+            print(error)
+        }
+        
+        center.getPendingNotificationRequests(completionHandler: { requests in
+            for request in requests {
+                print(request)
+            }
+        })
+        
+        //DEPARTURE NOTIFICATION
+        //set title and body
+        let departureContent = UNMutableNotificationContent()
+        departureContent.title = "Report your contacts!"
+        departureContent.body = "Remember to report your contacts."
+        
+        //create 250m radius from school notifying on exit
+        let departureLocation = CLCircularRegion(center: location, radius: 250, identifier: "exit")
+        departureLocation.notifyOnEntry = false
+        departureLocation.notifyOnExit = true
+        
+        //repeat notification
+        let departureTrigger = UNLocationNotificationTrigger(region: departureLocation, repeats: false)
+        
+        //create request
+        let departureRequest = UNNotificationRequest(identifier: "departure", content: departureContent, trigger: departureTrigger)
+        
+        //schedule notification
+        center.add(departureRequest)
+        
+    }
+    
     
 }
 

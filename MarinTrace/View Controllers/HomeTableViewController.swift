@@ -9,17 +9,20 @@
 import UIKit
 import Firebase
 import GoogleSignIn
+import CoreLocation
 
-class HomeTableViewController: UITableViewController {
+class HomeTableViewController: UITableViewController, CLLocationManagerDelegate {
 
     @IBOutlet weak var profileButton: UIBarButtonItem!
+    
+    let locManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         checkUser()
         configViewsForUser()
         setupTableView()
-                
+        locManager.delegate = self
     }
     
     func setupTableView() {
@@ -46,9 +49,6 @@ class HomeTableViewController: UITableViewController {
         //setup text
         profileButton.title = User.initials
         profileButton.tintColor = .white
-        
-        
-        
     }
     
     //if no signed in user, go to login
@@ -58,7 +58,48 @@ class HomeTableViewController: UITableViewController {
         } else {
             //user exists, get details
             User.getDetails()
+            
+            //ask to send notifications (check if asked before too)
+            askForNotification()
         }
+    }
+    
+    func askForNotification() {
+        
+        //timed notifications work, but location doesnt for some reason
+        
+        //if haven't already asked before, prompt
+        if true /*!UserDefaults.standard.bool(forKey: "asked_for_notification")*/ {
+            let alert = UIAlertController(title: "Enable Reminder?", message: "Would you like us to send you a reminder to report symptoms when you arrive at school. We'll also send one reminding you to report contacts when you leave. If you say yes, make sure to accept the next prompts.", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "No", style: .default, handler: { (_) in
+                UserDefaults.standard.set(true, forKey: "asked_for_notification") //remember their choice
+            }))
+            
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
+                let center = UNUserNotificationCenter.current()
+                center.requestAuthorization(options: .alert) { (granted, error) in //request authorization
+                    if error == nil && granted { //if user accepted
+                        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse { //already authorized, request
+                            NotificationScheduler.scheduleNotifications()
+                        } else {
+                            self.locManager.requestWhenInUseAuthorization() //ask
+                        }
+                    }
+                }
+                UserDefaults.standard.set(true, forKey: "asked_for_notification") //remember their choice
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+        let center = UNUserNotificationCenter.current()
+        center.getPendingNotificationRequests(completionHandler: { requests in
+            for request in requests {
+                print(request)
+            }
+        })
+        
     }
 
     @IBAction func reportPositiveTest(_ sender: Any) {
@@ -91,6 +132,14 @@ class HomeTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 25))
         return view
+    }
+    
+    //MARK: Location Manager Delegate
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        //user responded to prompt, if accepted show notifications
+        if status == .authorizedWhenInUse {
+            NotificationScheduler.scheduleNotifications()
+        }
     }
 
 }
