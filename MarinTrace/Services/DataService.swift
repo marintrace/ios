@@ -173,10 +173,6 @@ struct NotifyRiskInput: Codable {
 /// Codable representation of the HTTP result for a list users request
 struct ReturnedContacts: Decodable {
     let data: [Contact]
-    
-    enum CodingKeys: String, CodingKey {
-        case data = "data"
-    }
 }
     
 /// Codable representation of the user/contact data structure used by the app as well as the database

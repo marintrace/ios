@@ -13,7 +13,6 @@ class ContactedCohortsViewController: UIViewController, UITableViewDelegate, UIT
     @IBOutlet weak var cohortTableView: UITableView!
     
     var contacts = [Contact]() //a list of the people they've contacted
-    var cohorts = [Int]() //a list of the unique cohorts they've contacted
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,16 +20,7 @@ class ContactedCohortsViewController: UIViewController, UITableViewDelegate, UIT
         //Setup table view
         cohortTableView.dataSource = self
         cohortTableView.delegate = self
-        
-        processData()
-        
-    }
-    
-    func processData() {
-        //get list of cohort names and remove duplicates
-        let cohortNames: [Int] = contacts.map({$0.cohort})
-        cohorts = cohortNames.uniques
-        cohortTableView.reloadData()
+            
     }
     
     @IBAction func reportContacts(_ sender: Any) {
@@ -55,12 +45,12 @@ class ContactedCohortsViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cohorts.count
+        return contacts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = cohortTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = String(cohorts[indexPath.row])
+        cell.textLabel?.text = contacts[indexPath.row].name
         return cell
     }
 
