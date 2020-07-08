@@ -150,12 +150,12 @@ struct DataService {
     
 }
 
+//MARK: Data Structures
 /// Codable representation of the HTTP body for a list users request
 struct ListUsersInput: Codable {
     let operation = "list_users"
 }
 
-//MARK: Data Structures
 /// Codable representation of the HTTP body for a report interaction request
 struct ReportInteractionInput: Codable {
     let operation = "report_interaction"

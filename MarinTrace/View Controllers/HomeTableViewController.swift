@@ -67,6 +67,7 @@ class HomeTableViewController: UITableViewController, CLLocationManagerDelegate 
     func askForNotification() {
         
         //timed notifications work, but location doesnt for some reason
+        //https://medium.com/@jonathan2457/location-triggered-notifications-on-ios-24033919fb9a
         
         //if haven't already asked before, prompt
         if true /*!UserDefaults.standard.bool(forKey: "asked_for_notification")*/ {
@@ -101,9 +102,18 @@ class HomeTableViewController: UITableViewController, CLLocationManagerDelegate 
         })
         
     }
-
+    
+    @IBAction func reportNegativeTest(_ sender: Any) {
+        let alert = UIAlertController(title: "Are you sure?", message: "Reporting a NEGATIVE test cannot be undone.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Report", style: .destructive, handler: { (_) in
+            
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     @IBAction func reportPositiveTest(_ sender: Any) {
-        let alert = UIAlertController(title: "Are you sure?", message: "Reporting a positive test cannot be undone and will notify the school immediately.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Are you sure?", message: "Reporting a POSITIVE test cannot be undone and will notify the school immediately.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Report", style: .destructive, handler: { (_) in
             self.showSpinner(onView: self.view)
