@@ -56,10 +56,18 @@ class SymptomTableViewController: UITableViewController {
                 if error != nil {
                     AlertHelperFunctions.presentAlertOnVC(title: "Error", message: error!.localizedDescription, vc: self)
                 } else {
+                    
+                    //regenerate notifications
+                    NotificationScheduler.scheduleNotifications()
+                    
                     self.navigationController?.popViewController(animated: true)
                 }
             }
         } else {
+            
+            //regenerate notifications
+            NotificationScheduler.scheduleNotifications()
+            
             self.navigationController?.popViewController(animated: true)
         }
         

@@ -28,6 +28,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
         //register default value for user defaults if user hasnt selected otherwise
         UserDefaults.standard.register(defaults: ["asked_for_notification": false])
         
+        //set delegate
+        UNUserNotificationCenter.current().delegate = self
+        
         return true
     }
     

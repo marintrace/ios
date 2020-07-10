@@ -44,65 +44,67 @@ struct NotificationScheduler {
         //clear any prexisting notifications and setup notification center
         let center = UNUserNotificationCenter.current()
         center.removeAllPendingNotificationRequests()
+                
+        //we want notifications for every day, but we also need to be able to cancel today's notification if they fill out their symptoms. This can't be done with a repeating calendar trigger, so we have to create a bunch manually and then remove one via its id
         
-        //setup location to be ma or branson
-        var location = CLLocationCoordinate2D()
-        if User.school == .MA {
-            location = CLLocationCoordinate2D(latitude: 37.9752352, longitude: -122.5353663)
-        } else {
-            location = CLLocationCoordinate2D(latitude: 37.9657723, longitude: -122.565353)
+        //30 days worth of notifcations
+        for i in 1...30 {
+            let symptomsContent = UNMutableNotificationContent()
+            symptomsContent.title = "Report your symptoms!"
+            symptomsContent.body = "Remember to report your symptoms."
+            
+            //get day n
+            let day = Calendar.current.date(byAdding: .day, value: i, to: Date())
+            
+            var components = Calendar.current.dateComponents([.day, .month, .year, .hour, .month], from: day!)
+            components.hour = 8
+            components.minute = 0
+            components.second = 0
+            
+            let symptomsTrigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+            
+            //create request with id of date in ISO-8601
+            let symptomsRequest = UNNotificationRequest(identifier: DateHelper.stringFromDate(withFormat: "yyyy-MM-dd", date: day!), content: symptomsContent, trigger: symptomsTrigger)
+            
+            //schedule notification
+            center.add(symptomsRequest)
         }
-        
-        //ARRIVAL NOTIFICATION
-        //set title and body
-        let arrivalContent = UNMutableNotificationContent()
-        arrivalContent.title = "Report your symptoms!"
-        arrivalContent.body = "Remember to report your symptoms."
-        
-        //create 250m radius from school notifying on entry
-        let arrivalLocation = CLCircularRegion(center: location, radius: 250, identifier: "arrival")
-        arrivalLocation.notifyOnEntry = true
-        arrivalLocation.notifyOnExit = false
-        
-        //repeat notification
-        let arrivalTrigger = UNLocationNotificationTrigger(region: arrivalLocation, repeats: false)
-        
-        //create request
-        let arrivalRequest = UNNotificationRequest(identifier: "arrival", content: arrivalContent, trigger: arrivalTrigger)
-        
-        //schedule notification
-        center.add(arrivalRequest) { (error) in
-            print(error)
-        }
-        
-        center.getPendingNotificationRequests(completionHandler: { requests in
-            for request in requests {
-                print(request)
-            }
-        })
-        
-        //DEPARTURE NOTIFICATION
-        //set title and body
-        let departureContent = UNMutableNotificationContent()
-        departureContent.title = "Report your contacts!"
-        departureContent.body = "Remember to report your contacts."
-        
-        //create 250m radius from school notifying on exit
-        let departureLocation = CLCircularRegion(center: location, radius: 250, identifier: "exit")
-        departureLocation.notifyOnEntry = false
-        departureLocation.notifyOnExit = true
-        
-        //repeat notification
-        let departureTrigger = UNLocationNotificationTrigger(region: departureLocation, repeats: false)
-        
-        //create request
-        let departureRequest = UNNotificationRequest(identifier: "departure", content: departureContent, trigger: departureTrigger)
-        
-        //schedule notification
-        center.add(departureRequest)
         
     }
     
+    /*static func scheduleTestNotifications() {
+        
+        //clear any prexisting notifications and setup notification center
+        let center = UNUserNotificationCenter.current()
+        center.removeAllPendingNotificationRequests()
+                
+        //we want notifications for every day, but we also need to be able to cancel today's notification if they fill out their symptoms. This can't be done with a repeating calendar trigger, so we have to create a bunch manually starting tomorrow. If they report symptoms before the notification sends tomorrow, then all these will be cleared, and a new set starting the next day will be created.
+        
+        //30 days worth of notifcations
+        for i in 1...30 {
+            let symptomsContent = UNMutableNotificationContent()
+            symptomsContent.title = "Report your symptoms!"
+            symptomsContent.body = "Remember to report your symptoms."
+            
+            //get day n
+            let day = Calendar.current.date(byAdding: .minute, value: i, to: Date())
+            
+            var components = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: day!)
+            components.second = 0
+            
+            let symptomsTrigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+            
+            //create request with id of date in ISO-8601
+            let symptomsRequest = UNNotificationRequest(identifier: UUID().uuidString, content: symptomsContent, trigger: symptomsTrigger)
+            
+            //schedule notification
+            center.add(symptomsRequest) { (error) in
+                print(error)
+            }
+            
+        }
+        
+    }*/
     
 }
 
@@ -115,6 +117,24 @@ struct Colors {
         } else {
             return UIColor(hexString: "#017BD6")
         }
+    }
+    
+}
+
+struct DateHelper {
+    
+    static func stringFromDate(withFormat format:String, date:Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        let string = formatter.string(from: date)
+        return string
+    }
+    
+    static func dateFromString(withFormat format: String, string:String) -> Date {
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        let date = formatter.date(from: string)
+        return date!
     }
     
 }

@@ -66,12 +66,9 @@ class HomeTableViewController: UITableViewController, CLLocationManagerDelegate 
     
     func askForNotification() {
         
-        //timed notifications work, but location doesnt for some reason
-        //https://medium.com/@jonathan2457/location-triggered-notifications-on-ios-24033919fb9a
-        
         //if haven't already asked before, prompt
         if true /*!UserDefaults.standard.bool(forKey: "asked_for_notification")*/ {
-            let alert = UIAlertController(title: "Enable Reminder?", message: "Would you like us to send you a reminder to report symptoms when you arrive at school. We'll also send one reminding you to report contacts when you leave. If you say yes, make sure to accept the next prompts.", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Enable Symptoms Reminder?", message: "Would you like us to send you a reminder to report symptoms before you get to school?", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "No", style: .default, handler: { (_) in
                 UserDefaults.standard.set(true, forKey: "asked_for_notification") //remember their choice
@@ -82,6 +79,8 @@ class HomeTableViewController: UITableViewController, CLLocationManagerDelegate 
                 center.requestAuthorization(options: .alert) { (granted, error) in //request authorization
                     if error == nil && granted { //if user accepted
                         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse { //already authorized, request
+                            
+                            //schedule first set of notifications
                             NotificationScheduler.scheduleNotifications()
                         } else {
                             self.locManager.requestWhenInUseAuthorization() //ask
