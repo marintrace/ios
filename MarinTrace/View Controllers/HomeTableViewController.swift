@@ -11,18 +11,15 @@ import Firebase
 import GoogleSignIn
 import CoreLocation
 
-class HomeTableViewController: UITableViewController, CLLocationManagerDelegate {
+class HomeTableViewController: UITableViewController {
 
     @IBOutlet weak var profileButton: UIBarButtonItem!
-    
-    let locManager = CLLocationManager()
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         checkUser()
         configViewsForUser()
         setupTableView()
-        locManager.delegate = self
     }
     
     func setupTableView() {
@@ -67,7 +64,7 @@ class HomeTableViewController: UITableViewController, CLLocationManagerDelegate 
     func askForNotification() {
         
         //if haven't already asked before, prompt
-        if true /*!UserDefaults.standard.bool(forKey: "asked_for_notification")*/ {
+        if !UserDefaults.standard.bool(forKey: "asked_for_notification") {
             let alert = UIAlertController(title: "Enable Symptoms Reminder?", message: "Would you like us to send you a reminder to report symptoms before you get to school?", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "No", style: .default, handler: { (_) in
@@ -78,13 +75,8 @@ class HomeTableViewController: UITableViewController, CLLocationManagerDelegate 
                 let center = UNUserNotificationCenter.current()
                 center.requestAuthorization(options: .alert) { (granted, error) in //request authorization
                     if error == nil && granted { //if user accepted
-                        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse { //already authorized, request
-                            
-                            //schedule first set of notifications
-                            NotificationScheduler.scheduleNotifications()
-                        } else {
-                            self.locManager.requestWhenInUseAuthorization() //ask
-                        }
+                        //schedule first set of notifications
+                        NotificationScheduler.scheduleNotifications()
                     }
                 }
                 UserDefaults.standard.set(true, forKey: "asked_for_notification") //remember their choice
@@ -143,12 +135,4 @@ class HomeTableViewController: UITableViewController, CLLocationManagerDelegate 
         return view
     }
     
-    //MARK: Location Manager Delegate
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        //user responded to prompt, if accepted show notifications
-        if status == .authorizedWhenInUse {
-            NotificationScheduler.scheduleNotifications()
-        }
-    }
-
 }

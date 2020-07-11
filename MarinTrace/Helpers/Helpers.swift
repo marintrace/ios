@@ -56,18 +56,21 @@ struct NotificationScheduler {
             //get day n
             let day = Calendar.current.date(byAdding: .day, value: i, to: Date())
             
-            var components = Calendar.current.dateComponents([.day, .month, .year, .hour, .month], from: day!)
-            components.hour = 8
-            components.minute = 0
-            components.second = 0
-            
-            let symptomsTrigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-            
-            //create request with id of date in ISO-8601
-            let symptomsRequest = UNNotificationRequest(identifier: DateHelper.stringFromDate(withFormat: "yyyy-MM-dd", date: day!), content: symptomsContent, trigger: symptomsTrigger)
-            
-            //schedule notification
-            center.add(symptomsRequest)
+            //don't send on weekend
+            if !Calendar.current.isDateInWeekend(day!) {
+                var components = Calendar.current.dateComponents([.day, .month, .year, .hour, .month], from: day!)
+                components.hour = 8
+                components.minute = 0
+                components.second = 0
+                                        
+                let symptomsTrigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+                
+                //create request with id of date in ISO-8601
+                let symptomsRequest = UNNotificationRequest(identifier: DateHelper.stringFromDate(withFormat: "yyyy-MM-dd", date: day!), content: symptomsContent, trigger: symptomsTrigger)
+                
+                //schedule notification
+                center.add(symptomsRequest)
+            }
         }
         
     }

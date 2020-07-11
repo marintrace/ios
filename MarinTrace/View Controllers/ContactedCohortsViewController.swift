@@ -24,19 +24,22 @@ class ContactedCohortsViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     @IBAction func reportContacts(_ sender: Any) {
-  
-        //process contacts into ids
-        let targets = contacts.map({$0.email})
-        showSpinner(onView: self.view)
-        DataService.reportInteractions(targetIDS: targets) { (error) in
-            self.removeSpinner()
-            if error != nil {
-                AlertHelperFunctions.presentAlertOnVC(title: "Error", message: error!.localizedDescription, vc: self)
-            } else {
-                self.navigationController?.popToRootViewController(animated: true)
-            }
-        }
         
+        if contacts.count > 0 {
+            //process contacts into ids
+            let targets = contacts.map({$0.email})
+            showSpinner(onView: self.view)
+            DataService.reportInteractions(targetIDS: targets) { (error) in
+                self.removeSpinner()
+                if error != nil {
+                    AlertHelperFunctions.presentAlertOnVC(title: "Error", message: error!.localizedDescription, vc: self)
+                } else {
+                    self.navigationController?.popToRootViewController(animated: true)
+                }
+            }
+        } else {
+            AlertHelperFunctions.presentAlertOnVC(title: "Error", message: "You must add at least one contact.", vc: self)
+        }
     }
     
     //MARK: Table View Functions
