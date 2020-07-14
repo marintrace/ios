@@ -98,7 +98,15 @@ class HomeTableViewController: UITableViewController {
         let alert = UIAlertController(title: "Are you sure?", message: "Reporting a NEGATIVE test cannot be undone.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Report", style: .destructive, handler: { (_) in
-            
+            self.showSpinner(onView: self.view)
+            DataService.reportTest(testType: .negative) { (error) in
+                self.removeSpinner()
+                if error != nil {
+                    AlertHelperFunctions.presentAlertOnVC(title: "Error", message: error!.localizedDescription, vc: self)
+                } else {
+                    AlertHelperFunctions.presentAlertOnVC(title: "Success", message: "Your test was reported", vc: self)
+                }
+            }
         }))
         self.present(alert, animated: true, completion: nil)
     }
@@ -108,7 +116,7 @@ class HomeTableViewController: UITableViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Report", style: .destructive, handler: { (_) in
             self.showSpinner(onView: self.view)
-            DataService.notifyRisk(criteria: ["Positive Test"]) { (error) in
+            DataService.reportTest(testType: .positive) { (error) in
                 self.removeSpinner()
                 if error != nil {
                     AlertHelperFunctions.presentAlertOnVC(title: "Error", message: error!.localizedDescription, vc: self)

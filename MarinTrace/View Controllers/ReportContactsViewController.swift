@@ -8,6 +8,7 @@
 
 import UIKit
 import VENTokenField
+import SwaggerClient
 
 class ReportContactsViewController: UIViewController, VENTokenFieldDelegate, VENTokenFieldDataSource, UITableViewDataSource, UITableViewDelegate {
 
@@ -54,7 +55,7 @@ class ReportContactsViewController: UIViewController, VENTokenFieldDelegate, VEN
     }
     
     func getSuggestions(text: String) { //filter for user input, also make sure user not already selected
-        suggestions = contactOptions.filter({$0.name.contains(text)})
+        suggestions = contactOptions.filter({($0.firstName + " " + $0.lastName).contains(text)})
         suggestions = suggestions.filter { (contact) -> Bool in
             return !contacts.contains(where: {$0.email  == contact.email})
         }
@@ -93,7 +94,8 @@ class ReportContactsViewController: UIViewController, VENTokenFieldDelegate, VEN
     }
     
     func tokenField(_ tokenField: VENTokenField, titleForTokenAt index: UInt) -> String {
-        return contacts[Int(index)].name
+        let contact = contacts[Int(index)]
+        return contact.firstName + " " + contact.lastName
     }
     
     //MARK: Table View Code
@@ -104,7 +106,8 @@ class ReportContactsViewController: UIViewController, VENTokenFieldDelegate, VEN
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = suggestionTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = suggestions[indexPath.row].name
+        let suggestion = suggestions[indexPath.row]
+        cell.textLabel?.text = suggestion.firstName + " " + suggestion.lastName
         return cell
     }
     

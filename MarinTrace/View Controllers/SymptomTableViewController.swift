@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwaggerClient
 
 class SymptomTableViewController: UITableViewController {
     
@@ -39,38 +40,53 @@ class SymptomTableViewController: UITableViewController {
 
     @IBAction func donePressed(_ sender: Any) {
         
-        //get checked symptoms by looking at table view rows and seeing which are checked
-        var checkedSymptoms = [String]()
+        var feverChills = false
+        var cough = false
+        var shortnessBreath = false
+        var difficultyBreathing = false
+        var fatigue = false
+        var muscleBodyAches = false
+        var headache = false
+        var lossTasteSmell = false
+        var soreThroat = false
+        var congestionRunnyNose = false
+        var nauseaVomiting = false
+        var diarrhea = false
+        
         for symptomIndex in 0..<symptoms.count {
             let cell = tableView.cellForRow(at: IndexPath(row: symptomIndex, section: 0)) as! SymptomTableViewCell
             if cell.checkbox.checkState == .checked {
-                checkedSymptoms.append(symptoms[symptomIndex])
-            }
-        }
-        
-        //report if there are 2+ symptoms
-        if checkedSymptoms.count > 1 {
-            self.showSpinner(onView: self.view)
-            DataService.notifyRisk(criteria: checkedSymptoms) { (error) in
-                self.removeSpinner()
-                if error != nil {
-                    AlertHelperFunctions.presentAlertOnVC(title: "Error", message: error!.localizedDescription, vc: self)
-                } else {
-                    
-                    //regenerate notifications
-                    NotificationScheduler.scheduleNotifications()
-                    
-                    self.navigationController?.popViewController(animated: true)
+                switch symptomIndex {
+                case 0: feverChills = true
+                case 1: cough = true
+                case 2: shortnessBreath = true
+                case 3: difficultyBreathing = true
+                case 4: fatigue = true
+                case 5: muscleBodyAches = true
+                case 6: headache = true
+                case 7: lossTasteSmell = true
+                case 8: soreThroat = true
+                case 9: congestionRunnyNose = true
+                case 10: nauseaVomiting = true
+                case 11: diarrhea = true
+                default:
+                    break
                 }
             }
-        } else {
-            
-            //regenerate notifications
-            NotificationScheduler.scheduleNotifications()
-            
-            self.navigationController?.popViewController(animated: true)
         }
         
+        self.showSpinner(onView: self.view)
+        DataService.reportSymptoms(symptoms: SwaggerClient.SymptomReport(feverChills: feverChills, cough: cough, shortnessBreath: shortnessBreath, difficultyBreathing: difficultyBreathing, fatigue: fatigue, muscleBodyAches: muscleBodyAches, headache: headache, lossTasteSmell: lossTasteSmell, soreThroat: soreThroat, congestionRunnyNose: congestionRunnyNose, nauseaVomiting: nauseaVomiting, diarrhea: diarrhea)) { (error) in
+            self.removeSpinner()
+            if error != nil {
+                AlertHelperFunctions.presentAlertOnVC(title: "Error", message: error!.localizedDescription, vc: self)
+            } else {
+                //regenerate notifications
+                NotificationScheduler.scheduleNotifications()
+                
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
     }
     
     // MARK: - Table view data source

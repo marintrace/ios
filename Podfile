@@ -12,8 +12,9 @@ target 'MarinTrace' do
   pod 'Firebase/Crashlytics'
   pod 'VENTokenField', '~> 2.0'
   pod 'GoogleSignIn'
-  pod 'Alamofire', '~> 5.2'
+  pod 'Alamofire', '~> 4.9'
   pod 'M13Checkbox'
+  pod 'SwaggerClient', :path => "./"
 
   target 'MarinTraceTests' do
     inherit! :search_paths
