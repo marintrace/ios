@@ -25,9 +25,9 @@
 		3481D0C5248E0903005215EE /* ReportContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3481D0C4248E0903005215EE /* ReportContactsViewController.swift */; };
 		3481D0C7248EB7D0005215EE /* SymptomTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3481D0C6248EB7D0005215EE /* SymptomTableViewController.swift */; };
 		3481D0C9248EB80A005215EE /* SymptomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3481D0C8248EB80A005215EE /* SymptomTableViewCell.swift */; };
-		5898B42DF2C411BD7A38EEBD /* Pods_MarinTrace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B182E6BB6ECC6C39C5EB11D /* Pods_MarinTrace.framework */; };
-		9618E5018C8677BFC7BF6B31 /* Pods_MarinTrace_MarinTraceUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 866613C9FF80A244A476445B /* Pods_MarinTrace_MarinTraceUITests.framework */; };
-		AC4952735726889BF20B74EE /* Pods_MarinTraceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2171C4653C6FFF93F4478E05 /* Pods_MarinTraceTests.framework */; };
+		3C67DE643850470DE9A7DE0F /* Pods_MarinTrace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 254F1D42ACBA62F2A0D84621 /* Pods_MarinTrace.framework */; };
+		86266579B4BE42E49DEF93ED /* Pods_MarinTraceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E7909EB79CB02BB3137441 /* Pods_MarinTraceTests.framework */; };
+		9DA9F18DE52141CD58F33483 /* Pods_MarinTrace_MarinTraceUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D239C28CA6992C5BC416D7 /* Pods_MarinTrace_MarinTraceUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,8 +50,8 @@
 /* Begin PBXFileReference section */
 		06DAF1DC9D82E74CAA2D6683 /* Pods-MarinTraceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarinTraceTests.debug.xcconfig"; path = "Target Support Files/Pods-MarinTraceTests/Pods-MarinTraceTests.debug.xcconfig"; sourceTree = "<group>"; };
 		15476E3AEA977906800ABB02 /* Pods-MarinTrace-MarinTraceUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarinTrace-MarinTraceUITests.debug.xcconfig"; path = "Target Support Files/Pods-MarinTrace-MarinTraceUITests/Pods-MarinTrace-MarinTraceUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		2171C4653C6FFF93F4478E05 /* Pods_MarinTraceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MarinTraceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2B182E6BB6ECC6C39C5EB11D /* Pods_MarinTrace.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MarinTrace.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		254F1D42ACBA62F2A0D84621 /* Pods_MarinTrace.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MarinTrace.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		28D239C28CA6992C5BC416D7 /* Pods_MarinTrace_MarinTraceUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MarinTrace_MarinTraceUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		340CE276248F3A110094AC52 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		340CE278248F407B0094AC52 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		3481D07B248DBC6A005215EE /* MarinTrace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarinTrace.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,8 +78,8 @@
 		3481D0C8248EB80A005215EE /* SymptomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomTableViewCell.swift; sourceTree = "<group>"; };
 		4EEC7C7C177B4A1E7EC430C7 /* Pods-MarinTraceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarinTraceTests.release.xcconfig"; path = "Target Support Files/Pods-MarinTraceTests/Pods-MarinTraceTests.release.xcconfig"; sourceTree = "<group>"; };
 		649F9834F37521C2A5F77006 /* Pods-MarinTrace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarinTrace.debug.xcconfig"; path = "Target Support Files/Pods-MarinTrace/Pods-MarinTrace.debug.xcconfig"; sourceTree = "<group>"; };
-		866613C9FF80A244A476445B /* Pods_MarinTrace_MarinTraceUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MarinTrace_MarinTraceUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C12207C58F8FD5DFB00AA63 /* Pods-MarinTrace-MarinTraceUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarinTrace-MarinTraceUITests.release.xcconfig"; path = "Target Support Files/Pods-MarinTrace-MarinTraceUITests/Pods-MarinTrace-MarinTraceUITests.release.xcconfig"; sourceTree = "<group>"; };
+		E7E7909EB79CB02BB3137441 /* Pods_MarinTraceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MarinTraceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED37E3F38C528EBFEBDDA391 /* Pods-MarinTrace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarinTrace.release.xcconfig"; path = "Target Support Files/Pods-MarinTrace/Pods-MarinTrace.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,7 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5898B42DF2C411BD7A38EEBD /* Pods_MarinTrace.framework in Frameworks */,
+				3C67DE643850470DE9A7DE0F /* Pods_MarinTrace.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,7 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC4952735726889BF20B74EE /* Pods_MarinTraceTests.framework in Frameworks */,
+				86266579B4BE42E49DEF93ED /* Pods_MarinTraceTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,7 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9618E5018C8677BFC7BF6B31 /* Pods_MarinTrace_MarinTraceUITests.framework in Frameworks */,
+				9DA9F18DE52141CD58F33483 /* Pods_MarinTrace_MarinTraceUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,9 +114,9 @@
 		33BBC2A71DBDB04054619DC5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2B182E6BB6ECC6C39C5EB11D /* Pods_MarinTrace.framework */,
-				866613C9FF80A244A476445B /* Pods_MarinTrace_MarinTraceUITests.framework */,
-				2171C4653C6FFF93F4478E05 /* Pods_MarinTraceTests.framework */,
+				254F1D42ACBA62F2A0D84621 /* Pods_MarinTrace.framework */,
+				28D239C28CA6992C5BC416D7 /* Pods_MarinTrace_MarinTraceUITests.framework */,
+				E7E7909EB79CB02BB3137441 /* Pods_MarinTraceTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -241,9 +241,9 @@
 				3481D077248DBC6A005215EE /* Sources */,
 				3481D078248DBC6A005215EE /* Frameworks */,
 				3481D079248DBC6A005215EE /* Resources */,
-				CE2237B16BC37C55898BFB75 /* [CP] Embed Pods Frameworks */,
 				D278C05C60687B14E0DE61B7 /* [CP] Copy Pods Resources */,
 				340CE27A2490266A0094AC52 /* ShellScript */,
+				D3112375A7745FCD9C749265 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -281,8 +281,8 @@
 				3481D098248DBC6F005215EE /* Sources */,
 				3481D099248DBC6F005215EE /* Frameworks */,
 				3481D09A248DBC6F005215EE /* Resources */,
-				CC2A6C7612EFEE5219D1CF4A /* [CP] Embed Pods Frameworks */,
 				1906D8557A16EAC280B4717B /* [CP] Copy Pods Resources */,
+				DB88D1F6E0BE1D0DDC731083 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -444,24 +444,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CC2A6C7612EFEE5219D1CF4A /* [CP] Embed Pods Frameworks */ = {
+		D278C05C60687B14E0DE61B7 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MarinTrace-MarinTraceUITests/Pods-MarinTrace-MarinTraceUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-MarinTrace/Pods-MarinTrace-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MarinTrace-MarinTraceUITests/Pods-MarinTrace-MarinTraceUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-MarinTrace/Pods-MarinTrace-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MarinTrace-MarinTraceUITests/Pods-MarinTrace-MarinTraceUITests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MarinTrace/Pods-MarinTrace-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CE2237B16BC37C55898BFB75 /* [CP] Embed Pods Frameworks */ = {
+		D3112375A7745FCD9C749265 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -478,21 +478,21 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MarinTrace/Pods-MarinTrace-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D278C05C60687B14E0DE61B7 /* [CP] Copy Pods Resources */ = {
+		DB88D1F6E0BE1D0DDC731083 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MarinTrace/Pods-MarinTrace-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-MarinTrace-MarinTraceUITests/Pods-MarinTrace-MarinTraceUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MarinTrace/Pods-MarinTrace-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-MarinTrace-MarinTraceUITests/Pods-MarinTrace-MarinTraceUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MarinTrace/Pods-MarinTrace-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MarinTrace-MarinTraceUITests/Pods-MarinTrace-MarinTraceUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F8A48094C7EFE702D882DEDD /* [CP] Check Pods Manifest.lock */ = {
