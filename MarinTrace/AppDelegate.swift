@@ -48,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
         if let error = error {
             view?.removeSpinner()
             print(error)
-            AlertHelperFunctions.presentErrorAlertOnWindow(title: "Error", message: error.localizedDescription, window: UIApplication.shared.windows.first!)
+            AlertHelperFunctions.presentErrorAlertOnWindow(title: "Error", message: "Couldn't login: "  + error.localizedDescription  + " If this error persists please contact us.", window: UIApplication.shared.windows.first!)
             DataService.logError(error: error)
             return
         }
@@ -63,19 +63,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
         if userEmail.contains("ma.org") || userEmail.contains("branson.org") {
             
             Auth.auth().signIn(with: credential) { (authResult, error) in
-                view?.removeSpinner()
                 if let error = error {
+                    view?.removeSpinner()
                     let authError = error as NSError
                     print(authError)
-                    AlertHelperFunctions.presentErrorAlertOnWindow(title: "Error", message: authError.localizedDescription, window: UIApplication.shared.windows.first!)
+                    AlertHelperFunctions.presentErrorAlertOnWindow(title: "Error", message: "Couldn't login: " +  authError.localizedDescription + " If this error persists please contact us.", window: UIApplication.shared.windows.first!)
                     DataService.logError(error: authError)
                 } else {
                     //user signed in, go to homes
-                    let story = UIStoryboard(name: "Main", bundle: nil)
-                    let homeVC = story.instantiateViewController(withIdentifier: "HomeTableViewController") as? UINavigationController
-                    homeVC!.modalPresentationStyle = .fullScreen
-                    UIApplication.shared.windows.first?.rootViewController = homeVC
-                    UIApplication.shared.windows.first?.makeKeyAndVisible()
+                    DataService.markUserAsActive { (error) in
+                        view?.removeSpinner()
+                        if let activeError = error {
+                            AlertHelperFunctions.presentErrorAlertOnWindow(title: "Error", message: "Could not register your account with the server: " + activeError.localizedDescription + " If this error persists please contact us", window: UIApplication.shared.windows.first!)
+                        } else {
+                            let story = UIStoryboard(name: "Main", bundle: nil)
+                            let homeVC = story.instantiateViewController(withIdentifier: "HomeTableViewController") as? UINavigationController
+                            homeVC!.modalPresentationStyle = .fullScreen
+                            UIApplication.shared.windows.first?.rootViewController = homeVC
+                            UIApplication.shared.windows.first?.makeKeyAndVisible()
+                        }
+                    }
                 }
                 return
             }

@@ -46,7 +46,7 @@ class ReportContactsViewController: UIViewController, VENTokenFieldDelegate, VEN
         DataService.listUsers { (returnedContacts, error) in
             self.removeSpinner()
             if error != nil {
-                AlertHelperFunctions.presentAlertOnVC(title: "Error", message: error!.localizedDescription, vc: self)
+                AlertHelperFunctions.presentAlertOnVC(title: "Error", message: "Couldn't fetch other people: " + error!.localizedDescription + " If this error persists please contact us and contact your school to manually report your contacts.", vc: self)
             } else {
                 //filter for not this user
                 self.contactOptions = returnedContacts!.filter({$0.email != DataService.getUserID()})

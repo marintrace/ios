@@ -33,7 +33,7 @@ class ContactedCohortsViewController: UIViewController, UITableViewDelegate, UIT
             DataService.reportInteractions(targetIDS: targets) { (error) in
                 self.removeSpinner()
                 if error != nil {
-                    AlertHelperFunctions.presentAlertOnVC(title: "Error", message: error!.localizedDescription, vc: self)
+                    AlertHelperFunctions.presentAlertOnVC(title: "Error", message: "Couldn't report contacts: " + error!.localizedDescription + " If this error persists please contact us and contact your school to report your contacts manually.", vc: self)
                 } else {
                     self.navigationController?.popToRootViewController(animated: true)
                 }

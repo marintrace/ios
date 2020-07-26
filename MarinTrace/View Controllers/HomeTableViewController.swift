@@ -85,13 +85,6 @@ class HomeTableViewController: UITableViewController {
             self.present(alert, animated: true, completion: nil)
         }
         
-        let center = UNUserNotificationCenter.current()
-        center.getPendingNotificationRequests(completionHandler: { requests in
-            for request in requests {
-                print(request)
-            }
-        })
-        
     }
     
     @IBAction func reportNegativeTest(_ sender: Any) {
@@ -102,7 +95,7 @@ class HomeTableViewController: UITableViewController {
             DataService.reportTest(testType: .negative) { (error) in
                 self.removeSpinner()
                 if error != nil {
-                    AlertHelperFunctions.presentAlertOnVC(title: "Error", message: error!.localizedDescription, vc: self)
+                    AlertHelperFunctions.presentAlertOnVC(title: "Error", message: "Couldn't report test result: " + error!.localizedDescription + " If this error persists please contact us and contact the school to report the test result manually." , vc: self)
                 } else {
                     AlertHelperFunctions.presentAlertOnVC(title: "Success", message: "Your test was reported", vc: self)
                 }
@@ -119,7 +112,7 @@ class HomeTableViewController: UITableViewController {
             DataService.reportTest(testType: .positive) { (error) in
                 self.removeSpinner()
                 if error != nil {
-                    AlertHelperFunctions.presentAlertOnVC(title: "Error", message: error!.localizedDescription, vc: self)
+                    AlertHelperFunctions.presentAlertOnVC(title: "Error", message: "Couldn't report test result: " + error!.localizedDescription + " If this error persists please contact us and contact the school to report the test result manually." , vc: self)
                 } else {
                     AlertHelperFunctions.presentAlertOnVC(title: "Success", message: "Your test was reported", vc: self)
                 }

@@ -79,7 +79,7 @@ class SymptomTableViewController: UITableViewController {
         DataService.reportSymptoms(symptoms: SwaggerClient.SymptomReport(feverChills: feverChills, cough: cough, shortnessBreath: shortnessBreath, difficultyBreathing: difficultyBreathing, fatigue: fatigue, muscleBodyAches: muscleBodyAches, headache: headache, lossTasteSmell: lossTasteSmell, soreThroat: soreThroat, congestionRunnyNose: congestionRunnyNose, nauseaVomiting: nauseaVomiting, diarrhea: diarrhea)) { (error) in
             self.removeSpinner()
             if error != nil {
-                AlertHelperFunctions.presentAlertOnVC(title: "Error", message: error!.localizedDescription, vc: self)
+                AlertHelperFunctions.presentAlertOnVC(title: "Error", message: "Could't report symptoms: " +  error!.localizedDescription + " If this error persists please contact us and please contact your school to report your symptoms manually.", vc: self)
             } else {
                 //regenerate notifications
                 NotificationScheduler.scheduleNotifications()

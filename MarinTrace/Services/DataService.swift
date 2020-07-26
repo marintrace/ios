@@ -82,23 +82,26 @@ struct DataService {
         }
     }
     
-    /// Notifies server of user's risk. Will report if a positive test, or more than two symptoms
+    /// Marks a user as active in the DB
     /// - Parameters:
-    ///   -  completion: Completion handler callback
-    ///   -  criteria: Criteria for report. Strings will be shown as list to admin in email
-    ///   -  error: An error
-    /*static func notifyRisk(criteria: [String], completion: @escaping(_ error: Error?) -> Void) {
-        getHeaders { (toke, error) in
+    ///   - completion: Completio handler callback
+    ///   - error: An error
+    static func markUserAsActive(completion: @escaping(_ error:Error?) -> Void){
+        getHeaders { (token, error) in
             if error != nil {
                 completion(error)
             } else {
-                
-                AsyncAPIAPI.queueSymptomReport(body: , authorization: token!) { (task, error) in
-                    <#code#>
+                AsyncAPIAPI.queueSetActiveUser(authorization: token ?? "") { (_, apiError) in
+                    if let error = apiError {
+                        completion(error)
+                        logError(error: error)
+                    } else {
+                        completion(nil)
+                    }
                 }
             }
         }
-    }*/
+    }
     
     /// Notifies server of user's symptoms.
     /// - Parameters:
