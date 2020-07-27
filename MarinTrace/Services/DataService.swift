@@ -10,6 +10,7 @@ import Foundation
 import SwaggerClient
 import Alamofire
 import FirebaseCrashlytics
+import Auth0
 
 typealias Contact = SwaggerClient.User
 
@@ -22,7 +23,6 @@ struct DataService {
     ///   - token: The  token
     ///   -  error: An error
     static func getHeaders(completion: @escaping(_ token: String?, _ error: Error?) -> Void) {
-        //get token
         credentialsManager.credentials { (error, creds) in
             if error != nil {
                 completion(nil, error)
@@ -30,7 +30,7 @@ struct DataService {
                     logError(error: error!)
                 }
             } else {
-                completion("Bearer \(creds!.accessToken!)", nil)
+                completion("Bearer \(creds!.idToken!)", nil)
             }
         }
     }
