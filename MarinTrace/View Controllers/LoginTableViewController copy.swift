@@ -50,7 +50,7 @@ class LoginTableViewController: UITableViewController {
                     DataService.markUserAsActive { (error) in
                         self.removeSpinner()
                         if let activeError = error {
-                            AlertHelperFunctions.presentErrorAlertOnWindow(title: "Error", message: "Could not register your account with the server: " + activeError.localizedDescription + " If this error persists please contact us", window: UIApplication.shared.windows.first!)
+                            AlertHelperFunctions.presentAlertOnVC(title: "Error", message: "Could not register your account with the server: " + activeError.localizedDescription + " If this error persists please contact us.", vc: self)
                         } else {
                             let story = UIStoryboard(name: "Main", bundle: nil)
                             let homeVC = story.instantiateViewController(withIdentifier: "HomeTableViewController") as? UINavigationController
