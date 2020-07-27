@@ -8,10 +8,12 @@
 
 import UIKit
 import Firebase
-import GoogleSignIn
+import Auth0
+
+let credentialsManager = CredentialsManager(authentication: Auth0.authentication())
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUserNotificationCenterDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     
     var window: UIWindow?
 
@@ -20,10 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
         
         //config firebase
         FirebaseApp.configure()
-        
-        //google auth
-        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
-        GIDSignIn.sharedInstance().delegate = self
         
         //register default value for user defaults if user hasnt selected otherwise
         UserDefaults.standard.register(defaults: ["asked_for_notification": false])
@@ -36,71 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
     
     //MARK: Handle Google OAuth
     func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
-      -> Bool {
-      return GIDSignIn.sharedInstance().handle(url)
-    }
-    
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
-        
-        //view to remove spinner from
-        let view = UIApplication.shared.windows.first?.rootViewController
-        
-        if let error = error {
-            view?.removeSpinner()
-            print(error)
-            AlertHelperFunctions.presentErrorAlertOnWindow(title: "Error", message: "Couldn't login: "  + error.localizedDescription  + " If this error persists please contact us.", window: UIApplication.shared.windows.first!)
-            DataService.logError(error: error)
-            return
-        }
-        
-        //user logged in w google, authenticate w firebase
-        guard let authentication = user.authentication else { return }
-        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
-                                                       accessToken: authentication.accessToken)
-        
-        //make sure user is MA or Branson
-        guard let userEmail = user?.profile.email else { return }
-        if userEmail.contains("ma.org") || userEmail.contains("branson.org") {
-            
-            Auth.auth().signIn(with: credential) { (authResult, error) in
-                if let error = error {
-                    view?.removeSpinner()
-                    let authError = error as NSError
-                    print(authError)
-                    AlertHelperFunctions.presentErrorAlertOnWindow(title: "Error", message: "Couldn't login: " +  authError.localizedDescription + " If this error persists please contact us.", window: UIApplication.shared.windows.first!)
-                    DataService.logError(error: authError)
-                } else {
-                    //user signed in, go to homes
-                    DataService.markUserAsActive { (error) in
-                        view?.removeSpinner()
-                        if let activeError = error {
-                            AlertHelperFunctions.presentErrorAlertOnWindow(title: "Error", message: "Could not register your account with the server: " + activeError.localizedDescription + " If this error persists please contact us", window: UIApplication.shared.windows.first!)
-                        } else {
-                            let story = UIStoryboard(name: "Main", bundle: nil)
-                            let homeVC = story.instantiateViewController(withIdentifier: "HomeTableViewController") as? UINavigationController
-                            homeVC!.modalPresentationStyle = .fullScreen
-                            UIApplication.shared.windows.first?.rootViewController = homeVC
-                            UIApplication.shared.windows.first?.makeKeyAndVisible()
-                        }
-                    }
-                }
-                return
-            }
-            
-        } else {
-            view?.removeSpinner()
-            AlertHelperFunctions.presentErrorAlertOnWindow(title: "Error", message: "Your account must be @ma.org or @branson.org. Please try signing in with that.", window: UIApplication.shared.windows.first!)
-        }
-        
-    }
-        
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-        //go to log in
-        let story = UIStoryboard(name: "Main", bundle: nil)
-        let homeVC = story.instantiateViewController(withIdentifier: "LoginTableViewController") as? UINavigationController
-        homeVC!.modalPresentationStyle = .fullScreen
-        UIApplication.shared.windows.first?.rootViewController = homeVC
-        UIApplication.shared.windows.first?.makeKeyAndVisible()
+        -> Bool {
+            return Auth0.resumeAuth(url, options: options)
     }
     
     //MARK: Notification Delegate

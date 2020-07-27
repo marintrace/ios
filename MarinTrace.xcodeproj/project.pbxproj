@@ -25,6 +25,7 @@
 		3481D0C5248E0903005215EE /* ReportContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3481D0C4248E0903005215EE /* ReportContactsViewController.swift */; };
 		3481D0C7248EB7D0005215EE /* SymptomTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3481D0C6248EB7D0005215EE /* SymptomTableViewController.swift */; };
 		3481D0C9248EB80A005215EE /* SymptomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3481D0C8248EB80A005215EE /* SymptomTableViewCell.swift */; };
+		34B7DD4C24CE99F5007449D7 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34B7DD4B24CE99F5007449D7 /* Auth0.plist */; };
 		3C67DE643850470DE9A7DE0F /* Pods_MarinTrace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 254F1D42ACBA62F2A0D84621 /* Pods_MarinTrace.framework */; };
 		86266579B4BE42E49DEF93ED /* Pods_MarinTraceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E7909EB79CB02BB3137441 /* Pods_MarinTraceTests.framework */; };
 		9DA9F18DE52141CD58F33483 /* Pods_MarinTrace_MarinTraceUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D239C28CA6992C5BC416D7 /* Pods_MarinTrace_MarinTraceUITests.framework */; };
@@ -76,6 +77,7 @@
 		3481D0C4248E0903005215EE /* ReportContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportContactsViewController.swift; sourceTree = "<group>"; };
 		3481D0C6248EB7D0005215EE /* SymptomTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomTableViewController.swift; sourceTree = "<group>"; };
 		3481D0C8248EB80A005215EE /* SymptomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomTableViewCell.swift; sourceTree = "<group>"; };
+		34B7DD4B24CE99F5007449D7 /* Auth0.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Auth0.plist; sourceTree = "<group>"; };
 		4EEC7C7C177B4A1E7EC430C7 /* Pods-MarinTraceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarinTraceTests.release.xcconfig"; path = "Target Support Files/Pods-MarinTraceTests/Pods-MarinTraceTests.release.xcconfig"; sourceTree = "<group>"; };
 		649F9834F37521C2A5F77006 /* Pods-MarinTrace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarinTrace.debug.xcconfig"; path = "Target Support Files/Pods-MarinTrace/Pods-MarinTrace.debug.xcconfig"; sourceTree = "<group>"; };
 		8C12207C58F8FD5DFB00AA63 /* Pods-MarinTrace-MarinTraceUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarinTrace-MarinTraceUITests.release.xcconfig"; path = "Target Support Files/Pods-MarinTrace-MarinTraceUITests/Pods-MarinTrace-MarinTraceUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				3481D087248DBC6F005215EE /* Assets.xcassets */,
 				3481D089248DBC6F005215EE /* LaunchScreen.storyboard */,
 				3481D08C248DBC6F005215EE /* Info.plist */,
+				34B7DD4B24CE99F5007449D7 /* Auth0.plist */,
 				3481D0B6248DE7F2005215EE /* GoogleService-Info.plist */,
 			);
 			path = MarinTrace;
@@ -342,6 +345,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34B7DD4C24CE99F5007449D7 /* Auth0.plist in Resources */,
 				3481D0B7248DE7F2005215EE /* GoogleService-Info.plist in Resources */,
 				3481D08B248DBC6F005215EE /* LaunchScreen.storyboard in Resources */,
 				3481D088248DBC6F005215EE /* Assets.xcassets in Resources */,

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Firebase
+import Auth0
 
 class ProfileViewController: UIViewController {
 
@@ -43,19 +43,24 @@ class ProfileViewController: UIViewController {
         //clear cache
         URLCache.shared.removeAllCachedResponses()
         
-        do {
-            try Auth.auth().signOut()
-            
-            //go to log in
-            let story = UIStoryboard(name: "Main", bundle: nil)
-            let homeVC = story.instantiateViewController(withIdentifier: "LoginTableViewController") as? UINavigationController
-            homeVC!.modalPresentationStyle = .fullScreen
-            UIApplication.shared.windows.first?.rootViewController = homeVC
-            UIApplication.shared.windows.first?.makeKeyAndVisible()
-        } catch let signOutError as NSError {
-            AlertHelperFunctions.presentAlertOnVC(title: "Error", message: signOutError.localizedDescription, vc: self)
-            print(signOutError)
-            DataService.logError(error: signOutError)
+        self.showSpinner(onView: self.view)
+        Auth0.webAuth().clearSession(federated:false) {
+            self.removeSpinner()
+            credentialsManager.revoke { (_) in                
+            }
+            switch $0 {
+                case true:
+                    //go to log in
+                    DispatchQueue.main.async {
+                        let story = UIStoryboard(name: "Main", bundle: nil)
+                        let homeVC = story.instantiateViewController(withIdentifier: "LoginTableViewController") as? UINavigationController
+                        homeVC!.modalPresentationStyle = .fullScreen
+                        UIApplication.shared.windows.first?.rootViewController = homeVC
+                        UIApplication.shared.windows.first?.makeKeyAndVisible()
+                    }
+                case false:
+                    AlertHelperFunctions.presentAlertOnVC(title: "Error", message: "Couldn't log out. If this error persists please contact us.", vc: self)
+            }
         }
     }
     

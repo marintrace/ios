@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import GoogleSignIn
+import Auth0
 
 class LoginTableViewController: UITableViewController {
 
@@ -21,21 +21,47 @@ class LoginTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         tableView.separatorColor = UIColor.clear
         tableView.allowsSelection = false
-        
-        //google auth
-        GIDSignIn.sharedInstance()?.presentingViewController = self
-        
+                
     }
 
     //MARK: IBActions
     @IBAction func bransonLogIn(_ sender: Any) {
-        self.showSpinner(onView: self.view)
-        GIDSignIn.sharedInstance()?.signIn()
+        login()
     }
     
     @IBAction func maLogIn(_ sender: Any) {
-        self.showSpinner(onView: self.view)
-        GIDSignIn.sharedInstance()?.signIn()
+        login()
+    }
+    
+    func login() {
+        Auth0.webAuth().scope("openid profile email").audience("https://marintrace.us.auth0.com/userinfo")
+            .start {
+            switch $0 {
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    AlertHelperFunctions.presentAlertOnVC(title: "Error", message: "Couldn't login: "  + error.localizedDescription  + ". This may because you aren't using an @ma.org or @branson.org email account. If this error persists please contact us.", vc: self)
+                    DataService.logError(error: error)
+                }
+            case .success(let credentials):
+                credentialsManager.store(credentials: credentials)
+
+                DispatchQueue.main.async {
+                    self.showSpinner(onView: self.view)
+                    DataService.markUserAsActive { (error) in
+                        self.removeSpinner()
+                        if let activeError = error {
+                            AlertHelperFunctions.presentErrorAlertOnWindow(title: "Error", message: "Could not register your account with the server: " + activeError.localizedDescription + " If this error persists please contact us", window: UIApplication.shared.windows.first!)
+                        } else {
+                            let story = UIStoryboard(name: "Main", bundle: nil)
+                            let homeVC = story.instantiateViewController(withIdentifier: "HomeTableViewController") as? UINavigationController
+                            homeVC!.modalPresentationStyle = .fullScreen
+                            UIApplication.shared.windows.first?.rootViewController = homeVC
+                            UIApplication.shared.windows.first?.makeKeyAndVisible()
+                        }
+                    }
+                }                
+            }
+        }
     }
     
     // MARK: - Table view data source    

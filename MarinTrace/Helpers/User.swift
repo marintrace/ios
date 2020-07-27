@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Firebase
+import Auth0
 
 //MARK: User
 struct User {
@@ -27,31 +27,50 @@ struct User {
     static var email = ""
     
     //MARK: Get User Details
-    static func getDetails() {
-        
-        guard let user = Auth.auth().currentUser else {return}
-        email = user.email!
-        
-        //setup name details
-        guard let name = user.displayName else {return}
-        fullName = name
-        let namesSplit = name.components(separatedBy: " ")
-        if namesSplit.count > 1 { //if first and last name, use initials, else just use first initial
-            firstName = namesSplit[0]
-            lastName = namesSplit[1]
-            initials = String(firstName[firstName.startIndex]) + String(lastName[lastName.startIndex])
-        } else {
-            firstName = namesSplit[0]
-            initials = String(firstName[firstName.startIndex])
-        }
-        
-        //get branson or MA
-        if user.email?.contains("ma.org") ?? true {
-            school = .MA
-        } else {
-            school = .Branson
-        }
-        
-    }
     
+    /// Gets the user's details
+    /// - Parameters:
+    ///  - completion: Completion handlers
+    ///  - success: Whether the operation succeeded
+    static func getDetails(completion: @escaping(_ success:Bool) -> Void) {
+        //get token
+        credentialsManager.credentials { (error, creds) in
+            guard let credentials = creds else {
+                DataService.logError(error: error!)
+                return
+            }
+            Auth0.authentication().userInfo(withAccessToken: credentials.accessToken!).start { result in
+                switch(result) {
+                case .success(let profile):
+                    
+                    //setup name details
+                    fullName = profile.name!
+                    if let last = profile.familyName, let first = profile.givenName { //if first and last name, use initials, else just use first initial
+                        firstName = first
+                        lastName = last
+                        initials = String(firstName[firstName.startIndex]) + String(lastName[lastName.startIndex])
+                    } else if let last = profile.familyName {
+                        lastName = last
+                        initials = String(lastName[lastName.startIndex])
+                    } else if let first = profile.givenName {
+                        firstName = first
+                        initials = String(firstName[firstName.startIndex])
+                    }
+                    
+                    //get branson or MA
+                    if profile.email?.contains("ma.org") ?? false{
+                        school = .MA
+                    } else {
+                        school = .Branson
+                    }
+                    
+                    completion(true)
+                    
+                case .failure(let error):
+                    completion(false)
+                    DataService.logError(error: error)
+                }
+            }
+        }
+    }
 }

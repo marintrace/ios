@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Firebase
 import SwaggerClient
 import Alamofire
 import FirebaseCrashlytics
@@ -24,16 +23,16 @@ struct DataService {
     ///   -  error: An error
     static func getHeaders(completion: @escaping(_ token: String?, _ error: Error?) -> Void) {
         //get token
-        Auth.auth().currentUser?.getIDToken(completion: { (token, error) in
+        credentialsManager.credentials { (error, creds) in
             if error != nil {
                 completion(nil, error)
                 if error != nil {
                     logError(error: error!)
                 }
             } else {
-                completion("Bearer \(token!)", nil)
+                completion("Bearer \(creds!.accessToken!)", nil)
             }
-        })
+        }
     }
     
     /// List all users within school for contact search
@@ -46,7 +45,6 @@ struct DataService {
             if error != nil {
                 completion(nil, error)
             } else {
-                SwaggerClientAPI.basePath = "http://localhost"
                 SyncAPIAPI.listUsers(authorization: token!) { (response, apiError) in
                     if let error = apiError {
                         completion(nil, error)

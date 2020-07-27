@@ -5,6 +5,9 @@ PODS:
     - AppAuth/ExternalUserAgent (= 1.4.0)
   - AppAuth/Core (1.4.0)
   - AppAuth/ExternalUserAgent (1.4.0)
+  - Auth0 (1.26.0):
+    - JWTDecode
+    - SimpleKeychain
   - Firebase/Analytics (6.27.1):
     - Firebase/Core
   - Firebase/Auth (6.27.1):
@@ -124,6 +127,7 @@ PODS:
   - GTMSessionFetcher/Core (1.4.0)
   - GTMSessionFetcher/Full (1.4.0):
     - GTMSessionFetcher/Core (= 1.4.0)
+  - JWTDecode (2.4.1)
   - M13Checkbox (3.4.0)
   - nanopb (1.30905.0):
     - nanopb/decode (= 1.30905.0)
@@ -132,6 +136,7 @@ PODS:
   - nanopb/encode (1.30905.0)
   - PromisesObjC (1.2.9)
   - Protobuf (3.12.0)
+  - SimpleKeychain (0.11.1)
   - SwaggerClient (0.0.1):
     - Alamofire (~> 4.9.0)
   - VENTokenField (2.5.2):
@@ -139,6 +144,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.9)
+  - Auth0 (~> 1.0)
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Crashlytics
@@ -152,6 +158,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - AppAuth
+    - Auth0
     - Firebase
     - FirebaseABTesting
     - FirebaseAnalytics
@@ -171,10 +178,12 @@ SPEC REPOS:
     - GoogleUtilities
     - GTMAppAuth
     - GTMSessionFetcher
+    - JWTDecode
     - M13Checkbox
     - nanopb
     - PromisesObjC
     - Protobuf
+    - SimpleKeychain
     - VENTokenField
 
 EXTERNAL SOURCES:
@@ -184,6 +193,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
+  Auth0: bb6b64e4927e31ea62583c25bb9d2ed12b7642ee
   Firebase: 919186c8e119dd9372a45fd1dd17a8a942bc1892
   FirebaseABTesting: b7f8b6c8c9398e98bb30c4195f697b5b73a330d0
   FirebaseAnalytics: 5fa308e1b13f838d0f6dc74719ac2a72e8c5afc4
@@ -203,13 +213,15 @@ SPEC CHECKSUMS:
   GoogleUtilities: 39530bc0ad980530298e9c4af8549e991fd033b1
   GTMAppAuth: 4deac854479704f348309e7b66189e604cf5e01e
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
+  JWTDecode: 4bd4da0cdf0f8154fd467fa48499f34ec057fb88
   M13Checkbox: 6f59404540ac98ba83a3d1afac335895a40c6a5d
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   PromisesObjC: b48e0338dbbac2207e611750777895f7a5811b75
   Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
+  SimpleKeychain: 0c657949c7afff92337d2ff64052d5eb5c53823e
   SwaggerClient: 2eb691e8b10914410a60a3f4e0daf3853bb55e59
   VENTokenField: 5a19b838fb97f040e3d4c93f584b4adeaf3fc1ee
 
-PODFILE CHECKSUM: 30590e6bd563936196d355dbf8e63be98136d6e6
+PODFILE CHECKSUM: 9b166cfa1cf759466419034aad3f63593fe989d0
 
 COCOAPODS: 1.9.1

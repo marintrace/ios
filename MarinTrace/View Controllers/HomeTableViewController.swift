@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import Firebase
-import GoogleSignIn
 import CoreLocation
 
 class HomeTableViewController: UITableViewController {
@@ -18,7 +16,6 @@ class HomeTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         checkUser()
-        configViewsForUser()
         setupTableView()
     }
     
@@ -50,15 +47,30 @@ class HomeTableViewController: UITableViewController {
     
     //if no signed in user, go to login
     func checkUser() {
-        if Auth.auth().currentUser == nil {
-            self.performSegue(withIdentifier: "toLogin", sender: self)
-        } else {
-            //user exists, get details
-            User.getDetails()
-            
-            //ask to send notifications (check if asked before too)
-            askForNotification()
+        guard credentialsManager.hasValid() else {
+            DispatchQueue.main.async {
+                self.performSegue(withIdentifier: "toLogin", sender: self)
+            }
+            return
         }
+        
+        //user exists, get details
+        self.showSpinner(onView: self.view)
+        User.getDetails { (success) in
+            self.removeSpinner()
+            if success {
+                DispatchQueue.main.async {
+                    self.configViewsForUser()
+                }
+            } else {
+                DispatchQueue.main.async {
+                    AlertHelperFunctions.presentAlertOnVC(title: "Error", message: "Couldn't load user details. If this error persists please contact us." , vc: self)
+                }
+            }
+        }
+        
+        //ask to send notifications (check if asked before too)
+        askForNotification()
     }
     
     func askForNotification() {
