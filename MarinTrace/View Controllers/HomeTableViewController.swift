@@ -17,6 +17,7 @@ class HomeTableViewController: UITableViewController {
         super.viewDidLoad()
         checkUser()
         setupTableView()
+        configViewsForUser()
     }
     
     func setupTableView() {
