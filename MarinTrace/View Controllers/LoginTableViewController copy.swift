@@ -34,7 +34,7 @@ class LoginTableViewController: UITableViewController {
     }
     
     func login() {
-        Auth0.webAuth().scope("openid profile email").audience("https://marintrace.us.auth0.com/userinfo")
+        Auth0.webAuth().scope("openid profile email").audience("tracing-rest-api")
             .start {
             switch $0 {
             case .failure(let error):
