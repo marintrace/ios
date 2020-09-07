@@ -33,13 +33,14 @@ class ContactedCohortsViewController: UIViewController, UITableViewDelegate, UIT
             DataService.reportInteractions(targetIDS: targets) { (error) in
                 SpinnerHelper.hide()
                 if error != nil {
-                    AlertHelperFunctions.presentAlertOnVC(title: "Error", message: "Couldn't report contacts: " + error!.localizedDescription + " If this error persists please contact us and contact your school to report your contacts manually.", vc: self)
+                    AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't report contacts: " + error!.localizedDescription + " If this error persists please contact us and contact your school to report your contacts manually.")
                 } else {
                     self.navigationController?.popToRootViewController(animated: true)
+                    AlertHelperFunctions.presentAlert(title: "Success", message: "Reported \(targets.count) contacts.")
                 }
             }
         } else {
-            AlertHelperFunctions.presentAlertOnVC(title: "Error", message: "You must add at least one contact.", vc: self)
+            AlertHelperFunctions.presentAlert(title: "Error", message: "You must add at least one contact.")
         }
     }
     

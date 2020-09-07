@@ -59,7 +59,7 @@ class ProfileViewController: UIViewController {
                         UIApplication.shared.windows.first?.makeKeyAndVisible()
                     }
                 case false:
-                    AlertHelperFunctions.presentAlertOnVC(title: "Error", message: "Couldn't log out. If this error persists please contact us.", vc: self)
+                    AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't log out. If this error persists please contact us.")
             }
         }
     }

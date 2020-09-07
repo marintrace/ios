@@ -23,7 +23,6 @@ struct DataService {
     ///   - token: The  token
     ///   -  error: An error
     static func getHeaders(completion: @escaping(_ token: String?, _ error: Error?) -> Void) {
-        SwaggerClientAPI.basePath = "http://marintracingapp.org/rest" //TODO - https
         credentialsManager.credentials { (error, creds) in
             if error != nil {
                 completion(nil, error)
@@ -107,12 +106,13 @@ struct DataService {
     ///   -  completion: Completion handler callback
     ///   -  symptoms: The user's symptoms
     ///   -  error: An error
-    static func reportSymptoms(symptoms: SwaggerClient.SymptomReport, completion: @escaping(_ error: Error?) -> Void) {
+    static func reportSymptoms(symptoms: Int, completion: @escaping(_ error: Error?) -> Void) {
         getHeaders { (token, error) in
             if error != nil {
                 completion(error)
             } else {
-                AsyncAPIAPI.queueSymptomReport(body: symptoms, authorization: token!) { (_, apiError) in
+                let body = SymptomReport(timestamp: nil, numSymptoms: symptoms)
+                AsyncAPIAPI.queueSymptomReport(body: body, authorization: token!) { (_, apiError) in
                     if let error = apiError {
                         completion(error)
                         logError(error: error)
@@ -134,7 +134,7 @@ struct DataService {
             if error != nil {
                 completion(error)
             } else {
-                AsyncAPIAPI.queueTestReport(body: TestReport(testType: testType), authorization: token!) { (_, apiError) in
+                AsyncAPIAPI.queueTestReport(body: TestReport(timestamp: nil, testType: testType), authorization: token!) { (_, apiError) in
                     if let error = apiError {
                         completion(error)
                         logError(error: error)

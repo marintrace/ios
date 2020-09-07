@@ -16,13 +16,16 @@ public struct TestReport: Codable {
         case positive = "positive"
         case negative = "negative"
     }
+    public var timestamp: Int?
     public var testType: TestType
 
-    public init(testType: TestType) {
+    public init(timestamp: Int?, testType: TestType) {
+        self.timestamp = timestamp
         self.testType = testType
     }
 
     public enum CodingKeys: String, CodingKey { 
+        case timestamp
         case testType = "test_type"
     }
 

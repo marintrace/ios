@@ -17,23 +17,15 @@ import SVProgressHUD
 struct AlertHelperFunctions {
     
     //function for presenting a simple error from app delegate
-    static func presentErrorAlertOnWindow(title: String, message: String, window: UIWindow) {
+    static func presentAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
         let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
             UIAlertAction in
         }
         alertController.addAction(okAction)
-        window.rootViewController?.present(alertController, animated: true, completion: nil)
-    }
-    
-    //function for presenting a simple error from a view controller
-    static func presentAlertOnVC(title: String, message: String, vc: UIViewController) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
-        let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
-            UIAlertAction in
+        DispatchQueue.main.async {
+            AppDelegate.standard.window!.rootViewController?.present(alertController, animated: true, completion: nil)
         }
-        alertController.addAction(okAction)
-       vc.present(alertController, animated: true, completion: nil)
     }
     
 }

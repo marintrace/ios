@@ -12,47 +12,17 @@ import Foundation
 
 public struct SymptomReport: Codable {
 
-    public var feverChills: Bool?
-    public var cough: Bool?
-    public var shortnessBreath: Bool?
-    public var difficultyBreathing: Bool?
-    public var fatigue: Bool?
-    public var muscleBodyAches: Bool?
-    public var headache: Bool?
-    public var lossTasteSmell: Bool?
-    public var soreThroat: Bool?
-    public var congestionRunnyNose: Bool?
-    public var nauseaVomiting: Bool?
-    public var diarrhea: Bool?
+    public var timestamp: Int?
+    public var numSymptoms: Int?
 
-    public init(feverChills: Bool?, cough: Bool?, shortnessBreath: Bool?, difficultyBreathing: Bool?, fatigue: Bool?, muscleBodyAches: Bool?, headache: Bool?, lossTasteSmell: Bool?, soreThroat: Bool?, congestionRunnyNose: Bool?, nauseaVomiting: Bool?, diarrhea: Bool?) {
-        self.feverChills = feverChills
-        self.cough = cough
-        self.shortnessBreath = shortnessBreath
-        self.difficultyBreathing = difficultyBreathing
-        self.fatigue = fatigue
-        self.muscleBodyAches = muscleBodyAches
-        self.headache = headache
-        self.lossTasteSmell = lossTasteSmell
-        self.soreThroat = soreThroat
-        self.congestionRunnyNose = congestionRunnyNose
-        self.nauseaVomiting = nauseaVomiting
-        self.diarrhea = diarrhea
+    public init(timestamp: Int?, numSymptoms: Int?) {
+        self.timestamp = timestamp
+        self.numSymptoms = numSymptoms
     }
 
     public enum CodingKeys: String, CodingKey { 
-        case feverChills = "fever_chills"
-        case cough
-        case shortnessBreath = "shortness_breath"
-        case difficultyBreathing = "difficulty_breathing"
-        case fatigue
-        case muscleBodyAches = "muscle_body_aches"
-        case headache
-        case lossTasteSmell = "loss_taste_smell"
-        case soreThroat = "sore_throat"
-        case congestionRunnyNose = "congestion_runny_nose"
-        case nauseaVomiting = "nausea_vomiting"
-        case diarrhea
+        case timestamp
+        case numSymptoms = "num_symptoms"
     }
 
 }

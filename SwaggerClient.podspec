@@ -9,6 +9,4 @@ Pod::Spec.new do |s|
   s.license = 'Proprietary'
   s.source_files = 'SwaggerClient/Classes/**/*.swift'
   s.dependency 'Alamofire', '~> 4.9.0'
-  s.summary = 'Swagger Swift SDK - Amrit'
-  s.homepage = "http://swagger.io/"
 end

@@ -39,7 +39,7 @@ class LoginTableViewController: UITableViewController {
             switch $0 {
             case .failure(let error):
                 DispatchQueue.main.async {
-                    AlertHelperFunctions.presentAlertOnVC(title: "Error", message: "Couldn't login: "  + error.localizedDescription  + ". This may because you aren't using an @ma.org or @branson.org email account. If this error persists please contact us.", vc: self)
+                    AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't login: "  + error.localizedDescription  + ". This may because you aren't using an @ma.org or @branson.org email account. If this error persists please contact us.")
                     DataService.logError(error: error)
                 }
             case .success(let credentials):
@@ -50,7 +50,7 @@ class LoginTableViewController: UITableViewController {
                     DataService.markUserAsActive { (error) in
                         SpinnerHelper.hide()
                         if let activeError = error {
-                            AlertHelperFunctions.presentAlertOnVC(title: "Error", message: "Could not register your account with the server: " + activeError.localizedDescription + " If this error persists please contact us.", vc: self)
+                            AlertHelperFunctions.presentAlert(title: "Error", message: "Could not register your account with the server: " + activeError.localizedDescription + " If this error persists please contact us.")
                         } else {
                             let story = UIStoryboard(name: "Main", bundle: nil)
                             let homeVC = story.instantiateViewController(withIdentifier: "HomeTableViewController") as? UINavigationController

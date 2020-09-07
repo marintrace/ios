@@ -65,7 +65,7 @@ class HomeTableViewController: UITableViewController {
                 }
             } else {
                 DispatchQueue.main.async {
-                    AlertHelperFunctions.presentAlertOnVC(title: "Error", message: "Couldn't load user details. If this error persists please contact us." , vc: self)
+                    AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't load user details. If this error persists please contact us.")
                 }
             }
         }
@@ -108,9 +108,9 @@ class HomeTableViewController: UITableViewController {
             DataService.reportTest(testType: .negative) { (error) in
                 SpinnerHelper.hide()
                 if error != nil {
-                    AlertHelperFunctions.presentAlertOnVC(title: "Error", message: "Couldn't report test result: " + error!.localizedDescription + " If this error persists please contact us and contact the school to report the test result manually." , vc: self)
+                    AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't report test result: " + error!.localizedDescription + " If this error persists please contact us and contact the school to report the test result manually.")
                 } else {
-                    AlertHelperFunctions.presentAlertOnVC(title: "Success", message: "Your test was reported", vc: self)
+                    AlertHelperFunctions.presentAlert(title: "Success", message: "Your test was reported")
                 }
             }
         }))
@@ -125,9 +125,9 @@ class HomeTableViewController: UITableViewController {
             DataService.reportTest(testType: .positive) { (error) in
                 SpinnerHelper.hide()
                 if error != nil {
-                    AlertHelperFunctions.presentAlertOnVC(title: "Error", message: "Couldn't report test result: " + error!.localizedDescription + " If this error persists please contact us and contact the school to report the test result manually." , vc: self)
+                    AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't report test result: " + error!.localizedDescription + " If this error persists please contact us and contact the school to report the test result manually.")
                 } else {
-                    AlertHelperFunctions.presentAlertOnVC(title: "Success", message: "Your test was reported", vc: self)
+                    AlertHelperFunctions.presentAlert(title: "Success", message: "Your test was reported")
                 }
             }
         }))

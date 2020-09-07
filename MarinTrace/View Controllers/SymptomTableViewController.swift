@@ -40,7 +40,6 @@ class SymptomTableViewController: UITableViewController {
 
     @IBAction func donePressed(_ sender: Any) {
         var checkedSymptoms = 0
- 
         for symptomIndex in 0..<symptoms.count {
             let cell = tableView.cellForRow(at: IndexPath(row: symptomIndex, section: 0)) as! SymptomTableViewCell
             if cell.checkbox.checkState == .checked {
@@ -48,19 +47,19 @@ class SymptomTableViewController: UITableViewController {
             }
         }
         
-        //TODO - new swagger
-        /*SpinnerHelper.show()
-        DataService.reportSymptoms(symptoms: SwaggerClient.SymptomReport(feverChills: feverChills, cough: cough, shortnessBreath: shortnessBreath, difficultyBreathing: difficultyBreathing, fatigue: fatigue, muscleBodyAches: muscleBodyAches, headache: headache, lossTasteSmell: lossTasteSmell, soreThroat: soreThroat, congestionRunnyNose: congestionRunnyNose, nauseaVomiting: nauseaVomiting, diarrhea: diarrhea)) { (error) in
+        SpinnerHelper.show()
+        DataService.reportSymptoms(symptoms: checkedSymptoms) { (error) in
             SpinnerHelper.hide()
             if error != nil {
-                AlertHelperFunctions.presentAlertOnVC(title: "Error", message: "Could't report symptoms: " +  error!.localizedDescription + " If this error persists please contact us and please contact your school to report your symptoms manually.", vc: self)
+                AlertHelperFunctions.presentAlert(title: "Error", message: "Could't report symptoms: " +  error!.localizedDescription + " If this error persists please contact us and please contact your school to report your symptoms manually.")
             } else {
                 //regenerate notifications
                 NotificationScheduler.scheduleNotifications()
                 
                 self.navigationController?.popViewController(animated: true)
+                AlertHelperFunctions.presentAlert(title: "Success", message: "Reported \(checkedSymptoms) symptoms.")
             }
-        }*/
+        }
     }
     
     // MARK: - Table view data source

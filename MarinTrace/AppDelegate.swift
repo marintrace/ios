@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import Auth0
 import SVProgressHUD
+import SwaggerClient
 
 let credentialsManager = CredentialsManager(authentication: Auth0.authentication())
 
@@ -38,6 +39,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         //setup spinner
         SVProgressHUD.setDefaultMaskType(.clear) //block user interaction
         SVProgressHUD.setDefaultStyle(.dark) //dark coloring
+        
+        //set api endpoint
+        SwaggerClientAPI.basePath = "http://marintracingapp.org/rest" //TODO - https
         
         return true
     }
