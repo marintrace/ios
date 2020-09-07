@@ -39,45 +39,19 @@ class SymptomTableViewController: UITableViewController {
     }
 
     @IBAction func donePressed(_ sender: Any) {
-        
-        var feverChills = false
-        var cough = false
-        var shortnessBreath = false
-        var difficultyBreathing = false
-        var fatigue = false
-        var muscleBodyAches = false
-        var headache = false
-        var lossTasteSmell = false
-        var soreThroat = false
-        var congestionRunnyNose = false
-        var nauseaVomiting = false
-        var diarrhea = false
-        
+        var checkedSymptoms = 0
+ 
         for symptomIndex in 0..<symptoms.count {
             let cell = tableView.cellForRow(at: IndexPath(row: symptomIndex, section: 0)) as! SymptomTableViewCell
             if cell.checkbox.checkState == .checked {
-                switch symptomIndex {
-                case 0: feverChills = true
-                case 1: cough = true
-                case 2: shortnessBreath = true
-                case 3: difficultyBreathing = true
-                case 4: fatigue = true
-                case 5: muscleBodyAches = true
-                case 6: headache = true
-                case 7: lossTasteSmell = true
-                case 8: soreThroat = true
-                case 9: congestionRunnyNose = true
-                case 10: nauseaVomiting = true
-                case 11: diarrhea = true
-                default:
-                    break
-                }
+                checkedSymptoms += 1
             }
         }
         
-        self.showSpinner(onView: self.view)
+        //TODO - new swagger
+        /*SpinnerHelper.show()
         DataService.reportSymptoms(symptoms: SwaggerClient.SymptomReport(feverChills: feverChills, cough: cough, shortnessBreath: shortnessBreath, difficultyBreathing: difficultyBreathing, fatigue: fatigue, muscleBodyAches: muscleBodyAches, headache: headache, lossTasteSmell: lossTasteSmell, soreThroat: soreThroat, congestionRunnyNose: congestionRunnyNose, nauseaVomiting: nauseaVomiting, diarrhea: diarrhea)) { (error) in
-            self.removeSpinner()
+            SpinnerHelper.hide()
             if error != nil {
                 AlertHelperFunctions.presentAlertOnVC(title: "Error", message: "Could't report symptoms: " +  error!.localizedDescription + " If this error persists please contact us and please contact your school to report your symptoms manually.", vc: self)
             } else {
@@ -86,7 +60,7 @@ class SymptomTableViewController: UITableViewController {
                 
                 self.navigationController?.popViewController(animated: true)
             }
-        }
+        }*/
     }
     
     // MARK: - Table view data source

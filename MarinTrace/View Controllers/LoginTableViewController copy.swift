@@ -46,9 +46,9 @@ class LoginTableViewController: UITableViewController {
                 credentialsManager.store(credentials: credentials)
 
                 DispatchQueue.main.async {
-                    self.showSpinner(onView: self.view)
+                    SpinnerHelper.show()
                     DataService.markUserAsActive { (error) in
-                        self.removeSpinner()
+                        SpinnerHelper.hide()
                         if let activeError = error {
                             AlertHelperFunctions.presentAlertOnVC(title: "Error", message: "Could not register your account with the server: " + activeError.localizedDescription + " If this error persists please contact us.", vc: self)
                         } else {

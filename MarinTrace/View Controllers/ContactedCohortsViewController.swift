@@ -29,9 +29,9 @@ class ContactedCohortsViewController: UIViewController, UITableViewDelegate, UIT
         if contacts.count > 0 {
             //process contacts into ids
             let targets = contacts.map({$0.email})
-            showSpinner(onView: self.view)
+            SpinnerHelper.show()
             DataService.reportInteractions(targetIDS: targets) { (error) in
-                self.removeSpinner()
+                SpinnerHelper.hide()
                 if error != nil {
                     AlertHelperFunctions.presentAlertOnVC(title: "Error", message: "Couldn't report contacts: " + error!.localizedDescription + " If this error persists please contact us and contact your school to report your contacts manually.", vc: self)
                 } else {

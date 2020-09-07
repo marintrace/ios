@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import Auth0
+import SVProgressHUD
 
 let credentialsManager = CredentialsManager(authentication: Auth0.authentication())
 
@@ -16,6 +17,11 @@ let credentialsManager = CredentialsManager(authentication: Auth0.authentication
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     
     var window: UIWindow?
+    //for centering spinner
+    //https://github.com/SVProgressHUD/SVProgressHUD/issues/1002#issuecomment-589752702
+    static var standard: AppDelegate {
+        return UIApplication.shared.delegate as! AppDelegate
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -28,6 +34,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         //set delegate
         UNUserNotificationCenter.current().delegate = self
+        
+        //setup spinner
+        SVProgressHUD.setDefaultMaskType(.clear) //block user interaction
+        SVProgressHUD.setDefaultStyle(.dark) //dark coloring
         
         return true
     }

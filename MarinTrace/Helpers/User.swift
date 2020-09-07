@@ -43,6 +43,9 @@ struct User {
                 switch(result) {
                 case .success(let profile):
                     
+                    //set email
+                    email = profile.email!
+                    
                     //setup name details
                     fullName = profile.name!
                     if let last = profile.familyName, let first = profile.givenName { //if first and last name, use initials, else just use first initial

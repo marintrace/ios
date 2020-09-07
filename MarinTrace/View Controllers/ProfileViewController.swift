@@ -43,9 +43,9 @@ class ProfileViewController: UIViewController {
         //clear cache
         URLCache.shared.removeAllCachedResponses()
         
-        self.showSpinner(onView: self.view)
+        SpinnerHelper.show()
         Auth0.webAuth().clearSession(federated:false) {
-            self.removeSpinner()
+            SpinnerHelper.hide()
             credentialsManager.revoke { (_) in                
             }
             switch $0 {

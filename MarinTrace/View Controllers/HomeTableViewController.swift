@@ -56,9 +56,9 @@ class HomeTableViewController: UITableViewController {
         }
         
         //user exists, get details
-        self.showSpinner(onView: self.view)
+        SpinnerHelper.show()
         User.getDetails { (success) in
-            self.removeSpinner()
+            SpinnerHelper.hide()
             if success {
                 DispatchQueue.main.async {
                     self.configViewsForUser()
@@ -104,9 +104,9 @@ class HomeTableViewController: UITableViewController {
         let alert = UIAlertController(title: "Are you sure?", message: "Reporting a NEGATIVE test cannot be undone.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Report", style: .destructive, handler: { (_) in
-            self.showSpinner(onView: self.view)
+            SpinnerHelper.show()
             DataService.reportTest(testType: .negative) { (error) in
-                self.removeSpinner()
+                SpinnerHelper.hide()
                 if error != nil {
                     AlertHelperFunctions.presentAlertOnVC(title: "Error", message: "Couldn't report test result: " + error!.localizedDescription + " If this error persists please contact us and contact the school to report the test result manually." , vc: self)
                 } else {
@@ -121,9 +121,9 @@ class HomeTableViewController: UITableViewController {
         let alert = UIAlertController(title: "Are you sure?", message: "Reporting a POSITIVE test cannot be undone and will notify the school immediately.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Report", style: .destructive, handler: { (_) in
-            self.showSpinner(onView: self.view)
+            SpinnerHelper.show()
             DataService.reportTest(testType: .positive) { (error) in
-                self.removeSpinner()
+                SpinnerHelper.hide()
                 if error != nil {
                     AlertHelperFunctions.presentAlertOnVC(title: "Error", message: "Couldn't report test result: " + error!.localizedDescription + " If this error persists please contact us and contact the school to report the test result manually." , vc: self)
                 } else {

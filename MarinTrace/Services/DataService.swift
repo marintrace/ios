@@ -23,6 +23,7 @@ struct DataService {
     ///   - token: The  token
     ///   -  error: An error
     static func getHeaders(completion: @escaping(_ token: String?, _ error: Error?) -> Void) {
+        SwaggerClientAPI.basePath = "http://marintracingapp.org/rest" //TODO - https
         credentialsManager.credentials { (error, creds) in
             if error != nil {
                 completion(nil, error)

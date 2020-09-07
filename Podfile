@@ -16,6 +16,7 @@ target 'MarinTrace' do
   pod 'M13Checkbox'
   pod 'SwaggerClient', :path => "./"
   pod 'Auth0', '~> 1.0'
+  pod 'SVProgressHUD'
 
   target 'MarinTraceTests' do
     inherit! :search_paths

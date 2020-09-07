@@ -42,9 +42,9 @@ class ReportContactsViewController: UIViewController, VENTokenFieldDelegate, VEN
     }
     
     func getData() {
-        self.showSpinner(onView: self.view)
+        SpinnerHelper.show()
         DataService.listUsers { (returnedContacts, error) in
-            self.removeSpinner()
+            SpinnerHelper.hide()
             if error != nil {
                 AlertHelperFunctions.presentAlertOnVC(title: "Error", message: "Couldn't fetch other people: " + error!.localizedDescription + " If this error persists please contact us and contact your school to manually report your contacts.", vc: self)
             } else {
@@ -54,10 +54,10 @@ class ReportContactsViewController: UIViewController, VENTokenFieldDelegate, VEN
         }
     }
     
-    func getSuggestions(text: String) { //filter for user input, also make sure user not already selected
+    func getSuggestions(text: String) { //filter for user input, also make sure user not already selected + can't select self
         suggestions = contactOptions.filter({($0.firstName + " " + $0.lastName).contains(text)})
         suggestions = suggestions.filter { (contact) -> Bool in
-            return !contacts.contains(where: {$0.email  == contact.email})
+            return !contacts.contains(where: {$0.email  == contact.email}) && contact.email != User.email
         }
         suggestionTableView.reloadData()
     }
