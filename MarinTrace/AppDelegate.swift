@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         SVProgressHUD.setDefaultStyle(.dark) //dark coloring
         
         //set api endpoint
-        SwaggerClientAPI.basePath = "http://marintracingapp.org/rest" //TODO - https
+        SwaggerClientAPI.basePath = "https://api.marintracingapp.org"
         
         return true
     }
