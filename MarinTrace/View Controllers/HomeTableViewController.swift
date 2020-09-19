@@ -55,6 +55,16 @@ class HomeTableViewController: UITableViewController {
             return
         }
         
+        //check if they've agreed to privacy policy
+        if !UserDefaults.standard.bool(forKey: "agreed") {
+            //show it
+            let story = UIStoryboard(name: "Main", bundle: nil)
+            let homeVC = story.instantiateViewController(withIdentifier: "PrivacyPolicyViewController") as? UINavigationController
+            homeVC!.modalPresentationStyle = .fullScreen
+            UIApplication.shared.windows.first?.rootViewController = homeVC
+            UIApplication.shared.windows.first?.makeKeyAndVisible()
+        }
+        
         //user exists, get details
         SpinnerHelper.show()
         User.getDetails { (success) in
@@ -75,7 +85,6 @@ class HomeTableViewController: UITableViewController {
     }
     
     func askForNotification() {
-        
         //if haven't already asked before, prompt
         if !UserDefaults.standard.bool(forKey: "asked_for_notification") {
             let alert = UIAlertController(title: "Enable Symptoms Reminder?", message: "Would you like us to send you a reminder to report symptoms before you get to school?", preferredStyle: .alert)
@@ -97,7 +106,6 @@ class HomeTableViewController: UITableViewController {
             
             self.present(alert, animated: true, completion: nil)
         }
-        
     }
     
     @IBAction func reportNegativeTest(_ sender: Any) {
@@ -132,6 +140,13 @@ class HomeTableViewController: UITableViewController {
             }
         }))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func viewPrivacyPolicy(_ sender: Any) {
+        self.showSafariViewController(url: "https://marintracingapp.org/privacy.html")
+    }
+    @IBAction func viewSecurityPrecautions(_ sender: Any) {
+        self.showSafariViewController(url: "https://marintracingapp.org/security.html")
     }
     
     @IBAction func profileTapped(_ sender: Any) {

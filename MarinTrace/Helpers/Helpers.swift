@@ -11,6 +11,7 @@ import UIKit
 import CoreLocation
 import UserNotifications
 import SVProgressHUD
+import SafariServices
 
 //MARK: Structs
 
@@ -220,5 +221,17 @@ extension UIColor {
         getRed(&r, green: &g, blue: &b, alpha: &a)
         let rgb:Int = (Int)(r*255)<<16 | (Int)(g*255)<<8 | (Int)(b*255)<<0
         return String(format:"#%06x", rgb)
+    }
+}
+
+extension UIViewController {
+    func showSafariViewController(url: String) {
+        if let url = URL(string: url) {
+            let config = SFSafariViewController.Configuration()
+            config.entersReaderIfAvailable = true
+
+            let vc = SFSafariViewController(url: url, configuration: config)
+            self.present(vc, animated: true)
+        }
     }
 }
