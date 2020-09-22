@@ -24,12 +24,30 @@ class SymptomTableViewController: UITableViewController {
         tableView.allowsSelection = false
         
         //add header with description
-        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50))
-        let label = UILabel(frame: CGRect(x: 14, y: 0, width: self.view.frame.width-28, height: 40))
-        label.text = "Have you recently experienced any of these symptoms in the last 2-14 days?"
-        label.font = UIFont.systemFont(ofSize: 14, weight: .light)
-        label.numberOfLines = 2
-        label.adjustsFontSizeToFitWidth = true
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 110))
+        //let label = UILabel(frame: CGRect(x: 14, y: 0, width: self.view.frame.width-28, height: 40))
+//        label.text = ""
+//        label.font = UIFont.systemFont(ofSize: 14, weight: .light)
+//        label.numberOfLines = 2
+//        label.adjustsFontSizeToFitWidth = true
+//        headerView.addSubview(label)
+//        tableView.tableHeaderView = headerView
+        let label = UITextView(frame: CGRect(x: 14, y: 0, width: self.view.frame.width-28, height: 100))
+        //link text
+        let descriptionText = NSMutableAttributedString(string:"Have you recently experienced any of these symptoms in the last 2-14 days? This list of symptoms is from the Center For Disease Control's ", attributes: [.font:UIFont.systemFont(ofSize: 14, weight: .light)])
+        let linkText = NSMutableAttributedString(string: "\"Symptoms of Coronavirus\"", attributes: [NSAttributedString.Key.link: URL(string: "https://www.cdc.gov/coronavirus/2019-ncov/symptoms-testing/symptoms.html")!, .font:UIFont.systemFont(ofSize: 14, weight: .light)])
+        let endText = NSMutableAttributedString(string:" webpage.", attributes: [.font:UIFont.systemFont(ofSize: 14, weight: .light)])
+        descriptionText.append(linkText)
+        descriptionText.append(endText)
+        //set the link
+        label.attributedText = descriptionText
+        label.isUserInteractionEnabled = true
+        label.isEditable = false
+        label.backgroundColor = .clear
+        label.translatesAutoresizingMaskIntoConstraints = true
+        label.sizeToFit()
+        label.isScrollEnabled = false
+        headerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: label.frame.height + 10)
         headerView.addSubview(label)
         tableView.tableHeaderView = headerView
         
@@ -37,7 +55,12 @@ class SymptomTableViewController: UITableViewController {
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 1))
         
     }
-
+    
+    override func viewDidAppear(_ animated: Bool) {
+        tableView.setNeedsDisplay()
+        tableView.reloadData()
+    }
+    
     @IBAction func donePressed(_ sender: Any) {
         var checkedSymptoms = 0
         for symptomIndex in 0..<symptoms.count {
