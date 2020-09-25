@@ -19,7 +19,7 @@ struct AlertHelperFunctions {
     
     //function for presenting a simple error from app delegate
     static func presentAlert(title: String, message: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
             UIAlertAction in
         }
@@ -233,5 +233,17 @@ extension UIViewController {
             let vc = SFSafariViewController(url: url, configuration: config)
             self.present(vc, animated: true)
         }
+    }
+}
+
+extension Collection where Iterator.Element == String {
+    func joinedWithComma() -> String {
+        var string = joined(separator: ", ")
+
+        if let lastCommaRange = string.range(of: ", ", options: .backwards) {
+            string.replaceSubrange(lastCommaRange, with: " and ")
+        }
+
+        return string
     }
 }

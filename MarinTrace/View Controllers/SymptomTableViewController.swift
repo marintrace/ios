@@ -79,6 +79,9 @@ class SymptomTableViewController: UITableViewController {
                 //regenerate notifications
                 NotificationScheduler.scheduleNotifications()
                 
+                //backup
+                RealmHelper.logItem(data: "Reported \(checkedSymptoms) symptoms")
+                
                 self.navigationController?.popViewController(animated: true)
                 AlertHelperFunctions.presentAlert(title: "Success", message: "Reported \(checkedSymptoms) symptoms.")
             }

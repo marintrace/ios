@@ -35,6 +35,11 @@ class ContactedCohortsViewController: UIViewController, UITableViewDelegate, UIT
                 if error != nil {
                     AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't report contacts: " + error!.localizedDescription + " If this error persists please contact us and contact your school to report your contacts manually.")
                 } else {
+                    //backup request
+                    let contactString = targets.joinedWithComma()
+                    let backupString = "Reported contacts: \(contactString)"
+                    RealmHelper.logItem(data: backupString)
+                    
                     self.navigationController?.popToRootViewController(animated: true)
                     AlertHelperFunctions.presentAlert(title: "Success", message: "Reported \(targets.count) contacts.")
                 }

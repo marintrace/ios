@@ -17,6 +17,8 @@ target 'MarinTrace' do
   pod 'SwaggerClient', :path => "./"
   pod 'Auth0', '~> 1.0'
   pod 'SVProgressHUD'
+  pod 'RealmSwift'
+  pod 'KeychainSwift', '~> 19.0'
 
   target 'MarinTraceTests' do
     inherit! :search_paths
@@ -28,3 +30,11 @@ target 'MarinTrace' do
   end
 
 end
+
+post_install do |installer|
+     installer.pods_project.targets.each do |target|
+           target.build_configurations.each do |config|
+                 config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
+           end
+     end
+ end

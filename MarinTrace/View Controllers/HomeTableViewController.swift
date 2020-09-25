@@ -118,6 +118,9 @@ class HomeTableViewController: UITableViewController {
                 if error != nil {
                     AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't report test result: " + error!.localizedDescription + " If this error persists please contact us and contact the school to report the test result manually.")
                 } else {
+                    //backup
+                    RealmHelper.logItem(data: "Reported negative test")
+                    
                     AlertHelperFunctions.presentAlert(title: "Success", message: "Your test was reported")
                 }
             }
@@ -135,6 +138,9 @@ class HomeTableViewController: UITableViewController {
                 if error != nil {
                     AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't report test result: " + error!.localizedDescription + " If this error persists please contact us and contact the school to report the test result manually.")
                 } else {
+                    //backup
+                    RealmHelper.logItem(data: "Reported positive test")
+                    
                     AlertHelperFunctions.presentAlert(title: "Success", message: "Your test was reported")
                 }
             }

@@ -19,7 +19,7 @@
 		3481D0AF248DCA9D005215EE /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3481D0AE248DCA9D005215EE /* HomeTableViewController.swift */; };
 		3481D0B3248DCE6D005215EE /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3481D0B2248DCE6D005215EE /* Helpers.swift */; };
 		3481D0B7248DE7F2005215EE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3481D0B6248DE7F2005215EE /* GoogleService-Info.plist */; };
-		3481D0B9248DF847005215EE /* LoginTableViewController copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3481D0B8248DF847005215EE /* LoginTableViewController copy.swift */; };
+		3481D0B9248DF847005215EE /* LoginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3481D0B8248DF847005215EE /* LoginTableViewController.swift */; };
 		3481D0BF248E00E8005215EE /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3481D0BE248E00E8005215EE /* DataService.swift */; };
 		3481D0C3248E0636005215EE /* ContactedCohortsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3481D0C2248E0636005215EE /* ContactedCohortsViewController.swift */; };
 		3481D0C5248E0903005215EE /* ReportContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3481D0C4248E0903005215EE /* ReportContactsViewController.swift */; };
@@ -27,6 +27,9 @@
 		3481D0C9248EB80A005215EE /* SymptomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3481D0C8248EB80A005215EE /* SymptomTableViewCell.swift */; };
 		34ADF054251584F800323121 /* PrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34ADF053251584F800323121 /* PrivacyPolicyViewController.swift */; };
 		34B7DD4C24CE99F5007449D7 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34B7DD4B24CE99F5007449D7 /* Auth0.plist */; };
+		34D28258251D688400AF2BE2 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D28257251D688400AF2BE2 /* RealmService.swift */; };
+		34D28260251D72DA00AF2BE2 /* ReportHistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D2825F251D72DA00AF2BE2 /* ReportHistoryTableViewController.swift */; };
+		34D28268251D763000AF2BE2 /* BackupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D28267251D763000AF2BE2 /* BackupTableViewCell.swift */; };
 		3C67DE643850470DE9A7DE0F /* Pods_MarinTrace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 254F1D42ACBA62F2A0D84621 /* Pods_MarinTrace.framework */; };
 		86266579B4BE42E49DEF93ED /* Pods_MarinTraceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E7909EB79CB02BB3137441 /* Pods_MarinTraceTests.framework */; };
 		9DA9F18DE52141CD58F33483 /* Pods_MarinTrace_MarinTraceUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D239C28CA6992C5BC416D7 /* Pods_MarinTrace_MarinTraceUITests.framework */; };
@@ -72,7 +75,7 @@
 		3481D0AE248DCA9D005215EE /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		3481D0B2248DCE6D005215EE /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		3481D0B6248DE7F2005215EE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		3481D0B8248DF847005215EE /* LoginTableViewController copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoginTableViewController copy.swift"; sourceTree = "<group>"; };
+		3481D0B8248DF847005215EE /* LoginTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTableViewController.swift; sourceTree = "<group>"; };
 		3481D0BE248E00E8005215EE /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		3481D0C2248E0636005215EE /* ContactedCohortsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactedCohortsViewController.swift; sourceTree = "<group>"; };
 		3481D0C4248E0903005215EE /* ReportContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportContactsViewController.swift; sourceTree = "<group>"; };
@@ -80,6 +83,9 @@
 		3481D0C8248EB80A005215EE /* SymptomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomTableViewCell.swift; sourceTree = "<group>"; };
 		34ADF053251584F800323121 /* PrivacyPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyViewController.swift; sourceTree = "<group>"; };
 		34B7DD4B24CE99F5007449D7 /* Auth0.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Auth0.plist; sourceTree = "<group>"; };
+		34D28257251D688400AF2BE2 /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
+		34D2825F251D72DA00AF2BE2 /* ReportHistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportHistoryTableViewController.swift; sourceTree = "<group>"; };
+		34D28267251D763000AF2BE2 /* BackupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupTableViewCell.swift; sourceTree = "<group>"; };
 		4EEC7C7C177B4A1E7EC430C7 /* Pods-MarinTraceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarinTraceTests.release.xcconfig"; path = "Target Support Files/Pods-MarinTraceTests/Pods-MarinTraceTests.release.xcconfig"; sourceTree = "<group>"; };
 		649F9834F37521C2A5F77006 /* Pods-MarinTrace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarinTrace.debug.xcconfig"; path = "Target Support Files/Pods-MarinTrace/Pods-MarinTrace.debug.xcconfig"; sourceTree = "<group>"; };
 		8C12207C58F8FD5DFB00AA63 /* Pods-MarinTrace-MarinTraceUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarinTrace-MarinTraceUITests.release.xcconfig"; path = "Target Support Files/Pods-MarinTrace-MarinTraceUITests/Pods-MarinTrace-MarinTraceUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -187,13 +193,14 @@
 		3481D0B0248DCE17005215EE /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				3481D0B8248DF847005215EE /* LoginTableViewController copy.swift */,
+				3481D0B8248DF847005215EE /* LoginTableViewController.swift */,
 				3481D0AE248DCA9D005215EE /* HomeTableViewController.swift */,
 				3481D0C2248E0636005215EE /* ContactedCohortsViewController.swift */,
 				3481D0C4248E0903005215EE /* ReportContactsViewController.swift */,
 				3481D0C6248EB7D0005215EE /* SymptomTableViewController.swift */,
 				340CE278248F407B0094AC52 /* ProfileViewController.swift */,
 				34ADF053251584F800323121 /* PrivacyPolicyViewController.swift */,
+				34D2825F251D72DA00AF2BE2 /* ReportHistoryTableViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -201,6 +208,7 @@
 		3481D0B1248DCE4A005215EE /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				34D28267251D763000AF2BE2 /* BackupTableViewCell.swift */,
 				3481D0B2248DCE6D005215EE /* Helpers.swift */,
 				340CE276248F3A110094AC52 /* User.swift */,
 			);
@@ -219,6 +227,7 @@
 			isa = PBXGroup;
 			children = (
 				3481D0BE248E00E8005215EE /* DataService.swift */,
+				34D28257251D688400AF2BE2 /* RealmService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -537,11 +546,14 @@
 				3481D081248DBC6A005215EE /* SceneDelegate.swift in Sources */,
 				34ADF054251584F800323121 /* PrivacyPolicyViewController.swift in Sources */,
 				3481D0AF248DCA9D005215EE /* HomeTableViewController.swift in Sources */,
+				34D28260251D72DA00AF2BE2 /* ReportHistoryTableViewController.swift in Sources */,
 				3481D0B3248DCE6D005215EE /* Helpers.swift in Sources */,
 				3481D0C5248E0903005215EE /* ReportContactsViewController.swift in Sources */,
-				3481D0B9248DF847005215EE /* LoginTableViewController copy.swift in Sources */,
+				3481D0B9248DF847005215EE /* LoginTableViewController.swift in Sources */,
+				34D28258251D688400AF2BE2 /* RealmService.swift in Sources */,
 				340CE277248F3A110094AC52 /* User.swift in Sources */,
 				3481D0C3248E0636005215EE /* ContactedCohortsViewController.swift in Sources */,
+				34D28268251D763000AF2BE2 /* BackupTableViewCell.swift in Sources */,
 				340CE279248F407B0094AC52 /* ProfileViewController.swift in Sources */,
 				3481D0C7248EB7D0005215EE /* SymptomTableViewController.swift in Sources */,
 			);

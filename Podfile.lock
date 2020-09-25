@@ -128,6 +128,7 @@ PODS:
   - GTMSessionFetcher/Full (1.4.0):
     - GTMSessionFetcher/Core (= 1.4.0)
   - JWTDecode (2.4.1)
+  - KeychainSwift (19.0.0)
   - M13Checkbox (3.4.0)
   - nanopb (1.30905.0):
     - nanopb/decode (= 1.30905.0)
@@ -136,6 +137,11 @@ PODS:
   - nanopb/encode (1.30905.0)
   - PromisesObjC (1.2.9)
   - Protobuf (3.12.0)
+  - Realm (5.4.3):
+    - Realm/Headers (= 5.4.3)
+  - Realm/Headers (5.4.3)
+  - RealmSwift (5.4.3):
+    - Realm (= 5.4.3)
   - SimpleKeychain (0.11.1)
   - SVProgressHUD (2.2.5)
   - SwaggerClient (0.0.1):
@@ -151,7 +157,9 @@ DEPENDENCIES:
   - Firebase/Crashlytics
   - Firebase/Performance
   - GoogleSignIn
+  - KeychainSwift (~> 19.0)
   - M13Checkbox
+  - RealmSwift
   - SVProgressHUD
   - SwaggerClient (from `./`)
   - VENTokenField (~> 2.0)
@@ -181,10 +189,13 @@ SPEC REPOS:
     - GTMAppAuth
     - GTMSessionFetcher
     - JWTDecode
+    - KeychainSwift
     - M13Checkbox
     - nanopb
     - PromisesObjC
     - Protobuf
+    - Realm
+    - RealmSwift
     - SimpleKeychain
     - SVProgressHUD
     - VENTokenField
@@ -217,15 +228,18 @@ SPEC CHECKSUMS:
   GTMAppAuth: 4deac854479704f348309e7b66189e604cf5e01e
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
   JWTDecode: 4bd4da0cdf0f8154fd467fa48499f34ec057fb88
+  KeychainSwift: a06190cf933ad46b1e0abc3d77d29c06331715c7
   M13Checkbox: 6f59404540ac98ba83a3d1afac335895a40c6a5d
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   PromisesObjC: b48e0338dbbac2207e611750777895f7a5811b75
   Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
+  Realm: e3d5fcc50fd79ddf87a2d86301f6edbf57531f84
+  RealmSwift: db608068eccc54bce47928e8118bde13c120c307
   SimpleKeychain: 0c657949c7afff92337d2ff64052d5eb5c53823e
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
-  SwaggerClient: a812adc0140444a7f05c659c56b0b4480dd86332
+  SwaggerClient: 2eb691e8b10914410a60a3f4e0daf3853bb55e59
   VENTokenField: 5a19b838fb97f040e3d4c93f584b4adeaf3fc1ee
 
-PODFILE CHECKSUM: 264e0ab26e3172d23c58389b662a588761e4c34e
+PODFILE CHECKSUM: 2b2b14553851cc35e5be70d33c87fc8c4d066b88
 
 COCOAPODS: 1.9.3
