@@ -22,7 +22,6 @@ class ProfileViewController: UIViewController {
     }
     
     func setupViews() {
-        
         //configure image to be ma or branson
         if User.school == .MA {
             labelImage.image = UIImage(named: "profile_ma")
@@ -35,11 +34,9 @@ class ProfileViewController: UIViewController {
         
         nameLabel.text = User.fullName
         initialLabel.text = User.initials
-        
     }
     
     @IBAction func signOut(_ sender: Any) {
-        
         //clear cache
         URLCache.shared.removeAllCachedResponses()
         

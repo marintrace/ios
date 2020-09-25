@@ -39,9 +39,9 @@ struct RealmHelper {
         return items
     }
     
-    /// Gets the encryption key
+    /// Gets the Realm encryption key
     /// – from https://github.com/realm/realm-cocoa/tree/master/examples/ios/swift/Encryption
-    /// - Returns: The user's encryption key
+    /// - Returns: The user's Realm encryption key
     static func getKey() -> NSData {
         // Identifier for our keychain entry - should be unique for your application
         let keychainIdentifier = "com.marintrace.realm_key"
