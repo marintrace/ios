@@ -8,14 +8,20 @@
 
 import UIKit
 import SwaggerClient
+import M13Checkbox
 
 class SymptomTableViewController: UITableViewController {
     
     var symptoms = ["Fever or chills", "Cough", "Shortness of breath", "Difficulty breathing", "Fatigue", "Muscle or body aches", "Headache", "New loss of taste or smell", "Sore throat", "Congestion or runny nose", "Nausea or vomiting", "Diarrhea"]
+    var selections = [Bool]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupTableView()
+        
+        //initialize selections array with all false
+        selections = symptoms.map({_ in false})
     }
     
     func setupTableView() {
@@ -25,13 +31,6 @@ class SymptomTableViewController: UITableViewController {
         
         //add header with description
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 110))
-        //let label = UILabel(frame: CGRect(x: 14, y: 0, width: self.view.frame.width-28, height: 40))
-//        label.text = ""
-//        label.font = UIFont.systemFont(ofSize: 14, weight: .light)
-//        label.numberOfLines = 2
-//        label.adjustsFontSizeToFitWidth = true
-//        headerView.addSubview(label)
-//        tableView.tableHeaderView = headerView
         let label = UITextView(frame: CGRect(x: 14, y: 0, width: self.view.frame.width-28, height: 100))
         //link text
         let descriptionText = NSMutableAttributedString(string:"Have you recently experienced any of these symptoms in the last 2-14 days? This list of symptoms is from the Center For Disease Control's ", attributes: [.font:UIFont.systemFont(ofSize: 14, weight: .light)])
@@ -62,13 +61,7 @@ class SymptomTableViewController: UITableViewController {
     }
     
     @IBAction func donePressed(_ sender: Any) {
-        var checkedSymptoms = 0
-        for symptomIndex in 0..<symptoms.count {
-            let cell = tableView.cellForRow(at: IndexPath(row: symptomIndex, section: 0)) as! SymptomTableViewCell
-            if cell.checkbox.checkState == .checked {
-                checkedSymptoms += 1
-            }
-        }
+        let checkedSymptoms = selections.reduce(0) { $0 + ($1 ? 1 : 0) }
         
         SpinnerHelper.show()
         DataService.reportSymptoms(symptoms: checkedSymptoms) { (error) in
@@ -88,6 +81,11 @@ class SymptomTableViewController: UITableViewController {
         }
     }
     
+    @objc func checkboxTapped(_ sender: M13Checkbox) {
+        let checked = (sender.checkState == .checked) ? true : false //convert enum to true/false
+        selections[sender.tag] = checked
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -102,6 +100,10 @@ class SymptomTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SymptomTableViewCell
         
         cell.symptomLabel.text = symptoms[indexPath.row]
+        
+        //set tag of checkbox to index to see what checkbox they tapped
+        cell.checkbox.tag = indexPath.row
+        cell.checkbox.addTarget(self, action: #selector(self.checkboxTapped(_:)), for: .valueChanged)
         
         //if its the first or last cell, round corners
         if indexPath.row == 0 {
