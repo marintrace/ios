@@ -32,9 +32,7 @@ struct AlertHelperFunctions {
 }
 
 struct NotificationScheduler {
-    
     static func scheduleNotifications() {
-        
         //clear any prexisting notifications and setup notification center
         let center = UNUserNotificationCenter.current()
         center.removeAllPendingNotificationRequests()
@@ -66,7 +64,6 @@ struct NotificationScheduler {
                 center.add(symptomsRequest)
             }
         }
-        
     }
     
     /*static func scheduleTestNotifications() {
@@ -102,11 +99,9 @@ struct NotificationScheduler {
         }
         
     }*/
-    
 }
 
 struct Colors {
-    
     //school colors
     static func colorFor(forSchool school:User.School) -> UIColor {
         if school == .MA {
@@ -116,10 +111,11 @@ struct Colors {
         }
     }
     
+    static var greenColor = UIColor(hexString: "#27ae60")
+    static var redColor = UIColor(hexString: "#c0392b")
 }
 
 struct DateHelper {
-    
     static func stringFromDate(withFormat format:String, date:Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = format
@@ -133,11 +129,9 @@ struct DateHelper {
         let date = formatter.date(from: string)
         return date!
     }
-    
 }
 
 struct FontHelper {
-    
     //modified from https://stackoverflow.com/a/58123083/4777497
     static func roundedFont(ofSize size: CGFloat, weight: UIFont.Weight) -> UIFont {
         // Will be SF Compact or standard SF in case of failure.
@@ -148,7 +142,6 @@ struct FontHelper {
             return UIFont.preferredFont(forTextStyle: .subheadline)
         }
     }
-    
 }
 
 //use helper functions so we don't need to import on every file

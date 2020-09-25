@@ -12,7 +12,8 @@ import CoreLocation
 class HomeTableViewController: UITableViewController {
 
     @IBOutlet weak var profileButton: UIBarButtonItem!
-        
+    @IBOutlet weak var statusCardButton: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         checkUser()
@@ -44,6 +45,9 @@ class HomeTableViewController: UITableViewController {
         //setup text
         profileButton.title = User.initials
         profileButton.tintColor = .white
+        
+        //setup card color
+        statusCardButton.tintColor = Colors.colorFor(forSchool: User.school)
     }
     
     //if no signed in user, go to login

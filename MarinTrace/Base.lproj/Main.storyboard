@@ -536,15 +536,23 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Trace" id="U5J-f6-Yqf">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="fRk-BH-ZFb">
-                            <connections>
-                                <action selector="profileTapped:" destination="CD2-0t-fvS" id="Qbq-2k-BDM"/>
-                                <segue destination="ZD5-aN-ZkN" kind="show" id="AKx-x9-9f8"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Item" id="fRk-BH-ZFb">
+                                <connections>
+                                    <action selector="profileTapped:" destination="CD2-0t-fvS" id="Qbq-2k-BDM"/>
+                                    <segue destination="ZD5-aN-ZkN" kind="show" id="AKx-x9-9f8"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Status Card" id="DG2-hC-Z34">
+                                <connections>
+                                    <segue destination="3gu-bt-Z1t" kind="show" id="yjy-Qs-HPq"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="profileButton" destination="fRk-BH-ZFb" id="HUQ-7j-D8N"/>
+                        <outlet property="statusCardButton" destination="DG2-hC-Z34" id="CID-ex-oxv"/>
                         <segue destination="JF7-8e-U7F" kind="presentation" identifier="toLogin" modalPresentationStyle="fullScreen" id="Ybd-Im-IFR"/>
                     </connections>
                 </tableViewController>
@@ -887,6 +895,54 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aBh-PX-aUn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3912.8000000000002" y="1512.5615763546798"/>
+        </scene>
+        <!--Card View Controller-->
+        <scene sceneID="PUQ-OP-lZ8">
+            <objects>
+                <viewController id="3gu-bt-Z1t" customClass="CardViewController" customModule="MarinTrace" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9dt-0j-x77">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MUo-N4-w5d">
+                                <rect key="frame" x="16" y="140" width="343" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="mpT-Np-FII"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="33"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9/25/20" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="ogB-mf-Vfd">
+                                <rect key="frame" x="16" y="198" width="343" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Mk0-YJ-2IE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="34"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ZcV-MG-9pj"/>
+                        <color key="backgroundColor" red="0.15294117647058825" green="0.68235294117647061" blue="0.37647058823529411" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="MUo-N4-w5d" firstAttribute="top" secondItem="ZcV-MG-9pj" secondAttribute="top" id="G4f-6c-pdW"/>
+                            <constraint firstItem="ZcV-MG-9pj" firstAttribute="trailing" secondItem="MUo-N4-w5d" secondAttribute="trailing" constant="16" id="Jq2-Hf-0qd"/>
+                            <constraint firstItem="ogB-mf-Vfd" firstAttribute="leading" secondItem="ZcV-MG-9pj" secondAttribute="leading" constant="16" id="Ljv-nv-48C"/>
+                            <constraint firstItem="MUo-N4-w5d" firstAttribute="leading" secondItem="ZcV-MG-9pj" secondAttribute="leading" constant="16" id="XFR-eK-lNY"/>
+                            <constraint firstItem="ZcV-MG-9pj" firstAttribute="trailing" secondItem="ogB-mf-Vfd" secondAttribute="trailing" constant="16" id="gy5-3D-ubs"/>
+                            <constraint firstItem="ogB-mf-Vfd" firstAttribute="top" secondItem="MUo-N4-w5d" secondAttribute="bottom" constant="8" symbolic="YES" id="i8M-Ys-gQ2"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="cCG-C3-PmM"/>
+                    <connections>
+                        <outlet property="dateLabel" destination="ogB-mf-Vfd" id="kA4-SV-1Cy"/>
+                        <outlet property="nameLabel" destination="MUo-N4-w5d" id="49z-CV-90W"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2ah-XQ-R9f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3005.5999999999999" y="-616.25615763546796"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="KIP-XG-OVg">
