@@ -64,4 +64,47 @@ open class SyncAPI {
         return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
     }
 
+    /**
+     User Healthy
+
+     - parameter authorization: (header)  
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func userStatus(authorization: String, completion: @escaping ((_ data: UserRiskItem?,_ error: Error?) -> Void)) {
+        userStatusWithRequestBuilder(authorization: authorization).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     User Healthy
+     - GET /user-status
+
+     - examples: [{contentType=application/json, example={
+  "color" : "color",
+  "criteria" : [ "criteria", "criteria" ],
+  "email" : "email",
+  "timestamp" : "timestamp"
+}}]
+     - parameter authorization: (header)  
+
+     - returns: RequestBuilder<UserRiskItem> 
+     */
+    open class func userStatusWithRequestBuilder(authorization: String) -> RequestBuilder<UserRiskItem> {
+        let path = "/user-status"
+        let URLString = SwaggerClientAPI.basePath + path
+        let parameters: [String:Any]? = nil
+
+        let url = URLComponents(string: URLString)
+        let nillableHeaders: [String: Any?] = [
+                        "Authorization": authorization
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<UserRiskItem>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
+    }
+
 }

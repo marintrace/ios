@@ -922,14 +922,26 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Report" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="PW2-9p-ayU">
+                                <rect key="frame" x="16" y="250" width="343" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="D4X-xj-V4J"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ZcV-MG-9pj"/>
-                        <color key="backgroundColor" red="0.15294117647058825" green="0.68235294117647061" blue="0.37647058823529411" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.49803921568627452" green="0.5490196078431373" blue="0.55294117647058827" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="PW2-9p-ayU" firstAttribute="leading" secondItem="ZcV-MG-9pj" secondAttribute="leading" constant="16" id="9t7-V3-7Fh"/>
                             <constraint firstItem="MUo-N4-w5d" firstAttribute="top" secondItem="ZcV-MG-9pj" secondAttribute="top" id="G4f-6c-pdW"/>
+                            <constraint firstItem="PW2-9p-ayU" firstAttribute="top" secondItem="ogB-mf-Vfd" secondAttribute="bottom" constant="8" symbolic="YES" id="Hzk-Wp-B21"/>
                             <constraint firstItem="ZcV-MG-9pj" firstAttribute="trailing" secondItem="MUo-N4-w5d" secondAttribute="trailing" constant="16" id="Jq2-Hf-0qd"/>
                             <constraint firstItem="ogB-mf-Vfd" firstAttribute="leading" secondItem="ZcV-MG-9pj" secondAttribute="leading" constant="16" id="Ljv-nv-48C"/>
                             <constraint firstItem="MUo-N4-w5d" firstAttribute="leading" secondItem="ZcV-MG-9pj" secondAttribute="leading" constant="16" id="XFR-eK-lNY"/>
+                            <constraint firstItem="ZcV-MG-9pj" firstAttribute="trailing" secondItem="PW2-9p-ayU" secondAttribute="trailing" constant="16" id="gCa-6R-GpJ"/>
                             <constraint firstItem="ZcV-MG-9pj" firstAttribute="trailing" secondItem="ogB-mf-Vfd" secondAttribute="trailing" constant="16" id="gy5-3D-ubs"/>
                             <constraint firstItem="ogB-mf-Vfd" firstAttribute="top" secondItem="MUo-N4-w5d" secondAttribute="bottom" constant="8" symbolic="YES" id="i8M-Ys-gQ2"/>
                         </constraints>
@@ -937,6 +949,7 @@
                     <navigationItem key="navigationItem" id="cCG-C3-PmM"/>
                     <connections>
                         <outlet property="dateLabel" destination="ogB-mf-Vfd" id="kA4-SV-1Cy"/>
+                        <outlet property="descriptionLabel" destination="PW2-9p-ayU" id="GdS-uM-weO"/>
                         <outlet property="nameLabel" destination="MUo-N4-w5d" id="49z-CV-90W"/>
                     </connections>
                 </viewController>

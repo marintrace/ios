@@ -24,14 +24,14 @@ open class MgmtAPI {
 
     /**
      Health Check
-     - GET /
+     - GET /health
 
      - examples: [{contentType=application/json, example=""}]
 
      - returns: RequestBuilder<String> 
      */
     open class func healthcheckWithRequestBuilder() -> RequestBuilder<String> {
-        let path = "/"
+        let path = "/health"
         let URLString = SwaggerClientAPI.basePath + path
         let parameters: [String:Any]? = nil
 

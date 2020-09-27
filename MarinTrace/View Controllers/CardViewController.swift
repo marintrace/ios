@@ -12,6 +12,7 @@ class CardViewController: UIViewController {
 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,17 +24,7 @@ class CardViewController: UIViewController {
         formatter.dateFormat = "M/d/yy"
         dateLabel.text = formatter.string(from: Date())
 
-        //check if there are any symptom reports from today
-        let reports = RealmHelper.listItems().filter({Calendar.current.isDateInToday($0.date)}) //get reports from today
-        if let symptomReport = reports.first(where: {$0.data.contains("symptoms")}) { //fetch most recent symptom report
-            if symptomReport.data.contains("0") { //extract number of symptoms
-                self.view.backgroundColor = Colors.greenColor
-            } else {
-                self.view.backgroundColor = Colors.redColor
-            }
-        } else {
-            self.view.backgroundColor = Colors.redColor
-        }
+        getData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -42,6 +33,35 @@ class CardViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.navigationBar.tintColor = .systemBlue
+    }
+    
+    func getData() {
+        SpinnerHelper.show()
+        DataService.getUserStatus { (risk, error) in
+            SpinnerHelper.hide()
+            if error != nil {
+                AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't fetch your status: " + error!.localizedDescription + " If this error persists please contact us and contact your school to manually report your contacts.")
+            } else {
+                //show description
+                var str = ""
+                for criterion in risk!.criteria! {
+                    str += "\(criterion)\n"
+                }
+                self.descriptionLabel.text = str
+                
+                //show color
+                switch risk?.color {
+                case "danger":
+                    self.view.backgroundColor = Colors.redColor
+                case "yellow":
+                    self.view.backgroundColor = Colors.yellowColor
+                case "success":
+                    self.view.backgroundColor = Colors.greenColor
+                default:
+                    self.view.backgroundColor = Colors.greyColor
+                }
+            }
+        }
     }
 
     /*

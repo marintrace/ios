@@ -113,6 +113,8 @@ struct Colors {
     
     static var greenColor = UIColor(hexString: "#27ae60")
     static var redColor = UIColor(hexString: "#c0392b")
+    static var yellowColor = UIColor(hexString: "#f1c40f")
+    static var greyColor = UIColor(hexString: "#7f8c8d")
 }
 
 struct DateHelper {

@@ -11,22 +11,22 @@ import Alamofire
 
 open class AsyncAPI {
     /**
-     Queue Interaction Report
+     Queue Health Report
 
      - parameter body: (body)  
      - parameter authorization: (header)  
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func queueInteractionReport(body: InteractionReport, authorization: String, completion: @escaping ((_ data: CreatedAsyncTask?,_ error: Error?) -> Void)) {
-        queueInteractionReportWithRequestBuilder(body: body, authorization: authorization).execute { (response, error) -> Void in
+    open class func queueHealthReport(body: HealthReport, authorization: String, completion: @escaping ((_ data: CreatedAsyncTask?,_ error: Error?) -> Void)) {
+        queueHealthReportWithRequestBuilder(body: body, authorization: authorization).execute { (response, error) -> Void in
             completion(response?.body, error)
         }
     }
 
 
     /**
-     Queue Interaction Report
-     - POST /interaction
+     Queue Health Report
+     - POST /report-health
 
      - examples: [{contentType=application/json, example={
   "task_id" : "task_id",
@@ -38,8 +38,8 @@ open class AsyncAPI {
 
      - returns: RequestBuilder<CreatedAsyncTask> 
      */
-    open class func queueInteractionReportWithRequestBuilder(body: InteractionReport, authorization: String) -> RequestBuilder<CreatedAsyncTask> {
-        let path = "/interaction"
+    open class func queueHealthReportWithRequestBuilder(body: HealthReport, authorization: String) -> RequestBuilder<CreatedAsyncTask> {
+        let path = "/report-health"
         let URLString = SwaggerClientAPI.basePath + path
         let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: body)
 
@@ -55,7 +55,51 @@ open class AsyncAPI {
     }
 
     /**
-     Change Status
+     Queue Interaction Report
+
+     - parameter body: (body)  
+     - parameter authorization: (header)  
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func queueInteractionReport(body: InteractionReport, authorization: String, completion: @escaping ((_ data: CreatedAsyncTask?,_ error: Error?) -> Void)) {
+        queueInteractionReportWithRequestBuilder(body: body, authorization: authorization).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Queue Interaction Report
+     - POST /report-interaction
+
+     - examples: [{contentType=application/json, example={
+  "task_id" : "task_id",
+  "timestamp" : 0,
+  "status" : "QUEUED"
+}}]
+     - parameter body: (body)  
+     - parameter authorization: (header)  
+
+     - returns: RequestBuilder<CreatedAsyncTask> 
+     */
+    open class func queueInteractionReportWithRequestBuilder(body: InteractionReport, authorization: String) -> RequestBuilder<CreatedAsyncTask> {
+        let path = "/report-interaction"
+        let URLString = SwaggerClientAPI.basePath + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: body)
+
+        let url = URLComponents(string: URLString)
+        let nillableHeaders: [String: Any?] = [
+                        "Authorization": authorization
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<CreatedAsyncTask>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true, headers: headerParameters)
+    }
+
+    /**
+     Set Active User
 
      - parameter authorization: (header)  
      - parameter completion: completion handler to receive the data and the error objects
@@ -68,7 +112,7 @@ open class AsyncAPI {
 
 
     /**
-     Change Status
+     Set Active User
      - POST /set-active-user
 
      - examples: [{contentType=application/json, example={
@@ -94,94 +138,6 @@ open class AsyncAPI {
         let requestBuilder: RequestBuilder<CreatedAsyncTask>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
-    }
-
-    /**
-     Queue Symptoms Report
-
-     - parameter body: (body)  
-     - parameter authorization: (header)  
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    open class func queueSymptomReport(body: SymptomReport, authorization: String, completion: @escaping ((_ data: CreatedAsyncTask?,_ error: Error?) -> Void)) {
-        queueSymptomReportWithRequestBuilder(body: body, authorization: authorization).execute { (response, error) -> Void in
-            completion(response?.body, error)
-        }
-    }
-
-
-    /**
-     Queue Symptoms Report
-     - POST /symptoms
-
-     - examples: [{contentType=application/json, example={
-  "task_id" : "task_id",
-  "timestamp" : 0,
-  "status" : "QUEUED"
-}}]
-     - parameter body: (body)  
-     - parameter authorization: (header)  
-
-     - returns: RequestBuilder<CreatedAsyncTask> 
-     */
-    open class func queueSymptomReportWithRequestBuilder(body: SymptomReport, authorization: String) -> RequestBuilder<CreatedAsyncTask> {
-        let path = "/symptoms"
-        let URLString = SwaggerClientAPI.basePath + path
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: body)
-
-        let url = URLComponents(string: URLString)
-        let nillableHeaders: [String: Any?] = [
-                        "Authorization": authorization
-        ]
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
-
-        let requestBuilder: RequestBuilder<CreatedAsyncTask>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
-
-        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true, headers: headerParameters)
-    }
-
-    /**
-     Queue Test Report
-
-     - parameter body: (body)  
-     - parameter authorization: (header)  
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    open class func queueTestReport(body: TestReport, authorization: String, completion: @escaping ((_ data: CreatedAsyncTask?,_ error: Error?) -> Void)) {
-        queueTestReportWithRequestBuilder(body: body, authorization: authorization).execute { (response, error) -> Void in
-            completion(response?.body, error)
-        }
-    }
-
-
-    /**
-     Queue Test Report
-     - POST /test
-
-     - examples: [{contentType=application/json, example={
-  "task_id" : "task_id",
-  "timestamp" : 0,
-  "status" : "QUEUED"
-}}]
-     - parameter body: (body)  
-     - parameter authorization: (header)  
-
-     - returns: RequestBuilder<CreatedAsyncTask> 
-     */
-    open class func queueTestReportWithRequestBuilder(body: TestReport, authorization: String) -> RequestBuilder<CreatedAsyncTask> {
-        let path = "/test"
-        let URLString = SwaggerClientAPI.basePath + path
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: body)
-
-        let url = URLComponents(string: URLString)
-        let nillableHeaders: [String: Any?] = [
-                        "Authorization": authorization
-        ]
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
-
-        let requestBuilder: RequestBuilder<CreatedAsyncTask>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
-
-        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true, headers: headerParameters)
     }
 
 }

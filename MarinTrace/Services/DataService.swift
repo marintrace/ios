@@ -45,7 +45,7 @@ struct DataService {
             if error != nil {
                 completion(nil, error)
             } else {
-                SyncAPIAPI.listUsers(authorization: token!) { (response, apiError) in
+                SyncAPI.listUsers(authorization: token!) { (response, apiError) in
                     if let error = apiError {
                         completion(nil, error)
                         logError(error: error)
@@ -68,7 +68,7 @@ struct DataService {
                 completion(error)
             } else {
                 let report = InteractionReport(targets: targetIDS)
-                AsyncAPIAPI.queueInteractionReport(body: report, authorization: token!) { (_, apiError) in
+                AsyncAPI.queueInteractionReport(body: report, authorization: token!) { (_, apiError) in
                     if let error = apiError {
                         completion(error)
                         logError(error: error)
@@ -89,7 +89,7 @@ struct DataService {
             if error != nil {
                 completion(error)
             } else {
-                AsyncAPIAPI.queueSetActiveUser(authorization: token ?? "") { (_, apiError) in
+                AsyncAPI.queueSetActiveUser(authorization: token ?? "") { (_, apiError) in
                     if let error = apiError {
                         completion(error)
                         logError(error: error)
@@ -105,14 +105,16 @@ struct DataService {
     /// - Parameters:
     ///   -  completion: Completion handler callback
     ///   -  symptoms: The user's symptoms
+    ///   -  proximity: Proximity to + person?
+    ///   -  travel: Left state?
     ///   -  error: An error
-    static func reportSymptoms(symptoms: Int, completion: @escaping(_ error: Error?) -> Void) {
+    static func dailyReport(symptoms: Int, proximity: Bool, travel: Bool, completion: @escaping(_ error: Error?) -> Void) {
         getHeaders { (token, error) in
             if error != nil {
                 completion(error)
             } else {
-                let body = SymptomReport(timestamp: nil, numSymptoms: symptoms)
-                AsyncAPIAPI.queueSymptomReport(body: body, authorization: token!) { (_, apiError) in
+                let report = HealthReport(timestamp: nil, numSymptoms: symptoms, proximity: proximity, testType: nil, commercialFlight: travel)
+                AsyncAPI.queueHealthReport(body: report, authorization: token!) { (_, apiError) in
                     if let error = apiError {
                         completion(error)
                         logError(error: error)
@@ -129,12 +131,13 @@ struct DataService {
     ///   -  completion: Completion handler callback
     ///   -  testType: the type of test
     ///   -  error: An error
-    static func reportTest(testType: TestReport.TestType, completion: @escaping(_ error: Error?) -> Void) {
+    static func reportTest(testType: HealthReport.TestType, completion: @escaping(_ error: Error?) -> Void) {
         getHeaders { (token, error) in
             if error != nil {
                 completion(error)
             } else {
-                AsyncAPIAPI.queueTestReport(body: TestReport(timestamp: nil, testType: testType), authorization: token!) { (_, apiError) in
+                let report = HealthReport(timestamp: nil, numSymptoms: nil, proximity: nil, testType: testType, commercialFlight: nil)
+                AsyncAPI.queueHealthReport(body: report, authorization: token!) { (_, apiError) in
                     if let error = apiError {
                         completion(error)
                         logError(error: error)
@@ -144,6 +147,29 @@ struct DataService {
                 }
             }
         }
+    }
+    
+    /// Get a user's status for the card screen
+    /// - Parameters:
+    ///   -  completion: Completion handler callback
+    ///   -  risk: The user's risk
+    ///   -  error: An error
+    static func getUserStatus(completion: @escaping(_ risk: UserRiskItem?, _ error: Error?) -> Void) {
+        getHeaders { (token, error) in
+            if error != nil {
+                completion(nil, error)
+            } else {
+                SyncAPI.userStatus(authorization: token!) { (risk, apiError) in
+                    if let error = apiError {
+                        completion(nil, error)
+                        logError(error: error)
+                    } else {
+                        completion(risk, nil)
+                    }
+                }
+            }
+        }
+
     }
     
     /// Gets a user's id (email before @)

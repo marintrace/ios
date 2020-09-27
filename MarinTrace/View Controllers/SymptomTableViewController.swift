@@ -33,7 +33,7 @@ class SymptomTableViewController: UITableViewController {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 110))
         let label = UITextView(frame: CGRect(x: 14, y: 0, width: self.view.frame.width-28, height: 100))
         //link text
-        let descriptionText = NSMutableAttributedString(string:"Have you recently experienced any of these symptoms in the last 2-14 days? This list of symptoms is from the Center For Disease Control's ", attributes: [.font:UIFont.systemFont(ofSize: 14, weight: .light)])
+        let descriptionText = NSMutableAttributedString(string:"Have you recently experienced any of these symptoms in the last 2-14 days? This list is from the Center For Disease Control's ", attributes: [.font:UIFont.systemFont(ofSize: 14, weight: .light)])
         let linkText = NSMutableAttributedString(string: "\"Symptoms of Coronavirus\"", attributes: [NSAttributedString.Key.link: URL(string: "https://www.cdc.gov/coronavirus/2019-ncov/symptoms-testing/symptoms.html")!, .font:UIFont.systemFont(ofSize: 14, weight: .light)])
         let endText = NSMutableAttributedString(string:" webpage.", attributes: [.font:UIFont.systemFont(ofSize: 14, weight: .light)])
         descriptionText.append(linkText)
@@ -64,7 +64,8 @@ class SymptomTableViewController: UITableViewController {
         let checkedSymptoms = selections.reduce(0) { $0 + ($1 ? 1 : 0) }
         
         SpinnerHelper.show()
-        DataService.reportSymptoms(symptoms: checkedSymptoms) { (error) in
+        //TODO add proximity + travel
+        DataService.dailyReport(symptoms: checkedSymptoms, proximity: false, travel: false) { (error) in
             SpinnerHelper.hide()
             if error != nil {
                 AlertHelperFunctions.presentAlert(title: "Error", message: "Could't report symptoms: " +  error!.localizedDescription + " If this error persists please contact us and please contact your school to report your symptoms manually.")
