@@ -13,7 +13,10 @@ import M13Checkbox
 class SymptomTableViewController: UITableViewController {
     
     var symptoms = ["Fever or chills", "Cough", "Shortness of breath", "Difficulty breathing", "Fatigue", "Muscle or body aches", "Headache", "New loss of taste or smell", "Sore throat", "Congestion or runny nose", "Nausea or vomiting", "Diarrhea"]
+    var screeners = ["I have been outside the state in the last 14 days", "I have been in contact with someone who has tested positive within the last 14 days"]
     var selections = [Bool]()
+    var travel = false
+    var proximity = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +28,6 @@ class SymptomTableViewController: UITableViewController {
     }
     
     func setupTableView() {
-        
         //dissalow selection of cells
         tableView.allowsSelection = false
         
@@ -53,6 +55,9 @@ class SymptomTableViewController: UITableViewController {
         //hide cells at bottom + separator
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 1))
         
+        //setup dynamic height cells
+        tableView.estimatedRowHeight = 44
+        tableView.rowHeight = UITableView.automaticDimension
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -65,7 +70,7 @@ class SymptomTableViewController: UITableViewController {
         
         SpinnerHelper.show()
         //TODO add proximity + travel
-        DataService.dailyReport(symptoms: checkedSymptoms, proximity: false, travel: false) { (error) in
+        DataService.dailyReport(symptoms: checkedSymptoms, proximity: proximity, travel: travel) { (error) in
             SpinnerHelper.hide()
             if error != nil {
                 AlertHelperFunctions.presentAlert(title: "Error", message: "Could't report symptoms: " +  error!.localizedDescription + " If this error persists please contact us and please contact your school to report your symptoms manually.")
@@ -74,7 +79,7 @@ class SymptomTableViewController: UITableViewController {
                 NotificationScheduler.scheduleNotifications()
                 
                 //backup
-                RealmHelper.logItem(data: "Reported \(checkedSymptoms) symptoms")
+                RealmHelper.logItem(data: "Reported \(checkedSymptoms) symptoms, proximity: \(self.proximity ? "yes" : "no"), travel: \(self.travel ? "yes" : "no")")
                 
                 self.navigationController?.popViewController(animated: true)
                 AlertHelperFunctions.presentAlert(title: "Success", message: "Reported \(checkedSymptoms) symptoms.")
@@ -82,7 +87,16 @@ class SymptomTableViewController: UITableViewController {
         }
     }
     
-    @objc func checkboxTapped(_ sender: M13Checkbox) {
+    @objc func screenerCheckboxChecked(_ sender: M13Checkbox) {
+        let checked = (sender.checkState == .checked) ? true : false //convert enum to true/false
+        if sender.tag == 0{
+            travel = checked
+        } else {
+            proximity = checked
+        }
+    }
+    
+    @objc func symptomCheckboxChecked(_ sender: M13Checkbox) {
         let checked = (sender.checkState == .checked) ? true : false //convert enum to true/false
         selections[sender.tag] = checked
     }
@@ -90,27 +104,53 @@ class SymptomTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return symptoms.count
+        if section == 0 {
+            return screeners.count
+        } else {
+            return symptoms.count
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 20
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SymptomTableViewCell
         
-        cell.symptomLabel.text = symptoms[indexPath.row]
-        
-        //set tag of checkbox to index to see what checkbox they tapped
-        cell.checkbox.tag = indexPath.row
-        cell.checkbox.addTarget(self, action: #selector(self.checkboxTapped(_:)), for: .valueChanged)
-        
-        //if its the first or last cell, round corners
-        if indexPath.row == 0 {
-            cell.backgroundRoundedView.roundCorners(corners: [.topLeft, .topRight], radius: 10)
-        } else if indexPath.row == symptoms.count - 1 {
-            cell.backgroundRoundedView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10)
+        if indexPath.section == 0 {
+            cell.symptomLabel.text = screeners[indexPath.row]
+            
+            cell.checkbox.tag = indexPath.row
+            cell.checkbox.addTarget(self, action: #selector(self.screenerCheckboxChecked(_:)), for: .valueChanged)
+            
+            //if its the first or last cell, round corners
+            if indexPath.row == 0 {
+                cell.backgroundRoundedView.roundCorners(corners: [.topLeft, .topRight], radius: 10)
+            } else if indexPath.row == screeners.count - 1 {
+                cell.backgroundRoundedView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10)
+            }
+        } else {
+            cell.symptomLabel.text = symptoms[indexPath.row]
+            
+            //set tag of checkbox to index to see what checkbox they tapped
+            cell.checkbox.tag = indexPath.row
+            cell.checkbox.addTarget(self, action: #selector(self.symptomCheckboxChecked(_:)), for: .valueChanged)
+            
+            //if its the first or last cell, round corners
+            if indexPath.row == 0 {
+                cell.backgroundRoundedView.roundCorners(corners: [.topLeft, .topRight], radius: 10)
+            } else if indexPath.row == symptoms.count - 1 {
+                cell.backgroundRoundedView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10)
+            }
         }
 
         return cell
