@@ -34,7 +34,7 @@ class LoginTableViewController: UITableViewController {
     }
     
     func login() {
-        Auth0.webAuth().scope("openid profile email").audience("tracing-rest-api")
+        Auth0.webAuth().scope("openid profile email offline_access").audience("tracing-rest-api")
             .start {
             switch $0 {
             case .failure(let error):

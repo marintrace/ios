@@ -45,6 +45,7 @@ class ProfileViewController: UIViewController {
             SpinnerHelper.hide()
             credentialsManager.revoke { (_) in                
             }
+            credentialsManager.clear()
             switch $0 {
                 case true:
                     //go to log in
