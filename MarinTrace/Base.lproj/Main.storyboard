@@ -727,14 +727,8 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Learn more about contact privacy" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NpN-Nk-N6t">
-                                        <rect key="frame" x="14" y="85" width="319" height="17"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" systemColor="systemBlueColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lKc-EW-feY">
-                                        <rect key="frame" x="14" y="110" width="319" height="450"/>
+                                        <rect key="frame" x="14" y="85.666666666666657" width="319" height="474.33333333333337"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="j7L-oZ-l0G" style="IBUITableViewCellStyleDefault" id="PaA-gv-Chp">
@@ -778,16 +772,13 @@
                                 <constraints>
                                     <constraint firstItem="zxE-bA-ZG0" firstAttribute="top" secondItem="lKc-EW-feY" secondAttribute="bottom" constant="8" id="7uA-uG-JSK"/>
                                     <constraint firstAttribute="trailing" secondItem="Szq-ve-Xgh" secondAttribute="trailing" constant="14" id="CyE-fj-dgy"/>
-                                    <constraint firstItem="NpN-Nk-N6t" firstAttribute="leading" secondItem="JAf-fY-iMA" secondAttribute="leading" constant="14" id="Jem-di-z3M"/>
                                     <constraint firstAttribute="bottom" secondItem="zxE-bA-ZG0" secondAttribute="bottom" constant="14" id="NvQ-nu-nPA"/>
                                     <constraint firstItem="Szq-ve-Xgh" firstAttribute="top" secondItem="IoJ-Ll-S6r" secondAttribute="bottom" constant="3" id="Pkp-Fr-FV0"/>
                                     <constraint firstItem="IoJ-Ll-S6r" firstAttribute="top" secondItem="JAf-fY-iMA" secondAttribute="top" constant="14" id="PvY-yg-ydl"/>
                                     <constraint firstItem="IoJ-Ll-S6r" firstAttribute="leading" secondItem="JAf-fY-iMA" secondAttribute="leading" constant="14" id="QzK-18-AtC"/>
-                                    <constraint firstItem="lKc-EW-feY" firstAttribute="top" secondItem="NpN-Nk-N6t" secondAttribute="bottom" constant="8" id="aeH-8X-6Ao"/>
+                                    <constraint firstItem="lKc-EW-feY" firstAttribute="top" secondItem="Szq-ve-Xgh" secondAttribute="bottom" constant="8" id="aFH-gn-mgV"/>
                                     <constraint firstAttribute="trailing" secondItem="IoJ-Ll-S6r" secondAttribute="trailing" constant="14" id="aed-Qk-vP9"/>
                                     <constraint firstItem="Szq-ve-Xgh" firstAttribute="leading" secondItem="JAf-fY-iMA" secondAttribute="leading" constant="14" id="bZb-ZP-OTt"/>
-                                    <constraint firstAttribute="trailing" secondItem="NpN-Nk-N6t" secondAttribute="trailing" constant="14" id="bvg-cN-E1i"/>
-                                    <constraint firstItem="NpN-Nk-N6t" firstAttribute="top" secondItem="Szq-ve-Xgh" secondAttribute="bottom" constant="7.3333333333333428" id="edU-Vz-ta6"/>
                                     <constraint firstAttribute="trailing" secondItem="lKc-EW-feY" secondAttribute="trailing" constant="14" id="krt-Ji-ebz"/>
                                     <constraint firstAttribute="trailing" secondItem="zxE-bA-ZG0" secondAttribute="trailing" constant="30" id="reT-yS-rZu"/>
                                     <constraint firstItem="lKc-EW-feY" firstAttribute="leading" secondItem="JAf-fY-iMA" secondAttribute="leading" constant="14" id="vni-2S-7oP"/>
@@ -1175,9 +1166,6 @@
         <image name="ma_logo" width="493.66665649414062" height="493"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

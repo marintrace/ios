@@ -37,6 +37,7 @@ struct User {
         credentialsManager.credentials { (error, creds) in
             guard let credentials = creds else {
                 DataService.logError(error: error!)
+                completion(false)
                 return
             }
             Auth0.authentication().userInfo(withAccessToken: credentials.accessToken!).start { result in

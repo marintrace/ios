@@ -73,7 +73,7 @@ class SymptomTableViewController: UITableViewController {
         DataService.dailyReport(symptoms: checkedSymptoms, proximity: proximity, travel: travel) { (error) in
             SpinnerHelper.hide()
             if error != nil {
-                AlertHelperFunctions.presentAlert(title: "Error", message: "Could't report symptoms: " +  error!.localizedDescription + " If this error persists please contact us and please contact your school to report your symptoms manually.")
+                AlertHelperFunctions.presentAlert(title: "Error", message: "Could't report symptoms: " +  error!.swaggerError + " If this error persists please contact us and please contact your school to report your symptoms manually.")
             } else {
                 //regenerate notifications
                 NotificationScheduler.scheduleNotifications()

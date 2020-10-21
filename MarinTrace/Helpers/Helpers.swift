@@ -12,6 +12,7 @@ import CoreLocation
 import UserNotifications
 import SVProgressHUD
 import SafariServices
+import SwaggerClient
 
 //MARK: Structs
 
@@ -179,8 +180,23 @@ extension Array where Element: Hashable {
     }
 }
 
-//rounding certain corners
+//get more detailed swagger error, if failure just use description
+extension Error {
+    var swaggerError: String {
+        guard let errorResponse = self as? ErrorResponse else {
+            return self.localizedDescription
+        }
+        if let cleanError = DataService.getAPIError(response: errorResponse), !cleanError.isEmpty {
+            return cleanError
+        } else {
+            return self.localizedDescription
+        }
+    }
+}
+
+
 //https://stackoverflow.com/a/41197790/4777497
+//rounding certain corners
 extension UIView {
    func roundCorners(corners: UIRectCorner, radius: CGFloat) {
         let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))

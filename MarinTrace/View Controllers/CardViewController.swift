@@ -40,7 +40,7 @@ class CardViewController: UIViewController {
         DataService.getUserStatus { (risk, error) in
             SpinnerHelper.hide()
             if error != nil {
-                AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't fetch your status: " + error!.localizedDescription + " If this error persists please contact us and contact your school to manually report your contacts.")
+                AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't fetch your status: " + error!.swaggerError + " If this error persists please contact us and contact your school to manually report your contacts.")
             } else {
                 //show description
                 var str = ""

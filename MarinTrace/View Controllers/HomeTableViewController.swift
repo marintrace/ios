@@ -79,6 +79,7 @@ class HomeTableViewController: UITableViewController {
                 }
             } else {
                 DispatchQueue.main.async {
+                    self.performSegue(withIdentifier: "toLogin", sender: self)
                     AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't load user details. If this error persists please contact us.")
                 }
             }
@@ -120,7 +121,7 @@ class HomeTableViewController: UITableViewController {
             DataService.reportTest(testType: .negative) { (error) in
                 SpinnerHelper.hide()
                 if error != nil {
-                    AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't report test result: " + error!.localizedDescription + " If this error persists please contact us and contact the school to report the test result manually.")
+                    AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't report test result: " + error!.swaggerError + " If this error persists please contact us and contact the school to report the test result manually.")
                 } else {
                     //backup
                     RealmHelper.logItem(data: "Reported negative test")
@@ -140,7 +141,7 @@ class HomeTableViewController: UITableViewController {
             DataService.reportTest(testType: .positive) { (error) in
                 SpinnerHelper.hide()
                 if error != nil {
-                    AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't report test result: " + error!.localizedDescription + " If this error persists please contact us and contact the school to report the test result manually.")
+                    AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't report test result: " + error!.swaggerError + " If this error persists please contact us and contact the school to report the test result manually.")
                 } else {
                     //backup
                     RealmHelper.logItem(data: "Reported positive test")

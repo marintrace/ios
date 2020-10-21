@@ -33,7 +33,7 @@ class ContactedCohortsViewController: UIViewController, UITableViewDelegate, UIT
             DataService.reportInteractions(targetIDS: targets) { (error) in
                 SpinnerHelper.hide()
                 if error != nil {
-                    AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't report contacts: " + error!.localizedDescription + " If this error persists please contact us and contact your school to report your contacts manually.")
+                    AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't report contacts: " + error!.swaggerError + " If this error persists please contact us and contact your school to report your contacts manually.")
                 } else {
                     //backup request
                     let contactString = targets.joinedWithComma()
