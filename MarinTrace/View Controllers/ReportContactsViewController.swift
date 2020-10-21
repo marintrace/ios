@@ -55,7 +55,7 @@ class ReportContactsViewController: UIViewController, VENTokenFieldDelegate, VEN
     }
     
     func getSuggestions(text: String) { //filter for user input, also make sure user not already selected + can't select self
-        suggestions = contactOptions.filter({($0.firstName + " " + $0.lastName).contains(text)})
+        suggestions = contactOptions.filter({($0.firstName.lowercased() + " " + $0.lastName.lowercased()).contains(text.lowercased())})
         suggestions = suggestions.filter { (contact) -> Bool in
             return !contacts.contains(where: {$0.email  == contact.email}) && contact.email != User.email
         }
