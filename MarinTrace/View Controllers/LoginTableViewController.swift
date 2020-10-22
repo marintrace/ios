@@ -33,6 +33,7 @@ class LoginTableViewController: UITableViewController {
         login()
     }
     
+    //login, but refresh token because if they're signing up the first  token returned won't have their school role
     func login() {
         Auth0.webAuth().scope("openid profile email offline_access").audience("tracing-rest-api")
             .start {
@@ -47,20 +48,54 @@ class LoginTableViewController: UITableViewController {
 
                 DispatchQueue.main.async {
                     SpinnerHelper.show()
-                    DataService.markUserAsActive { (error) in
-                        SpinnerHelper.hide()
-                        if let activeError = error {
-                            AlertHelperFunctions.presentAlert(title: "Error", message: "Could not register your account with the server: " + activeError.swaggerError + " If this error persists please contact us.")
+                    DataService.markUserAsActive { (apiError) in
+                        
+                        if apiError == nil {
+                            SpinnerHelper.hide()
+                            self.transitionOrError(error: nil)
+                            return
+                        }
+                        
+                        if let refreshToken = credentials.refreshToken {
+                            Auth0.authentication().renew(withRefreshToken: refreshToken).start { (result) in
+                                
+                                switch(result) {
+                                case .success(let credentials2):
+                                    credentialsManager.store(credentials: credentials2)
+                                    DataService.markUserAsActive { (apiError2) in
+                                        SpinnerHelper.hide()
+                                        DispatchQueue.main.async {
+                                            self.transitionOrError(error: nil)
+                                        }
+                                    }
+                                case .failure(let error):
+                                    SpinnerHelper.hide()
+                                    DispatchQueue.main.async {
+                                        AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't login: "  + error.localizedDescription  + ". This may because you aren't using an @ma.org or @branson.org email account. If this error persists please contact us.")
+                                        DataService.logError(error: error)
+                                    }
+                                }
+                            }
                         } else {
-                            let story = UIStoryboard(name: "Main", bundle: nil)
-                            let homeVC = story.instantiateViewController(withIdentifier: "HomeTableViewController") as? UINavigationController
-                            homeVC!.modalPresentationStyle = .fullScreen
-                            UIApplication.shared.windows.first?.rootViewController = homeVC
-                            UIApplication.shared.windows.first?.makeKeyAndVisible()
+                            SpinnerHelper.hide()
+                            AlertHelperFunctions.presentAlert(title: "Error", message: "Could not verify authentication status. If this error persists please contact us.")
                         }
                     }
                 }                
             }
+        }
+    }
+    
+    //separating this code because it could be called in two places due to need to double complete auth
+    func transitionOrError(error:Error?) {
+        if let activeError = error {
+            AlertHelperFunctions.presentAlert(title: "Error", message: "Could not register your account with the server: " + activeError.swaggerError + " If this error persists please contact us.")
+        } else {
+            let story = UIStoryboard(name: "Main", bundle: nil)
+            let homeVC = story.instantiateViewController(withIdentifier: "HomeTableViewController") as? UINavigationController
+            homeVC!.modalPresentationStyle = .fullScreen
+            UIApplication.shared.windows.first?.rootViewController = homeVC
+            UIApplication.shared.windows.first?.makeKeyAndVisible()
         }
     }
     
