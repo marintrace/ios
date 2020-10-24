@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<!--
-   Auth0.plist
-   MarinTrace
-
-   Created by Beck Lorsch on 7/26/20.
-   Copyright (c) 2020 Marin Trace. All rights reserved.
--->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-    <dict>
-        <key>ClientId</key>
-        <string>ykyTlNZJoG5GeFmofkFZxEL1VCR2CUeH</string>
-        <key>Domain</key>
-        <string>marintrace.us.auth0.com</string>
-    </dict>
+<dict>
+	<key>ClientId</key>
+	<string>ykyTlNZJoG5GeFmofkFZxEL1VCR2CUeH</string>
+	<key>Domain</key>
+	<string>login.marintracingapp.org</string>
+</dict>
 </plist>
