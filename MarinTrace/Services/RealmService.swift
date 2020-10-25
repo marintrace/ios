@@ -15,17 +15,22 @@ struct RealmHelper {
     /// - Returns: The realm
     static func getRealm() -> Realm {
         //get encryption key from keychain
-        let config = Realm.Configuration(encryptionKey: getKey() as Data)
+        let config = Realm.Configuration(encryptionKey: getKey() as Data, schemaVersion: 4) { (migration, oldSchemaVersion) in //migrate
+            if oldSchemaVersion < 4 { //set rawReport to nil for old data
+                //only added new property, realm will automatially set to nil so no action required
+            }
+        }
         let realm = try! Realm(configuration: config)
         return realm
     }
     
     /// Logs an item to the backup
     /// - Parameter data: The log to backup
-    static func logItem(data: String) {
+    static func logItem(data: String, rawReport: RawReports) {
         let realm = getRealm()
         let entry = BackupEntry()
         entry.data = data
+        entry.rawReport = rawReport
         try! realm.write {
             realm.add(entry)
         }
@@ -36,6 +41,15 @@ struct RealmHelper {
     static func listItems() -> [BackupEntry] {
         let realm = getRealm()
         let items = realm.objects(BackupEntry.self).sorted() {$0.date > $1.date} //sort recent first
+        return items
+    }
+    
+    /// Lists reports within the last five minutes for status card caching
+    /// - Returns: The items
+    static func listItemsWithinFiveMinutes() -> [BackupEntry] {
+        let date = Calendar.current.date(byAdding: .minute, value: -5, to: Date())
+        let realm = getRealm()
+        let items = realm.objects(BackupEntry.self).filter("date >= %@", date!).sorted() {$0.date > $1.date} //sort recent first
         return items
     }
     
@@ -86,4 +100,32 @@ struct RealmHelper {
 class BackupEntry: Object {
     @objc dynamic var data = ""
     @objc dynamic var date = Date()
+    @objc dynamic var rawReport: RawReports? = nil
 }
+
+//use option type for polymorphic relationship because realm doesn't support
+class RawReports: Object {
+    @objc dynamic var dailyReport: DailyReport? = nil
+    @objc dynamic var testReport: TestReport? = nil
+    @objc dynamic var contactReport: ContactReport? = nil
+}
+
+class DailyReport: Object {
+    @objc dynamic var numberOfSymptoms = 0
+    @objc dynamic var proximity = false
+    @objc dynamic var travel = false
+}
+
+class TestReport: Object {
+    @objc dynamic var type = "negative" //realm doesn't support enums
+}
+
+class ContactReport: Object {
+    var targets = List<String>() //realm doesn't support arrays
+}
+
+
+
+
+
+

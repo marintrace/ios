@@ -124,7 +124,11 @@ class HomeTableViewController: UITableViewController {
                     AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't report test result: " + error!.swaggerError + " If this error persists please contact us and contact the school to report the test result manually.")
                 } else {
                     //backup
-                    RealmHelper.logItem(data: "Reported negative test")
+                    let rawReport = RawReports()
+                    let testReport = TestReport()
+                    testReport.type = "negative"
+                    rawReport.testReport = testReport
+                    RealmHelper.logItem(data: "Reported negative test", rawReport: rawReport)
                     
                     AlertHelperFunctions.presentAlert(title: "Success", message: "Your test was reported")
                 }
@@ -144,7 +148,11 @@ class HomeTableViewController: UITableViewController {
                     AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't report test result: " + error!.swaggerError + " If this error persists please contact us and contact the school to report the test result manually.")
                 } else {
                     //backup
-                    RealmHelper.logItem(data: "Reported positive test")
+                    let rawReport = RawReports()
+                    let testReport = TestReport()
+                    testReport.type = "positive"
+                    rawReport.testReport = testReport
+                    RealmHelper.logItem(data: "Reported positive test", rawReport: rawReport)
                     
                     AlertHelperFunctions.presentAlert(title: "Success", message: "Your test was reported")
                 }

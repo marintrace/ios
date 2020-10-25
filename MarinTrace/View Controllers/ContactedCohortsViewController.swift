@@ -8,6 +8,7 @@
 
 import UIKit
 import SwaggerClient
+import RealmSwift
 
 class ContactedCohortsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -38,7 +39,15 @@ class ContactedCohortsViewController: UIViewController, UITableViewDelegate, UIT
                     //backup request
                     let contactString = targets.joinedWithComma()
                     let backupString = "Reported contacts: \(contactString)"
-                    RealmHelper.logItem(data: backupString)
+                    
+                    let rawReport = RawReports()
+                    let contactReport = ContactReport()
+                    for target in targets {
+                        contactReport.targets.append(target)
+                    }
+                    rawReport.contactReport = contactReport
+                    
+                    RealmHelper.logItem(data: backupString, rawReport: rawReport)
                     
                     self.navigationController?.popToRootViewController(animated: true)
                     AlertHelperFunctions.presentAlert(title: "Success", message: "Reported \(targets.count) contacts.")

@@ -79,7 +79,13 @@ class SymptomTableViewController: UITableViewController {
                 NotificationScheduler.scheduleNotifications()
                 
                 //backup
-                RealmHelper.logItem(data: "Reported \(checkedSymptoms) symptoms, proximity: \(self.proximity ? "yes" : "no"), travel: \(self.travel ? "yes" : "no")")
+                let rawReport = RawReports()
+                let dailyReport = DailyReport()
+                dailyReport.numberOfSymptoms = checkedSymptoms
+                dailyReport.proximity = self.proximity
+                dailyReport.travel = self.travel
+                rawReport.dailyReport = dailyReport
+                RealmHelper.logItem(data: "Reported \(checkedSymptoms) symptoms, proximity: \(self.proximity ? "yes" : "no"), travel: \(self.travel ? "yes" : "no")", rawReport: rawReport)
                 
                 self.navigationController?.popViewController(animated: true)
                 AlertHelperFunctions.presentAlert(title: "Success", message: "Reported \(checkedSymptoms) symptoms.")
