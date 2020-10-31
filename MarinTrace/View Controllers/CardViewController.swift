@@ -21,7 +21,7 @@ class CardViewController: UIViewController {
         nameLabel.text = User.fullName
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "M/d/yy"
+        formatter.dateFormat = "EEEE\nM/d/yy"
         dateLabel.text = formatter.string(from: Date())
 
         tryCache()
