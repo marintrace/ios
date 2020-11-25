@@ -11,46 +11,69 @@ import RealmSwift
 
 struct RealmHelper {
     
-    /// Gets the realm DB
+    /// Gets the realm DB. Can throw error.
     /// - Returns: The realm
-    static func getRealm() -> Realm {
+    static func getRealm() throws -> Realm  {
         //get encryption key from keychain
         let config = Realm.Configuration(encryptionKey: getKey() as Data, schemaVersion: 4) { (migration, oldSchemaVersion) in //migrate
             if oldSchemaVersion < 4 { //set rawReport to nil for old data
                 //only added new property, realm will automatially set to nil so no action required
             }
         }
-        let realm = try! Realm(configuration: config)
-        return realm
+        do {
+            let realm = try Realm(configuration: config)
+            return realm
+        } catch let error as NSError {
+            throw error
+        }
+        
     }
     
     /// Logs an item to the backup
     /// - Parameter data: The log to backup
     static func logItem(data: String, rawReport: RawReports) {
-        let realm = getRealm()
-        let entry = BackupEntry()
-        entry.data = data
-        entry.rawReport = rawReport
-        try! realm.write {
-            realm.add(entry)
+        do {
+            let realm = try getRealm()
+            let entry = BackupEntry()
+            entry.data = data
+            entry.rawReport = rawReport
+            try realm.write {
+                realm.add(entry)
+            }
+        } catch let error as NSError {
+            DataService.logError(error: error)
+            AlertHelperFunctions.presentAlert(title: "Your report has been recieved by the server, but we couldn't backup it up on your device", message: error.localizedDescription)
         }
     }
     
     /// Lists backed up items
     /// - Returns: The items
     static func listItems() -> [BackupEntry] {
-        let realm = getRealm()
-        let items = realm.objects(BackupEntry.self).sorted() {$0.date > $1.date} //sort recent first
-        return items
+        do {
+            let realm = try getRealm()
+            let items = realm.objects(BackupEntry.self).sorted() {$0.date > $1.date} //sort recent first
+            return items
+        } catch let error as NSError {
+            DataService.logError(error: error)
+            AlertHelperFunctions.presentAlert(title: "Error going through local backups.", message: error.localizedDescription)
+            return [] //fall back on db
+        }
     }
     
     /// Lists reports within the last five minutes for status card caching
     /// - Returns: The items
     static func listItemsWithinFiveMinutes() -> [BackupEntry] {
         let date = Calendar.current.date(byAdding: .minute, value: -5, to: Date())
-        let realm = getRealm()
-        let items = realm.objects(BackupEntry.self).filter("date >= %@", date!).sorted() {$0.date > $1.date} //sort recent first
-        return items
+        
+        do {
+            let realm = try getRealm()
+            let items = realm.objects(BackupEntry.self).filter("date >= %@", date!).sorted() {$0.date > $1.date} //sort recent first
+            return items
+        } catch let error as NSError {
+            DataService.logError(error: error)
+            AlertHelperFunctions.presentAlert(title: "Couldn't search local backups. Trying server now.", message: error.localizedDescription)
+            return [] //fall back on db
+        }
     }
     
     /// Gets the Realm encryption key
