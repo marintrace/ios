@@ -28,6 +28,9 @@ class HomeTableViewController: UITableViewController {
     }
     
     func configViewsForUser() {
+        //hide certain sections
+        tableView.reloadData()
+        
         //configure image to be ma or branson, set nav bar title
         if User.school == .MA {
             let image = UIImage(named: "profile_ma")?.withRenderingMode(.alwaysOriginal)
@@ -87,6 +90,8 @@ class HomeTableViewController: UITableViewController {
         
         //ask to send notifications (check if asked before too)
         askForNotification()
+        
+        //TODO - async reqeust to check + alert if not allowed on campus
     }
     
     func askForNotification() {
@@ -173,14 +178,46 @@ class HomeTableViewController: UITableViewController {
     }
     
     // MARK: - Table view data source
+    
+    //config sections for each school
+    private func sectionShouldBeHidden(_ section: Int) -> Bool {
+        switch User.school {
+        case .MA:
+            switch section {
+            //case 0, 1, 2, 3: return true
+            default: return false //hide nothing
+            }
+        case .Branson:
+            switch section {
+            case 2: return true //hide testing
+            default: return false
+            }
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if sectionShouldBeHidden(section) { //hide some sections depending on school
+            return 0
+        } else {
+            return super.tableView(tableView, numberOfRowsInSection: section) // Use the default number of rows for other sections
+        }
+    }
+    
     //these functions create the spacing between the sectios
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 25
+        if sectionShouldBeHidden(section) { //hide some sections depending on school
+            return CGFloat.leastNormalMagnitude
+        } else {
+            return 25
+        }
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 25))
-        return view
+        if sectionShouldBeHidden(section) { //hide some sections depending on school
+            return nil
+        } else {
+            let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 25))
+            return view
+        }
     }
-    
 }

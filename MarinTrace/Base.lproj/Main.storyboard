@@ -269,7 +269,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZhL-14-Kus">
                                                     <rect key="frame" x="14" y="0.0" width="347" height="146"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Symptoms" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l4x-dR-NHG">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Daily Report" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l4x-dR-NHG">
                                                             <rect key="frame" x="14" y="14" width="319" height="27"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="27" id="dF2-Ww-TyK"/>
@@ -278,7 +278,7 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To protect your privacy, we'll only send how many you have and not which specific ones." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RNk-jj-2Ct">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Complete your daily symptom questionnaire here." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RNk-jj-2Ct">
                                                             <rect key="frame" x="14" y="44" width="319" height="33.666666666666657"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <nil key="textColor"/>
@@ -291,7 +291,7 @@
                                                                 <constraint firstAttribute="height" constant="42" id="2pA-TN-oMk"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
-                                                            <state key="normal" title="Report Symptoms"/>
+                                                            <state key="normal" title="Open Questionnaire"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                                     <integer key="value" value="10"/>
@@ -810,7 +810,7 @@
             </objects>
             <point key="canvasLocation" x="4654" y="814"/>
         </scene>
-        <!--Report Symptoms-->
+        <!--Daily Report-->
         <scene sceneID="nQY-GQ-RpE">
             <objects>
                 <tableViewController id="IHQ-78-Oze" customClass="SymptomTableViewController" customModule="MarinTrace" customModuleProvider="target" sceneMemberID="viewController">
@@ -880,7 +880,7 @@
                             <outlet property="delegate" destination="IHQ-78-Oze" id="ZYA-kT-GSf"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Report Symptoms" id="fkp-bD-fJa">
+                    <navigationItem key="navigationItem" title="Daily Report" id="fkp-bD-fJa">
                         <barButtonItem key="rightBarButtonItem" title="Done" id="cXB-Fj-6yg">
                             <connections>
                                 <action selector="donePressed:" destination="IHQ-78-Oze" id="PPT-E1-OrT"/>

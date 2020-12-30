@@ -24,7 +24,7 @@ struct RealmHelper {
             let realm = try Realm(configuration: config)
             return realm
         } catch let error as NSError {
-            throw error
+            throw error //TODO - if error bc corrupted realm, delete db and make new one
         }
         
     }

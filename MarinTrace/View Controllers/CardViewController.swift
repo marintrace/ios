@@ -24,7 +24,7 @@ class CardViewController: UIViewController {
         formatter.dateFormat = "EEEE\nM/d/yy"
         dateLabel.text = formatter.string(from: Date())
 
-        tryCache()
+        tryCache() //TODO - only use cache if server returns no report
     }
     
     override func viewDidAppear(_ animated: Bool) {
