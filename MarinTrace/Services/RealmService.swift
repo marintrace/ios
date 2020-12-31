@@ -20,13 +20,35 @@ struct RealmHelper {
                 //only added new property, realm will automatially set to nil so no action required
             }
         }
+        
         do {
             let realm = try Realm(configuration: config)
             return realm
-        } catch let error as NSError {
-            throw error //TODO - if error bc corrupted realm, delete db and make new one
+        } catch {
+            do {
+                //dismiss any current alert controllers and alert user that we have to recreate backups
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                    AlertHelperFunctions.dismissAnyAlertControllerIfPresent {
+                        AlertHelperFunctions.presentAlert(title: "Local backup file corrupted", message: "Don't worry, your request was successful and all your data is safe on our servers. Recreating local backup file now...")
+                    }
+                })
+              
+                try FileManager.default.removeItem(at: Realm.Configuration.defaultConfiguration.fileURL!)                 //delete corrupted realm
+                let realm = try Realm(configuration: config) //recreate
+                return realm
+            } catch let error as NSError {
+                throw error
+            }
         }
-        
+    }
+    
+    //for testing
+    static func deleteKeychainItems() {
+        let secItemClasses = [kSecClassGenericPassword, kSecClassInternetPassword, kSecClassCertificate, kSecClassKey, kSecClassIdentity]
+        for itemClass in secItemClasses {
+            let spec: NSDictionary = [kSecClass: itemClass]
+            SecItemDelete(spec)
+        }
     }
     
     /// Logs an item to the backup

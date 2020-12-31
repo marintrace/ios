@@ -30,6 +30,18 @@ struct AlertHelperFunctions {
         }
     }
     
+    static func dismissAnyAlertControllerIfPresent(completion: @escaping() -> Void) {
+        guard var topVC = AppDelegate.standard.window!.rootViewController?.presentedViewController else {return}
+        while topVC.presentedViewController != nil  {
+            topVC = topVC.presentedViewController!
+        }
+        if topVC.isKind(of: UIAlertController.self) {
+            topVC.dismiss(animated: false) {
+                completion()
+            }
+        }
+    }
+    
 }
 
 struct NotificationScheduler {
