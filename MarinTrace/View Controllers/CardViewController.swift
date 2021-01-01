@@ -128,18 +128,18 @@ class CardViewController: UIViewController {
                             str += "\(criterion)\n"
                         }
                         self.descriptionLabel.text = str
-                    }
-                    
-                    //show color - should ideally use a function bc DRY, but the enum isn't a shared type between health.color and location.color
-                    switch userStatus.health?.color {
-                    case .danger:
-                        self.view.backgroundColor = Colors.redColor
-                    case .yellow:
-                        self.view.backgroundColor = Colors.yellowColor
-                    case .success:
-                        self.view.backgroundColor = Colors.greenColor
-                    default:
-                        self.view.backgroundColor = Colors.greyColor
+                        
+                        //show color - should ideally use a function bc DRY, but the enum isn't a shared type between health.color and location.color
+                        switch health.color {
+                        case .danger:
+                            self.view.backgroundColor = Colors.redColor
+                        case .yellow:
+                            self.view.backgroundColor = Colors.yellowColor
+                        case .success:
+                            self.view.backgroundColor = Colors.greenColor
+                        default:
+                            self.view.backgroundColor = Colors.greyColor
+                        }
                     }
                 }
                 
