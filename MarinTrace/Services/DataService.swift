@@ -154,11 +154,12 @@ struct DataService {
     ///   -  completion: Completion handler callback
     ///   -  risk: The user's risk
     ///   -  error: An error
-    static func getUserStatus(completion: @escaping(_ risk: UserRiskItem?, _ error: Error?) -> Void) {
+    static func getUserStatus(completion: @escaping(_ risk: IdentifiedUserEntryItem?, _ error: Error?) -> Void) {
         getHeaders { (token, error) in
             if error != nil {
                 completion(nil, error)
             } else {
+                
                 SyncAPI.userStatus(authorization: token!) { (risk, apiError) in
                     if let error = apiError {
                         completion(nil, error)

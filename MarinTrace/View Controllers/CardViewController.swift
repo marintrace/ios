@@ -13,6 +13,7 @@ class CardViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var permittedLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +25,7 @@ class CardViewController: UIViewController {
         formatter.dateFormat = "EEEE\nM/d/yy"
         dateLabel.text = formatter.string(from: Date())
 
-        tryCache() //TODO - only use cache if server returns no report
+        getData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -39,8 +40,7 @@ class CardViewController: UIViewController {
     func tryCache() {
         let cachedItems = RealmHelper.listItemsWithinFiveMinutes()
         let cachedWithDetail = cachedItems.filter({$0.rawReport?.dailyReport != nil || $0.rawReport?.testReport != nil}) //make sure it has rawReport data
-        if cachedWithDetail.isEmpty { //no recent, fall back on DB
-            getData()
+        if cachedWithDetail.isEmpty { //no recent, show no report
             return
         }
         
@@ -81,32 +81,71 @@ class CardViewController: UIViewController {
         //update view
         descriptionLabel.text = description
         self.view.backgroundColor = color
+        if color != Colors.greenColor {
+            permittedLabel.text = "❌ Not permitted to enter campus"
+        } else {
+            permittedLabel.text = "✅ Permitted to enter campus"
+        }
     }
     
     func getData() {
         SpinnerHelper.show()
-        DataService.getUserStatus { (risk, error) in
+        DataService.getUserStatus { (status, error) in
             SpinnerHelper.hide()
             if error != nil {
-                AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't fetch your status: " + error!.swaggerError + " If this error persists please contact us and contact your school to manually report your contacts.")
+                AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't fetch your status: " + error!.swaggerError + " If this error persists please contact us and contact your school.")
             } else {
-                //show description
-                var str = ""
-                for criterion in risk!.criteria! {
-                    str += "\(criterion)\n"
+                guard let userStatus = status else {
+                    self.tryCache() //no status, try cache
+                    return
                 }
-                self.descriptionLabel.text = str
                 
-                //show color
-                switch risk?.color {
-                case "danger":
-                    self.view.backgroundColor = Colors.redColor
-                case "yellow":
-                    self.view.backgroundColor = Colors.yellowColor
-                case "success":
-                    self.view.backgroundColor = Colors.greenColor
-                default:
-                    self.view.backgroundColor = Colors.greyColor
+                if userStatus.entry {
+                    self.permittedLabel.text = "✅ Permitted to enter campus"
+                } else {
+                    self.permittedLabel.text = "❌ Not permitted to enter campus"
+                }
+                
+                //show either location or other criteria
+                if userStatus.reason == .location {
+                    self.descriptionLabel.text = "You are currently \(userStatus.location?.location?.rawValue ?? "[LOCATION UNKNOWN]")"
+                    
+                    //show color
+                    switch userStatus.location?.color {
+                    case .danger:
+                        self.view.backgroundColor = Colors.redColor
+                    case .yellow:
+                        self.view.backgroundColor = Colors.yellowColor
+                    case .success:
+                        self.view.backgroundColor = Colors.greenColor
+                    default:
+                        self.view.backgroundColor = Colors.greyColor
+                    }
+                } else {
+                    if let health = userStatus.health {
+                        var str = ""
+                        for criterion in health.criteria ?? [] {
+                            str += "\(criterion)\n"
+                        }
+                        self.descriptionLabel.text = str
+                    }
+                    
+                    //show color - should ideally use a function bc DRY, but the enum isn't a shared type between health.color and location.color
+                    switch userStatus.health?.color {
+                    case .danger:
+                        self.view.backgroundColor = Colors.redColor
+                    case .yellow:
+                        self.view.backgroundColor = Colors.yellowColor
+                    case .success:
+                        self.view.backgroundColor = Colors.greenColor
+                    default:
+                        self.view.backgroundColor = Colors.greyColor
+                    }
+                }
+                
+                //check no report (marked in criteria), if so then try cache
+                if self.descriptionLabel.text!.contains("No Report") {
+                    self.tryCache()
                 }
             }
         }

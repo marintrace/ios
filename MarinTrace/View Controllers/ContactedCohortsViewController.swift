@@ -70,7 +70,7 @@ class ContactedCohortsViewController: UIViewController, UITableViewDelegate, UIT
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = cohortTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let contact = contacts[indexPath.row]
-        cell.textLabel?.text = contact.firstName + " " + contact.lastName
+        cell.textLabel?.text = (contact.firstName ?? "") + " " + (contact.lastName ?? "")
         return cell
     }
 

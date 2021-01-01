@@ -12,22 +12,16 @@ import Foundation
 
 public struct User: Codable {
 
-    public enum Status: String, Codable { 
-        case inactive = "inactive"
-        case active = "active"
-    }
-    public var firstName: String
-    public var lastName: String
+    public var firstName: String?
+    public var lastName: String?
     public var email: String
     public var school: String
-    public var status: Status?
 
-    public init(firstName: String, lastName: String, email: String, school: String, status: Status?) {
+    public init(firstName: String?, lastName: String?, email: String, school: String) {
         self.firstName = firstName
         self.lastName = lastName
         self.email = email
         self.school = school
-        self.status = status
     }
 
     public enum CodingKeys: String, CodingKey { 
@@ -35,7 +29,6 @@ public struct User: Codable {
         case lastName = "last_name"
         case email
         case school
-        case status
     }
 
 }

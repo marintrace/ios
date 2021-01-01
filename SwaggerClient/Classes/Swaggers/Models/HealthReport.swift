@@ -8,7 +8,7 @@
 import Foundation
 
 
-/** Symptom Report */
+/** Health Report Report */
 
 public struct HealthReport: Codable {
 

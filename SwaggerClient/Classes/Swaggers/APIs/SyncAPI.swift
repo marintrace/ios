@@ -32,14 +32,12 @@ open class SyncAPI {
     "school" : "school",
     "last_name" : "last_name",
     "first_name" : "first_name",
-    "email" : "email",
-    "status" : "inactive"
+    "email" : "email"
   }, {
     "school" : "school",
     "last_name" : "last_name",
     "first_name" : "first_name",
-    "email" : "email",
-    "status" : "inactive"
+    "email" : "email"
   } ],
   "timestamp" : 0,
   "status" : "SUCCESS"
@@ -65,12 +63,12 @@ open class SyncAPI {
     }
 
     /**
-     User Healthy
+     Entry Card
 
      - parameter authorization: (header)  
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func userStatus(authorization: String, completion: @escaping ((_ data: UserRiskItem?,_ error: Error?) -> Void)) {
+    open class func userStatus(authorization: String, completion: @escaping ((_ data: IdentifiedUserEntryItem?,_ error: Error?) -> Void)) {
         userStatusWithRequestBuilder(authorization: authorization).execute { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -78,21 +76,28 @@ open class SyncAPI {
 
 
     /**
-     User Healthy
-     - GET /user-status
+     Entry Card
+     - GET /get-user-entry
 
      - examples: [{contentType=application/json, example={
-  "color" : "color",
-  "criteria" : [ "criteria", "criteria" ],
-  "email" : "email",
-  "timestamp" : "timestamp"
+  "entry" : true,
+  "reason" : "health",
+  "name" : "name",
+  "health" : {
+    "color" : "danger",
+    "criteria" : [ "criteria", "criteria" ]
+  },
+  "location" : {
+    "color" : "danger",
+    "location" : "campus"
+  }
 }}]
      - parameter authorization: (header)  
 
-     - returns: RequestBuilder<UserRiskItem> 
+     - returns: RequestBuilder<IdentifiedUserEntryItem> 
      */
-    open class func userStatusWithRequestBuilder(authorization: String) -> RequestBuilder<UserRiskItem> {
-        let path = "/user-status"
+    open class func userStatusWithRequestBuilder(authorization: String) -> RequestBuilder<IdentifiedUserEntryItem> {
+        let path = "/get-user-entry"
         let URLString = SwaggerClientAPI.basePath + path
         let parameters: [String:Any]? = nil
 
@@ -102,7 +107,7 @@ open class SyncAPI {
         ]
         let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
 
-        let requestBuilder: RequestBuilder<UserRiskItem>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<IdentifiedUserEntryItem>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
     }
