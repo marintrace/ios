@@ -88,7 +88,7 @@ class SymptomTableViewController: UITableViewController {
                 RealmHelper.logItem(data: "Reported \(checkedSymptoms) symptoms, proximity: \(self.proximity ? "yes" : "no"), travel: \(self.travel ? "yes" : "no")", rawReport: rawReport)
                 
                 self.navigationController?.popViewController(animated: true)
-                AlertHelperFunctions.presentAlert(title: "Success", message: "Reported \(checkedSymptoms) symptoms.")
+                AlertHelperFunctions.presentAlert(title: "Success", message: "Daily questionnaire complete!")
             }
         }
     }

@@ -98,6 +98,23 @@ struct RealmHelper {
         }
     }
     
+    /// Used to prevent user from submitting multiple daily reports per day
+    /// - Returns: Whether or not they have submitted a questionnairre today
+    static func alreadySubmittedQuestionnaireToday() -> Bool? {
+        let midnight = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: Date())
+        
+        do {
+            let realm = try getRealm()
+            let items = realm.objects(BackupEntry.self).filter("date >= %@", midnight!).sorted() {$0.date > $1.date} //sort recent first
+            let dailyReports = items.filter({$0.rawReport?.dailyReport != nil})
+            return !dailyReports.isEmpty
+        } catch let error as NSError {
+            DataService.logError(error: error)
+            AlertHelperFunctions.presentAlert(title: "Error", message: "Could not check if you have already submitted a questionnaire today. \(error.localizedDescription). If the error persists, try signing out and signing back in.")
+            return nil
+        }
+    }
+    
     /// Gets the Realm encryption key
     /// – from https://github.com/realm/realm-cocoa/tree/master/examples/ios/swift/Encryption
     /// - Returns: The user's Realm encryption key

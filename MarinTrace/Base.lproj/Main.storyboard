@@ -298,7 +298,7 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                             <connections>
-                                                                <segue destination="IHQ-78-Oze" kind="show" id="Rzc-hh-3CS"/>
+                                                                <action selector="tappedOpenQuestionnaire:" destination="CD2-0t-fvS" eventType="touchUpInside" id="uCw-66-U11"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -554,6 +554,7 @@
                         <outlet property="profileButton" destination="fRk-BH-ZFb" id="HUQ-7j-D8N"/>
                         <outlet property="statusCardButton" destination="DG2-hC-Z34" id="CID-ex-oxv"/>
                         <segue destination="JF7-8e-U7F" kind="presentation" identifier="toLogin" modalPresentationStyle="fullScreen" id="Ybd-Im-IFR"/>
+                        <segue destination="IHQ-78-Oze" kind="show" identifier="showDailyReport" id="pNg-26-gye"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Lj-RD-KRT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

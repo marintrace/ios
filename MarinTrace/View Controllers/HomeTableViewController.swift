@@ -178,6 +178,16 @@ class HomeTableViewController: UITableViewController {
         
     }
     
+    @IBAction func tappedOpenQuestionnaire(_ sender: Any) {
+        //see if they've already reported today
+        guard let submitted = RealmHelper.alreadySubmittedQuestionnaireToday() else {return /*don't do anything, error will be presented by realm service*/}
+        if submitted {
+            AlertHelperFunctions.presentAlert(title: "Already Submitted", message: "You have already submitted your questionnaire today. If you need to make a change, contact your school.")
+        } else {
+            self.performSegue(withIdentifier: "showDailyReport", sender: self)
+        }
+    }
+    
     //check in background if they are not allowed on campus
     func checkIfAllowed() {
         DataService.getUserStatus { (entryItem, _) in
