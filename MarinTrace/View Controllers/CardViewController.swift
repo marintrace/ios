@@ -143,8 +143,8 @@ class CardViewController: UIViewController {
                     }
                 }
                 
-                //check no report (marked in criteria), if so then try cache
-                if self.descriptionLabel.text!.contains("No Report") {
+                //if no report (marked in criteria) and no location set, then try cache (server might be held up processing a report)
+                if self.descriptionLabel.text!.contains("No Report") && userStatus.location?.location == .campus {
                     self.tryCache()
                 }
             }

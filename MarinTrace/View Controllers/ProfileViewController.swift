@@ -8,6 +8,7 @@
 
 import UIKit
 import Auth0
+import RealmSwift
 
 class ProfileViewController: UIViewController {
 
@@ -48,6 +49,12 @@ class ProfileViewController: UIViewController {
             credentialsManager.clear()
             switch $0 {
                 case true:
+                    //clear realm
+                    do {
+                        try FileManager.default.removeItem(at: Realm.Configuration.defaultConfiguration.fileURL!)
+                    } catch let error as NSError {
+                        AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't clear local backups: \(error.localizedDescription). If this error persists please contact us.")
+                    }
                     //go to log in
                     DispatchQueue.main.async {
                         let story = UIStoryboard(name: "Main", bundle: nil)

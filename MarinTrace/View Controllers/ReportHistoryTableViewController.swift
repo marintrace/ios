@@ -24,7 +24,7 @@ class ReportHistoryTableViewController: UITableViewController {
         items = RealmHelper.listItems()
         if items.isEmpty {
             self.dismiss(animated: true, completion: nil)
-            AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't find any prior reports.")
+            AlertHelperFunctions.presentAlert(title: "No Reports Found", message: "This would only include reports you have made on this device.")
         } else {
             tableView.reloadData()
         }
@@ -55,7 +55,7 @@ class ReportHistoryTableViewController: UITableViewController {
     }
 
     @IBAction func exportTappped(_ sender: Any) {
-        let alertController = UIAlertController(title: "Export Data:", message: "This data has your personal information and should only be shared with people you trust, for example your school if the system has an outage.", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Export Data", message: "This data has your personal information and should only be shared with people you trust, for example your school if the system has an outage.", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel) {
             UIAlertAction in
         }

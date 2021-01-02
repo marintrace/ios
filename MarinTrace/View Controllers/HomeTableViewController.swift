@@ -91,7 +91,8 @@ class HomeTableViewController: UITableViewController {
         //ask to send notifications (check if asked before too)
         askForNotification()
         
-        //TODO - async reqeust to check + alert if not allowed on campus
+        //async reqeust to check + alert if not allowed on campus
+        checkIfAllowed()
     }
     
     func askForNotification() {
@@ -175,6 +176,18 @@ class HomeTableViewController: UITableViewController {
     
     @IBAction func profileTapped(_ sender: Any) {
         
+    }
+    
+    //check in background if they are not allowed on campus
+    func checkIfAllowed() {
+        DataService.getUserStatus { (entryItem, _) in
+            guard let entry = entryItem, let location = entryItem?.location else {return}
+            
+            //not allowed due to location
+            if !entry.entry && entry.reason == .location {
+                AlertHelperFunctions.presentAlert(title: "You are not allowed on campus", message: "You are currently \(location.location?.rawValue ?? "[LOCATION UNKNOWN]")")
+            }
+        }
     }
     
     // MARK: - Table view data source
