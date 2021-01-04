@@ -55,7 +55,7 @@ class CardViewController: UIViewController {
             
             if dailyDetail.travel {
                 description += "Commercial Travel \n"
-                color = Colors.yellowColor
+                color = Colors.redColor
             }
             if symptoms > 0 {
                 color = Colors.redColor
