@@ -1176,7 +1176,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="branson_logo" width="37.333332061767578" height="46.333332061767578"/>
+        <image name="branson_logo" width="563.33331298828125" height="254"/>
         <image name="ma_logo" width="493.66665649414062" height="493"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
