@@ -44,17 +44,24 @@ class ProfileViewController: UIViewController {
         SpinnerHelper.show()
         Auth0.webAuth().clearSession(federated:false) {
             SpinnerHelper.hide()
-            credentialsManager.revoke { (_) in                
-            }
-            credentialsManager.clear()
             switch $0 {
                 case true:
+                    //clear creds
+                    credentialsManager.revoke { (_) in
+                    }
+                    credentialsManager.clear()
+                    
                     //clear realm
                     do {
                         try FileManager.default.removeItem(at: Realm.Configuration.defaultConfiguration.fileURL!)
                     } catch let error as NSError {
                         AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't clear local backups: \(error.localizedDescription). If this error persists please contact us.")
                     }
+                    
+                    //clear preferences/policy agreement
+                    UserDefaults.standard.set(false, forKey: "asked_for_notification")
+                    UserDefaults.standard.set(false, forKey: "agreed")
+                    
                     //go to log in
                     DispatchQueue.main.async {
                         let story = UIStoryboard(name: "Main", bundle: nil)
@@ -64,7 +71,7 @@ class ProfileViewController: UIViewController {
                         UIApplication.shared.windows.first?.makeKeyAndVisible()
                     }
                 case false:
-                    AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't log out. If this error persists please contact us.")
+                    AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't log out. This is likely because you hit \"cancel.\" If this error persists please contact us.")
             }
         }
     }
