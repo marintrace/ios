@@ -882,7 +882,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Daily Report" id="fkp-bD-fJa">
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="cXB-Fj-6yg">
+                        <barButtonItem key="rightBarButtonItem" title="Submit" id="cXB-Fj-6yg">
                             <connections>
                                 <action selector="donePressed:" destination="IHQ-78-Oze" id="PPT-E1-OrT"/>
                             </connections>

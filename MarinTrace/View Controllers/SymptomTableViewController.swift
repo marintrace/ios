@@ -37,7 +37,7 @@ class SymptomTableViewController: UITableViewController {
         //link text
         let descriptionText = NSMutableAttributedString(string:"Have you recently experienced any of these symptoms in the last 2-14 days? This list is from the Center For Disease Control's ", attributes: [.font:UIFont.systemFont(ofSize: 14, weight: .light)])
         let linkText = NSMutableAttributedString(string: "\"Symptoms of Coronavirus\"", attributes: [NSAttributedString.Key.link: URL(string: "https://www.cdc.gov/coronavirus/2019-ncov/symptoms-testing/symptoms.html")!, .font:UIFont.systemFont(ofSize: 14, weight: .light)])
-        let endText = NSMutableAttributedString(string:" webpage. If you are not experincing any of these, just hit \"done\"", attributes: [.font:UIFont.systemFont(ofSize: 14, weight: .light)])
+        let endText = NSMutableAttributedString(string:" webpage. If you are not experincing any of these, just hit \"submit\"", attributes: [.font:UIFont.systemFont(ofSize: 14, weight: .light)])
         descriptionText.append(linkText)
         descriptionText.append(endText)
         //set the link
