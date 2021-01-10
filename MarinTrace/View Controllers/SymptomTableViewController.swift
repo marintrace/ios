@@ -21,10 +21,10 @@ class SymptomTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupTableView()
-        
         //initialize selections array with all false
         selections = symptoms.map({_ in false})
+        
+        setupTableView()
     }
     
     func setupTableView() {
@@ -50,7 +50,17 @@ class SymptomTableViewController: UITableViewController {
         label.isScrollEnabled = false
         headerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: label.frame.height + 10)
         headerView.addSubview(label)
+        
+        //https://stackoverflow.com/questions/16471846/is-it-possible-to-use-autolayout-with-uitableviews-tableheaderview
         tableView.tableHeaderView = headerView
+        headerView.setNeedsLayout()
+        headerView.layoutIfNeeded()
+        headerView.frame.size = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+        tableView.tableHeaderView = headerView
+        
+        tableView.setNeedsDisplay()
+        tableView.layoutIfNeeded()
+        tableView.reloadData()
         
         //hide cells at bottom + separator
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 1))
@@ -60,16 +70,10 @@ class SymptomTableViewController: UITableViewController {
         tableView.rowHeight = UITableView.automaticDimension
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        tableView.setNeedsDisplay()
-        tableView.reloadData()
-    }
-    
     @IBAction func donePressed(_ sender: Any) {
         let checkedSymptoms = selections.reduce(0) { $0 + ($1 ? 1 : 0) }
         
         SpinnerHelper.show()
-        //TODO add proximity + travel
         DataService.dailyReport(symptoms: checkedSymptoms, proximity: proximity, travel: travel) { (error) in
             SpinnerHelper.hide()
             if error != nil {
@@ -132,11 +136,21 @@ class SymptomTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SymptomTableViewCell
         
+        //reset cell
+        cell.checkbox.removeTarget(nil, action: nil, for: .allEvents)
+        cell.backgroundRoundedView.roundCorners(corners: .allCorners, radius: 0)
+        
         if indexPath.section == 0 {
             cell.symptomLabel.text = screeners[indexPath.row]
             
             cell.checkbox.tag = indexPath.row
             cell.checkbox.addTarget(self, action: #selector(self.screenerCheckboxChecked(_:)), for: .valueChanged)
+            
+            if indexPath.row == 0 {
+                cell.checkbox.checkState = travel ? .checked : .unchecked
+            } else if indexPath.row == 1 {
+                cell.checkbox.checkState = proximity ? .checked : .unchecked
+            }
             
             //if its the first or last cell, round corners
             if indexPath.row == 0 {
@@ -150,6 +164,8 @@ class SymptomTableViewController: UITableViewController {
             //set tag of checkbox to index to see what checkbox they tapped
             cell.checkbox.tag = indexPath.row
             cell.checkbox.addTarget(self, action: #selector(self.symptomCheckboxChecked(_:)), for: .valueChanged)
+            
+            cell.checkbox.checkState = selections[indexPath.row] ? .checked : .unchecked
             
             //if its the first or last cell, round corners
             if indexPath.row == 0 {

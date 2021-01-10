@@ -23,6 +23,11 @@ class SymptomTableViewCell: UITableViewCell {
         checkbox.tintColor = Colors.colorFor(forSchool: User.school)
         
     }
+    
+    override func prepareForReuse() {
+        self.setNeedsDisplay()
+        self.layoutIfNeeded()
+    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
