@@ -28,6 +28,17 @@ class SymptomTableViewCell: UITableViewCell {
         self.setNeedsDisplay()
         self.layoutIfNeeded()
     }
+    
+    /*override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        let oldFrame = self.backgroundRoundedView.frame
+        self.backgroundRoundedView.frame = CGRect(origin: oldFrame.origin, size: CGSize(width: oldFrame.size.width, height: self.symptomLabel.frame.height + 22))
+        
+        self.backgroundRoundedView.setNeedsDisplay()
+        self.backgroundRoundedView.setNeedsUpdateConstraints()
+        self.layoutIfNeeded()
+    }*/
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
