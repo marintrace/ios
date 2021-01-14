@@ -16,7 +16,7 @@ struct RealmHelper {
     static func getRealm() throws -> Realm  {
         //get encryption key from keychain
         let config = Realm.Configuration(encryptionKey: getKey() as Data, schemaVersion: 4) { (migration, oldSchemaVersion) in //migrate
-            if oldSchemaVersion < 4 { //set rawReport to nil for old data
+            if oldSchemaVersion < 5 { //set rawReport to nil for old data
                 //only added new property, realm will automatially set to nil so no action required
             }
         }
@@ -176,6 +176,7 @@ class DailyReport: Object {
     @objc dynamic var numberOfSymptoms = 0
     @objc dynamic var proximity = false
     @objc dynamic var travel = false
+    @objc dynamic var bayArea = false
 }
 
 class TestReport: Object {

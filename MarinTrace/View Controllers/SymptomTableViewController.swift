@@ -13,10 +13,11 @@ import M13Checkbox
 class SymptomTableViewController: UITableViewController {
     
     var symptoms = ["Fever or chills", "Cough", "Shortness of breath", "Difficulty breathing", "Fatigue", "Muscle or body aches", "Headache", "New loss of taste or smell", "Sore throat", "Congestion or runny nose", "Nausea or vomiting", "Diarrhea"]
-    var screeners = ["I have been outside the state in the last 14 days", "I have been in contact with someone who has tested positive within the last 14 days"]
+    var screeners = ["I have been outside the state in the last 14 days", "I have been in contact with someone who has tested positive within the last 14 days", "I have been outside the Bay Area in the last 14 days (Marin, San Francisco, Sonoma, Napa, Solano, Contra Costa, Alameda, Santa Clara, and San Mateo counties)"]
     var selections = [Bool]()
     var travel = false
     var proximity = false
+    var bayArea = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,8 +89,9 @@ class SymptomTableViewController: UITableViewController {
                 dailyReport.numberOfSymptoms = checkedSymptoms
                 dailyReport.proximity = self.proximity
                 dailyReport.travel = self.travel
+                //add bay area
                 rawReport.dailyReport = dailyReport
-                RealmHelper.logItem(data: "Reported \(checkedSymptoms) symptoms, proximity: \(self.proximity ? "yes" : "no"), travel: \(self.travel ? "yes" : "no")", rawReport: rawReport)
+                RealmHelper.logItem(data: "Reported \(checkedSymptoms) symptoms, proximity: \(self.proximity ? "yes" : "no"), state travel: \(self.travel ? "yes" : "no"), bay area travel \(self.bayArea ? "yes" : "no")", rawReport: rawReport)
                 
                 self.navigationController?.popViewController(animated: true)
                 AlertHelperFunctions.presentAlert(title: "Success", message: "Daily questionnaire complete!")
@@ -101,8 +103,10 @@ class SymptomTableViewController: UITableViewController {
         let checked = (sender.checkState == .checked) ? true : false //convert enum to true/false
         if sender.tag == 0{
             travel = checked
-        } else {
+        } else if sender.tag == 1{
             proximity = checked
+        } else if sender.tag == 2 {
+            bayArea = checked
         }
     }
     
@@ -150,6 +154,8 @@ class SymptomTableViewController: UITableViewController {
                 cell.checkbox.checkState = travel ? .checked : .unchecked
             } else if indexPath.row == 1 {
                 cell.checkbox.checkState = proximity ? .checked : .unchecked
+            } else if indexPath.row == 2 {
+                cell.checkbox.checkState = bayArea ? .checked : .unchecked
             }
             
             //if its the first or last cell, round corners
