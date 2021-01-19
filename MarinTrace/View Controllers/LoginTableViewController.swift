@@ -47,7 +47,8 @@ class LoginTableViewController: UITableViewController {
                 }
             case .success(let credentials):
                 DataService.logMessage(message: "login succeeded")
-                credentialsManager.store(credentials: credentials)
+                let stored = credentialsManager.store(credentials: credentials)
+                DataService.logMessage(message: "stored credentials?: \(stored)")
 
                 DispatchQueue.main.async {
                     SpinnerHelper.show()
@@ -68,7 +69,8 @@ class LoginTableViewController: UITableViewController {
                                 switch(result) {
                                 case .success(let credentials2):
                                     DataService.logMessage(message: "refreshing succeeded, marking as active")
-                                    credentialsManager.store(credentials: credentials2)
+                                    let stored2 = credentialsManager.store(credentials: credentials2)
+                                    DataService.logMessage(message: "stored credentials?: \(stored2)")
                                     DataService.markUserAsActive { (apiError2) in
                                         SpinnerHelper.hide()
                                         DispatchQueue.main.async {

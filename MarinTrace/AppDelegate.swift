@@ -48,6 +48,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         return true
     }
     
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        DataService.logMessage(message: "entered foreground")
+    }
+    
     //MARK: Handle Google OAuth
     func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
         -> Bool {
