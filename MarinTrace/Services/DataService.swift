@@ -23,6 +23,7 @@ struct DataService {
     ///   - token: The  token
     ///   -  error: An error
     static func getHeaders(completion: @escaping(_ token: String?, _ error: Error?) -> Void) {
+        DataService.logMessage(message: "getting creds for REST")
         credentialsManager.credentials { (error, creds) in
             if error != nil {
                 completion(nil, error)
@@ -188,13 +189,23 @@ struct DataService {
         //add localized description in
         let nsError = error as NSError
         var swaggerError = ""
+        var auth0Error = ""
         if let errorResponse = error as? ErrorResponse {
             if let apiError = getAPIError(response: errorResponse) {
                 swaggerError = apiError
             }
         }
-        let newError = NSError(domain: nsError.domain, code: nsError.code, userInfo: [NSLocalizedDescriptionKey:nsError.localizedDescription, "swaggerError":swaggerError])
+        if let authError = error as? CredentialsManagerError, let innerError = authError as? NSError {
+            auth0Error = innerError.description
+        }
+        let newError = NSError(domain: nsError.domain, code: nsError.code, userInfo: [NSLocalizedDescriptionKey:nsError.localizedDescription, "swaggerError":swaggerError, "auth0Error":auth0Error])
         Crashlytics.crashlytics().record(error: newError)
+    }
+    
+    /// Adds log item to firebase crashlytics to help with debugging
+    /// - Parameter message: The log message to record
+    static func logMessage(message: String) {
+        Crashlytics.crashlytics().log(message)
     }
     
     /// Transforms Swagger error into something more readable

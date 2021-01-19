@@ -35,15 +35,18 @@ class LoginTableViewController: UITableViewController {
     
     //login, but refresh token because if they're signing up the first  token returned won't have their school role
     func login() {
+        DataService.logMessage(message: "starting login")
         Auth0.webAuth().scope("openid profile email offline_access").audience("tracing-rest-api")
             .start {
             switch $0 {
             case .failure(let error):
+                DataService.logMessage(message: "login failed")
                 DispatchQueue.main.async {
                     AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't login: "  + error.localizedDescription  + ". This may because you aren't using an @ma.org or @branson.org email account. If this error persists please contact us.")
                     DataService.logError(error: error)
                 }
             case .success(let credentials):
+                DataService.logMessage(message: "login succeeded")
                 credentialsManager.store(credentials: credentials)
 
                 DispatchQueue.main.async {
@@ -56,11 +59,15 @@ class LoginTableViewController: UITableViewController {
                             return
                         }
                         
+                        DataService.logMessage(message: "new user without roles")
+                        
                         if let refreshToken = credentials.refreshToken {
+                            DataService.logMessage(message: "refreshing token to get roles")
                             Auth0.authentication().renew(withRefreshToken: refreshToken).start { (result) in
                                 
                                 switch(result) {
                                 case .success(let credentials2):
+                                    DataService.logMessage(message: "refreshing succeeded, marking as active")
                                     credentialsManager.store(credentials: credentials2)
                                     DataService.markUserAsActive { (apiError2) in
                                         SpinnerHelper.hide()
@@ -69,6 +76,7 @@ class LoginTableViewController: UITableViewController {
                                         }
                                     }
                                 case .failure(let error):
+                                    DataService.logMessage(message: "failed refreshing token to get roles")
                                     SpinnerHelper.hide()
                                     DispatchQueue.main.async {
                                         AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't login: "  + error.localizedDescription  + ". This may because you aren't using an @ma.org or @branson.org email account. If this error persists please contact us.")
@@ -77,6 +85,7 @@ class LoginTableViewController: UITableViewController {
                                 }
                             }
                         } else {
+                            DataService.logMessage(message: "failed to get refresh token")
                             SpinnerHelper.hide()
                             AlertHelperFunctions.presentAlert(title: "Error", message: "Could not verify authentication status. If this error persists please contact us.")
                         }

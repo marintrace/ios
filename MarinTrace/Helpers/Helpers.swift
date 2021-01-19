@@ -13,6 +13,7 @@ import UserNotifications
 import SVProgressHUD
 import SafariServices
 import SwaggerClient
+import Auth0
 
 //MARK: Structs
 
@@ -196,7 +197,10 @@ extension Array where Element: Hashable {
 extension Error {
     var swaggerError: String {
         guard let errorResponse = self as? ErrorResponse else {
-            return self.localizedDescription
+            guard let authError = self as? CredentialsManagerError else {
+                return self.localizedDescription
+            }
+            return (authError as NSError).description
         }
         if let cleanError = DataService.getAPIError(response: errorResponse), !cleanError.isEmpty {
             return cleanError

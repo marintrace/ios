@@ -55,15 +55,21 @@ class HomeTableViewController: UITableViewController {
     
     //if no signed in user, go to login
     func checkUser() {
+        DataService.logMessage(message: "checking creds (check user)")
         guard credentialsManager.hasValid() else {
+            DataService.logMessage(message: "no valid creds (check user)")
             DispatchQueue.main.async {
                 self.performSegue(withIdentifier: "toLogin", sender: self)
             }
             return
         }
         
+        DataService.logMessage(message: "creds are valid (check user)")
+        
         //check if they've agreed to privacy policy
         if !UserDefaults.standard.bool(forKey: "agreed") {
+            DataService.logMessage(message: "showing privacy policy")
+
             //show it
             let story = UIStoryboard(name: "Main", bundle: nil)
             let homeVC = story.instantiateViewController(withIdentifier: "PrivacyPolicyViewController") as? UINavigationController
@@ -74,12 +80,16 @@ class HomeTableViewController: UITableViewController {
         
         //user exists, get details
         SpinnerHelper.show()
+        DataService.logMessage(message: "getting user details")
         User.getDetails { (success) in
             SpinnerHelper.hide()
             if success {
                 DispatchQueue.main.async {
                     self.configViewsForUser()
                 }
+                
+                //async reqeust to check + alert if not allowed on campus
+                self.checkIfAllowed()
             } else {
                 DispatchQueue.main.async {
                     self.performSegue(withIdentifier: "toLogin", sender: self)
@@ -90,13 +100,11 @@ class HomeTableViewController: UITableViewController {
         
         //ask to send notifications (check if asked before too)
         askForNotification()
-        
-        //async reqeust to check + alert if not allowed on campus
-        checkIfAllowed()
     }
     
     func askForNotification() {
         //if haven't already asked before, prompt
+        DataService.logMessage(message: "asking for notifications")
         if !UserDefaults.standard.bool(forKey: "asked_for_notification") {
             let alert = UIAlertController(title: "Enable Symptoms Reminder?", message: "Would you like us to send you a reminder to report symptoms before you get to school?", preferredStyle: .alert)
             
@@ -124,6 +132,7 @@ class HomeTableViewController: UITableViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Report", style: .destructive, handler: { (_) in
             SpinnerHelper.show()
+            DataService.logMessage(message: "reporting negative test")
             DataService.reportTest(testType: .negative) { (error) in
                 SpinnerHelper.hide()
                 if error != nil {
@@ -148,6 +157,7 @@ class HomeTableViewController: UITableViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Report", style: .destructive, handler: { (_) in
             SpinnerHelper.show()
+            DataService.logMessage(message: "reporting positive test")
             DataService.reportTest(testType: .positive) { (error) in
                 SpinnerHelper.hide()
                 if error != nil {
@@ -168,9 +178,11 @@ class HomeTableViewController: UITableViewController {
     }
     
     @IBAction func viewPrivacyPolicy(_ sender: Any) {
+        DataService.logMessage(message: "view priv policy")
         self.showSafariViewController(url: "https://marintracingapp.org/privacy.html")
     }
     @IBAction func viewSecurityPrecautions(_ sender: Any) {
+        DataService.logMessage(message: "view precautions")
         self.showSafariViewController(url: "https://marintracingapp.org/security.html")
     }
     
@@ -180,16 +192,20 @@ class HomeTableViewController: UITableViewController {
     
     @IBAction func tappedOpenQuestionnaire(_ sender: Any) {
         //see if they've already reported today
+        DataService.logMessage(message: "tapped questionnaire")
         guard let submitted = RealmHelper.alreadySubmittedQuestionnaireToday() else {return /*don't do anything, error will be presented by realm service*/}
         if submitted {
+            DataService.logMessage(message: "already submitted")
             AlertHelperFunctions.presentAlert(title: "Already Submitted", message: "You have already submitted your questionnaire today. If you need to make a change, contact your school.")
         } else {
+            DataService.logMessage(message: "showing questionnaire")
             self.performSegue(withIdentifier: "showDailyReport", sender: self)
         }
     }
     
     //check in background if they are not allowed on campus
     func checkIfAllowed() {
+        DataService.logMessage(message: "checking if allowed on campus")
         DataService.getUserStatus { (entryItem, _) in
             guard let entry = entryItem, let location = entryItem?.location else {return}
             

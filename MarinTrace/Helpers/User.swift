@@ -34,12 +34,14 @@ struct User {
     ///  - success: Whether the operation succeeded
     static func getDetails(completion: @escaping(_ success:Bool) -> Void) {
         //get token
+        DataService.logMessage(message: "getting creds for user info")
         credentialsManager.credentials { (error, creds) in
             guard let credentials = creds else {
                 DataService.logError(error: error!)
                 completion(false)
                 return
             }
+            DataService.logMessage(message: "getting user info")
             Auth0.authentication().userInfo(withAccessToken: credentials.accessToken!).start { result in
                 switch(result) {
                 case .success(let profile):

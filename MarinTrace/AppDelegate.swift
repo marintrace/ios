@@ -43,12 +43,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         //set api endpoint
         SwaggerClientAPI.basePath = "https://api.marintracingapp.org"
         
+        DataService.logMessage(message: "launched")
+        
         return true
     }
     
     //MARK: Handle Google OAuth
     func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
         -> Bool {
+            DataService.logMessage(message: "opened url")
             return Auth0.resumeAuth(url, options: options)
     }
     

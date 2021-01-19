@@ -38,6 +38,8 @@ class CardViewController: UIViewController {
     
     //for five min after submission, use cache in case there's a back log on backend
     func tryCache() {
+        DataService.logMessage(message: "trying cache for card")
+        
         let cachedItems = RealmHelper.listItemsWithinFiveMinutes()
         let cachedWithDetail = cachedItems.filter({$0.rawReport?.dailyReport != nil || $0.rawReport?.testReport != nil}) //make sure it has rawReport data
         if cachedWithDetail.isEmpty { //no recent, show no report
@@ -90,6 +92,7 @@ class CardViewController: UIViewController {
     
     func getData() {
         SpinnerHelper.show()
+        DataService.logMessage(message: "getting status")
         DataService.getUserStatus { (status, error) in
             SpinnerHelper.hide()
             if error != nil {

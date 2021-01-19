@@ -31,6 +31,7 @@ class ContactedCohortsViewController: UIViewController, UITableViewDelegate, UIT
             //process contacts into ids
             let targets = contacts.map({$0.email})
             SpinnerHelper.show()
+            DataService.logMessage(message: "reporting contacts")
             DataService.reportInteractions(targetIDS: targets) { (error) in
                 SpinnerHelper.hide()
                 if error != nil {

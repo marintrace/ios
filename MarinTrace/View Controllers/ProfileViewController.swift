@@ -38,6 +38,8 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func signOut(_ sender: Any) {
+        DataService.logMessage(message: "logging out")
+        
         //clear cache
         URLCache.shared.removeAllCachedResponses()
         
@@ -46,6 +48,8 @@ class ProfileViewController: UIViewController {
             SpinnerHelper.hide()
             switch $0 {
                 case true:
+                    DataService.logMessage(message: "logged out successfully")
+                    
                     //clear creds
                     credentialsManager.revoke { (_) in
                     }
@@ -71,6 +75,7 @@ class ProfileViewController: UIViewController {
                         UIApplication.shared.windows.first?.makeKeyAndVisible()
                     }
                 case false:
+                    DataService.logMessage(message: "logout failed")
                     AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't log out. This is likely because you hit \"cancel.\" If this error persists please contact us.")
             }
         }

@@ -43,6 +43,7 @@ class ReportContactsViewController: UIViewController, VENTokenFieldDelegate, VEN
     
     func getData() {
         SpinnerHelper.show()
+        DataService.logMessage(message: "getting users for report contacts")
         DataService.listUsers { (returnedContacts, error) in
             SpinnerHelper.hide()
             if error != nil {

@@ -74,6 +74,7 @@ class SymptomTableViewController: UITableViewController {
         let checkedSymptoms = selections.reduce(0) { $0 + ($1 ? 1 : 0) }
         
         SpinnerHelper.show()
+        DataService.logMessage(message: "reporting symptoms")
         DataService.dailyReport(symptoms: checkedSymptoms, proximity: proximity, travel: travel) { (error) in
             SpinnerHelper.hide()
             if error != nil {

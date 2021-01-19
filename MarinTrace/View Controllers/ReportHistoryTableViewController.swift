@@ -61,6 +61,8 @@ class ReportHistoryTableViewController: UITableViewController {
         }
         let continueAction = UIAlertAction(title: "Continue", style: UIAlertAction.Style.default) { [self]
             UIAlertAction in
+            DataService.logMessage(message: "exporting backups")
+            
             //create list w/ format "date/time: item"
             var str = ""
             for item in self.items {

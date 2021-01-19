@@ -14,9 +14,12 @@ struct RealmHelper {
     /// Gets the realm DB. Can throw error.
     /// - Returns: The realm
     static func getRealm() throws -> Realm  {
+        DataService.logMessage(message: "getting realm")
+        
         //get encryption key from keychain
         let config = Realm.Configuration(encryptionKey: getKey() as Data, schemaVersion: 4) { (migration, oldSchemaVersion) in //migrate
             if oldSchemaVersion < 4 { //set rawReport to nil for old data
+                DataService.logMessage(message: "migrating realm")
                 //only added new property, realm will automatially set to nil so no action required
             }
         }
@@ -54,6 +57,7 @@ struct RealmHelper {
     /// Logs an item to the backup
     /// - Parameter data: The log to backup
     static func logItem(data: String, rawReport: RawReports) {
+        DataService.logMessage(message: "logging backup item")
         do {
             let realm = try getRealm()
             let entry = BackupEntry()
@@ -119,6 +123,8 @@ struct RealmHelper {
     /// – from https://github.com/realm/realm-cocoa/tree/master/examples/ios/swift/Encryption
     /// - Returns: The user's Realm encryption key
     static func getKey() -> NSData {
+        DataService.logMessage(message: "getting realm encryption key")
+        
         // Identifier for our keychain entry - should be unique for your application
         let keychainIdentifier = "com.marintrace.realm_key"
         let keychainIdentifierData = keychainIdentifier.data(using: String.Encoding.utf8, allowLossyConversion: false)!

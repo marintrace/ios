@@ -28,6 +28,8 @@ class PrivacyPolicyViewController: UIViewController {
         //save choice
         UserDefaults.standard.set(true, forKey: "agreed")
         
+        DataService.logMessage(message: "accepted privacy policy")
+        
         //go home
         let story = UIStoryboard(name: "Main", bundle: nil)
         let homeVC = story.instantiateViewController(withIdentifier: "HomeTableViewController") as? UINavigationController
