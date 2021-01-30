@@ -206,6 +206,7 @@ struct DataService {
     /// - Parameter message: The log message to record
     static func logMessage(message: String) {
         Crashlytics.crashlytics().log(message)
+        print(message)
     }
     
     /// Transforms Swagger error into something more readable

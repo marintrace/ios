@@ -12,7 +12,7 @@ import M13Checkbox
 
 class SymptomTableViewController: UITableViewController {
     
-    var symptoms = ["Fever or chills", "Cough", "Shortness of breath", "Difficulty breathing", "Fatigue", "Muscle or body aches", "Headache", "New loss of taste or smell", "Sore throat", "Congestion or runny nose", "Nausea or vomiting", "Diarrhea"]
+    var symptoms = ["Fever or chills", "Cough", "Shortness of breath", "Difficulty breathing", "Fatigue", "Muscle or body aches", "New loss of taste or smell", "Sore throat", "Congestion or runny nose", "Nausea or vomiting", "Diarrhea"]
     var screeners = ["I have been outside the Bay Area in the last 10 days (Marin, San Francisco, Sonoma, Napa, Solano, Contra Costa, Alameda, Santa Clara, and San Mateo counties)", "I have been in contact with someone who has tested positive within the last 14 days"]
     var selections = [Bool]()
     var travel = false
