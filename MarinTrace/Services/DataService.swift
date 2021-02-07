@@ -11,6 +11,7 @@ import SwaggerClient
 import Alamofire
 import FirebaseCrashlytics
 import Auth0
+import FirebaseAnalytics
 
 typealias Contact = SwaggerClient.User
 
@@ -51,6 +52,7 @@ struct DataService {
                         completion(nil, error)
                         logError(error: error)
                     } else {
+                        Analytics.logEvent("list-users", parameters: nil)
                         completion(response?.users, nil)
                     }
                 }
@@ -74,6 +76,7 @@ struct DataService {
                         completion(error)
                         logError(error: error)
                     } else {
+                        Analytics.logEvent("report-interaction", parameters: nil)
                         completion(nil)
                     }
                 }
@@ -92,6 +95,7 @@ struct DataService {
             } else {
                 AsyncAPI.queueSetActiveUser(authorization: token ?? "") { (_, apiError) in
                     if let error = apiError {
+                        Analytics.logEvent("mark-as-active", parameters: nil)
                         completion(error)
                         logError(error: error)
                     } else {
@@ -117,6 +121,7 @@ struct DataService {
                 let report = HealthReport(timestamp: nil, numSymptoms: symptoms, proximity: proximity, testType: nil, commercialFlight: travel)
                 AsyncAPI.queueHealthReport(body: report, authorization: token!) { (_, apiError) in
                     if let error = apiError {
+                        Analytics.logEvent("daily-report", parameters: nil)
                         completion(error)
                         logError(error: error)
                     } else {
@@ -140,6 +145,7 @@ struct DataService {
                 let report = HealthReport(timestamp: nil, numSymptoms: nil, proximity: nil, testType: testType, commercialFlight: nil)
                 AsyncAPI.queueHealthReport(body: report, authorization: token!) { (_, apiError) in
                     if let error = apiError {
+                        Analytics.logEvent("report-test", parameters: nil)
                         completion(error)
                         logError(error: error)
                     } else {
@@ -163,6 +169,7 @@ struct DataService {
                 
                 SyncAPI.userStatus(authorization: token!) { (risk, apiError) in
                     if let error = apiError {
+                        Analytics.logEvent("get-user-status", parameters: nil)
                         completion(nil, error)
                         logError(error: error)
                     } else {

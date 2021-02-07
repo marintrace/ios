@@ -8,6 +8,7 @@
 
 import UIKit
 import Auth0
+import FirebaseAnalytics
 
 class LoginTableViewController: UITableViewController {
 
@@ -49,6 +50,7 @@ class LoginTableViewController: UITableViewController {
                 DataService.logMessage(message: "login succeeded")
                 let stored = credentialsManager.store(credentials: credentials)
                 DataService.logMessage(message: "stored credentials?: \(stored)")
+                Analytics.logEvent(AnalyticsEventLogin, parameters: nil)
 
                 DispatchQueue.main.async {
                     SpinnerHelper.show()
@@ -65,9 +67,9 @@ class LoginTableViewController: UITableViewController {
                         if let refreshToken = credentials.refreshToken {
                             DataService.logMessage(message: "refreshing token to get roles")
                             Auth0.authentication().renew(withRefreshToken: refreshToken).start { (result) in
-                                
                                 switch(result) {
                                 case .success(let credentials2):
+                                    Analytics.logEvent(AnalyticsEventSignUp, parameters: nil)
                                     DataService.logMessage(message: "refreshing succeeded, marking as active")
                                     let stored2 = credentialsManager.store(credentials: credentials2)
                                     DataService.logMessage(message: "stored credentials?: \(stored2)")
