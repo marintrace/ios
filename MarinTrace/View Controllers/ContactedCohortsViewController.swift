@@ -26,7 +26,6 @@ class ContactedCohortsViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     @IBAction func reportContacts(_ sender: Any) {
-        
         if contacts.count > 0 {
             //process contacts into ids
             let targets = contacts.map({$0.email})
@@ -37,6 +36,9 @@ class ContactedCohortsViewController: UIViewController, UITableViewDelegate, UIT
                 if error != nil {
                     AlertHelperFunctions.presentAlert(title: "Error", message: "Couldn't report contacts: " + error!.swaggerError + " If this error persists please contact us and contact your school to report your contacts manually.")
                 } else {
+                    //regenerate notifications
+                    NotificationScheduler.scheduleTracingNotifications()
+                    
                     //backup request
                     let contactString = targets.joinedWithComma()
                     let backupString = "Reported contacts: \(contactString)"

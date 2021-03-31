@@ -47,36 +47,70 @@ struct AlertHelperFunctions {
 
 struct NotificationScheduler {
     static func scheduleNotifications() {
-        //clear any prexisting notifications and setup notification center
-        let center = UNUserNotificationCenter.current()
-        center.removeAllPendingNotificationRequests()
+        //clear any prexisting symptom notifications and setup notification center
+        clearNotifications(for: "symptom")
                 
-        //we want notifications for every day, but we also need to be able to cancel today's notification if they fill out their symptoms. This can't be done with a repeating calendar trigger, so we have to create a bunch manually and then remove one via its id
+        //schedule
+        createNotifications(for: "symptom", title: "Report your symptoms!", body: "Remember to report your symptoms.", hour: 8)
+    }
+    
+    static func scheduleTracingNotifications() {
+        //clear any prexisting tracing notifications
+        clearNotifications(for: "contact")
+        
+        //schedule
+        createNotifications(for: "contact", title: "Log your contacts!", body: "Remember to log your contacts today outside your cohort.", hour: 17)
+    }
+    
+    /// We want notifications for every day, but we also need to be able to cancel today's notification if they fill out their symptoms. This can't be done with a repeating calendar trigger, so we have to create a bunch manually and then remove one via its id. We distinguish contact/symptom notifications by an id prefix.
+    /// - Parameters:
+    ///   - type: symptom or contact
+    ///   - title: notification title
+    ///   - body: notification body
+    ///   - hour: hour to send notification each day
+    static func createNotifications(for type: String, title: String, body: String, hour: Int) {
+        let center = UNUserNotificationCenter.current()
         
         //30 days worth of notifcations
         for i in 1...30 {
-            let symptomsContent = UNMutableNotificationContent()
-            symptomsContent.title = "Report your symptoms!"
-            symptomsContent.body = "Remember to report your symptoms."
+            let content = UNMutableNotificationContent()
+            content.title = title
+            content.body = body
             
             //get day n
-            let day = Calendar.current.date(byAdding: .day, value: i, to: Date())
+            let today = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: Date()) //set time to zero so we don't accidentally miss tomorrow if its already passed that time today
+            let day = Calendar.current.date(byAdding: .day, value: i, to: today!)
             
             //don't send on weekend
             if !Calendar.current.isDateInWeekend(day!) {
                 var components = Calendar.current.dateComponents([.day, .month, .year, .hour, .month], from: day!)
-                components.hour = 8
+                components.hour = hour
                 components.minute = 0
                 components.second = 0
                                         
-                let symptomsTrigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+                let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
                 
                 //create request with id of date in ISO-8601
-                let symptomsRequest = UNNotificationRequest(identifier: DateHelper.stringFromDate(withFormat: "yyyy-MM-dd", date: day!), content: symptomsContent, trigger: symptomsTrigger)
+                let symptomsRequest = UNNotificationRequest(identifier: "\(type)-\(DateHelper.stringFromDate(withFormat: "yyyy-MM-dd", date: day!))", content: content, trigger: trigger)
                 
                 //schedule notification
                 center.add(symptomsRequest)
             }
+        }
+        
+        //debug
+        /*center.getPendingNotificationRequests { (requests) in
+            print(requests.map({($0.identifier, $0.content.body, $0.content.title, $0.trigger)}))
+        }*/
+    }
+    
+    /// Remove notifications so we can recreate after today's
+    /// - Parameter type: symptom or contact
+    static func clearNotifications(for type: String) {
+        let center = UNUserNotificationCenter.current()
+        center.getPendingNotificationRequests { (requests) in
+            let filtered = requests.filter({$0.identifier.contains(type)}).map({$0.identifier})
+            center.removePendingNotificationRequests(withIdentifiers: filtered)
         }
     }
     
@@ -290,3 +324,25 @@ extension String {
         return ceil(boundingBox.width)
     }
 }
+
+//date stuff for testing
+extension Date {
+    static var yesterday: Date { return Date().dayBefore }
+    static var tomorrow:  Date { return Date().dayAfter }
+    var dayBefore: Date {
+        return Calendar.current.date(byAdding: .day, value: -1, to: noon)!
+    }
+    var dayAfter: Date {
+        return Calendar.current.date(byAdding: .day, value: 1, to: noon)!
+    }
+    var noon: Date {
+        return Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: self)!
+    }
+    var month: Int {
+        return Calendar.current.component(.month, from: self)
+    }
+    var isLastDayOfMonth: Bool {
+        return dayAfter.month != month
+    }
+}
+

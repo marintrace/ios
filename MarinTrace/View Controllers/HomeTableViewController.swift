@@ -106,7 +106,7 @@ class HomeTableViewController: UITableViewController {
         //if haven't already asked before, prompt
         DataService.logMessage(message: "asking for notifications")
         if !UserDefaults.standard.bool(forKey: "asked_for_notification") {
-            let alert = UIAlertController(title: "Enable Symptoms Reminder?", message: "Would you like us to send you a reminder to report symptoms before you get to school?", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Enable Symptoms Reminder?", message: "Would you like us to send you a reminder to report symptoms before you get to school and log contacts after school?", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "No", style: .default, handler: { (_) in
                 UserDefaults.standard.set(true, forKey: "asked_for_notification") //remember their choice
@@ -118,12 +118,24 @@ class HomeTableViewController: UITableViewController {
                     if error == nil && granted { //if user accepted
                         //schedule first set of notifications
                         NotificationScheduler.scheduleNotifications()
+                        NotificationScheduler.scheduleTracingNotifications()
                     }
                 }
                 UserDefaults.standard.set(true, forKey: "asked_for_notification") //remember their choice
+                UserDefaults.standard.set(true, forKey: "asked_for_tracing_notification")
             }))
             
             self.present(alert, animated: true, completion: nil)
+        } else if !UserDefaults.standard.bool(forKey: "asked_for_tracing_notification") { //check if they've previously enabled notifications but contact notifications are new
+            let center = UNUserNotificationCenter.current()
+            center.removeAllPendingNotificationRequests() //clear old w/o prefixing
+            center.getNotificationSettings { (settings) in
+                if settings.authorizationStatus == .authorized {
+                    NotificationScheduler.scheduleNotifications()
+                    NotificationScheduler.scheduleTracingNotifications()
+                    UserDefaults.standard.set(true, forKey: "asked_for_tracing_notification")
+                }
+            }
         }
     }
     

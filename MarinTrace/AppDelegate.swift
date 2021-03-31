@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         FirebaseApp.configure()
         
         //register default value for user defaults if user hasnt selected otherwise
-        UserDefaults.standard.register(defaults: ["asked_for_notification": false])
+        UserDefaults.standard.register(defaults: ["asked_for_notification": false, "asked_for_tracing_notification": false])
         
         //set delegate
         UNUserNotificationCenter.current().delegate = self
