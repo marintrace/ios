@@ -80,10 +80,72 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection id="I8C-pT-jCY">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="219" id="Ere-U9-fyB">
+                                        <rect key="frame" x="0.0" y="303" width="375" height="219"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ere-U9-fyB" id="DbA-jk-nNX">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="219"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Mq-ek-6Rm">
+                                                    <rect key="frame" x="14" y="0.0" width="347" height="219"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="headlands_logo" translatesAutoresizingMaskIntoConstraints="NO" id="Xh1-hH-Q05">
+                                                            <rect key="frame" x="53" y="14" width="240" height="138"/>
+                                                        </imageView>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vC3-O0-9cs">
+                                                            <rect key="frame" x="29" y="163" width="288" height="42"/>
+                                                            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="42" id="79i-ci-qMK"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                                            <state key="normal" title="Login with password"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                    <integer key="value" value="10"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <action selector="headlandsLogIn:" destination="NdU-8W-uCg" eventType="touchUpInside" id="Gff-bG-WTz"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="vC3-O0-9cs" secondAttribute="trailing" constant="30" id="4SB-Pg-7jH"/>
+                                                        <constraint firstItem="Xh1-hH-Q05" firstAttribute="top" secondItem="3Mq-ek-6Rm" secondAttribute="top" constant="14" id="GMW-7t-KvZ"/>
+                                                        <constraint firstItem="vC3-O0-9cs" firstAttribute="top" secondItem="Xh1-hH-Q05" secondAttribute="bottom" constant="11" id="Swi-8i-Xfi"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Xh1-hH-Q05" secondAttribute="trailing" constant="54" id="mdA-Mx-kpN"/>
+                                                        <constraint firstAttribute="bottom" secondItem="vC3-O0-9cs" secondAttribute="bottom" constant="14" id="pAb-fB-J7m"/>
+                                                        <constraint firstItem="vC3-O0-9cs" firstAttribute="leading" secondItem="3Mq-ek-6Rm" secondAttribute="leading" constant="29" id="z5s-Ua-byu"/>
+                                                        <constraint firstItem="Xh1-hH-Q05" firstAttribute="leading" secondItem="3Mq-ek-6Rm" secondAttribute="leading" constant="53" id="zQN-DL-3n9"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="10"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="3Mq-ek-6Rm" secondAttribute="bottom" id="5PF-Ur-5HW"/>
+                                                <constraint firstItem="3Mq-ek-6Rm" firstAttribute="leading" secondItem="DbA-jk-nNX" secondAttribute="leading" constant="14" id="Q5r-XP-e14"/>
+                                                <constraint firstAttribute="trailing" secondItem="3Mq-ek-6Rm" secondAttribute="trailing" constant="14" id="l8i-PN-2NS"/>
+                                                <constraint firstItem="3Mq-ek-6Rm" firstAttribute="top" secondItem="DbA-jk-nNX" secondAttribute="top" id="t3f-QF-mdI"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                             <tableViewSection id="7zd-X2-nBH">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="219" id="l2W-bC-DCU">
-                                        <rect key="frame" x="0.0" y="303" width="375" height="219"/>
+                                        <rect key="frame" x="0.0" y="578" width="375" height="219"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="l2W-bC-DCU" id="0MN-nG-Odc">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="219"/>
@@ -1173,6 +1235,7 @@
     </scenes>
     <resources>
         <image name="branson_logo" width="563.33331298828125" height="254"/>
+        <image name="headlands_logo" width="584" height="464"/>
         <image name="ma_logo" width="493.66665649414062" height="493"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

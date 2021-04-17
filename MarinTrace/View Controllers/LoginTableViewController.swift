@@ -27,17 +27,21 @@ class LoginTableViewController: UITableViewController {
 
     //MARK: IBActions
     @IBAction func bransonLogIn(_ sender: Any) {
-        login()
+        login(connection: "google-oauth2")
     }
     
     @IBAction func maLogIn(_ sender: Any) {
-        login()
+        login(connection: "google-oauth2")
+    }
+    
+    @IBAction func headlandsLogIn(_ sender: Any) {
+        login(connection: "MT-Email-Pass")
     }
     
     //login, but refresh token because if they're signing up the first  token returned won't have their school role
-    func login() {
+    func login(connection: String) {
         DataService.logMessage(message: "starting login")
-        Auth0.webAuth().scope("openid profile email offline_access").audience("tracing-rest-api")
+        Auth0.webAuth().scope("openid profile email offline_access").audience("tracing-rest-api").connection(connection)
             .start {
             switch $0 {
             case .failure(let error):
