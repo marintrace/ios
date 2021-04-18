@@ -32,14 +32,19 @@ class HomeTableViewController: UITableViewController {
         tableView.reloadData()
         
         //configure image to be ma or branson, set nav bar title
-        if User.school == .MA {
+        switch User.school {
+        case .MA:
             let image = UIImage(named: "profile_ma")?.withRenderingMode(.alwaysOriginal)
             profileButton.setBackgroundImage(image, for: .normal, barMetrics: .default)
             self.title = "MA Trace"
-        } else {
+        case .Branson:
             let image = UIImage(named: "profile_branson")?.withRenderingMode(.alwaysOriginal)
             profileButton.setBackgroundImage(image, for: .normal, barMetrics: .default)
             self.title = "Branson Trace"
+        case .Headlands:
+            let image = UIImage(named: "profile_headlands")?.withRenderingMode(.alwaysOriginal)
+            profileButton.setBackgroundImage(image, for: .normal, barMetrics: .default)
+            self.title = "Headlands Prep"
         }
         
         //round font
@@ -242,6 +247,10 @@ class HomeTableViewController: UITableViewController {
             switch section {
             case 2: return true //hide testing
             default: return false
+            }
+        case .Headlands:
+            switch section {
+            default: return false //hide nothing
             }
         }
     }

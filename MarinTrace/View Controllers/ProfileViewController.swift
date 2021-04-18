@@ -24,10 +24,13 @@ class ProfileViewController: UIViewController {
     
     func setupViews() {
         //configure image to be ma or branson
-        if User.school == .MA {
+        switch User.school{
+        case .MA:
             labelImage.image = UIImage(named: "profile_ma")
-        } else {
+        case .Branson:
             labelImage.image = UIImage(named: "profile_branson")
+        case .Headlands:
+            labelImage.image = UIImage(named: "profile_headlands")
         }
         
         //round text

@@ -8,6 +8,7 @@
 
 import Foundation
 import Auth0
+import JWTDecode
 
 //MARK: User
 struct User {
@@ -16,6 +17,7 @@ struct User {
     enum School: String {
         case MA = "ma"
         case Branson = "branson"
+        case Headlands = "headlands"
     }
     
     //MARK: User Properties
@@ -63,11 +65,22 @@ struct User {
                         initials = String(firstName[firstName.startIndex])
                     }
                     
-                    //get branson or MA
-                    if profile.email?.contains("ma.org") ?? false{
+                    //if initials are empty, then try to pull from full name
+                    if initials.isEmpty {
+                        let chunks = fullName.split(separator: " ")
+                        for name in chunks.prefix(2) {
+                            initials += String(name[name.startIndex])
+                        }
+                    }
+                    
+                    //get school by decoding token claims
+                    guard let jwt = try? decode(jwt: credentials.accessToken!), let roles = jwt.claim(name: "http://marintracingapp.org/role").array else {completion(true); return}
+                    if roles.contains("marinacademy") {
                         school = .MA
-                    } else {
+                    } else if roles.contains("branson") {
                         school = .Branson
+                    } else if roles.contains("headlands") {
+                        school = .Headlands
                     }
                     
                     completion(true)

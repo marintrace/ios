@@ -152,10 +152,14 @@ struct NotificationScheduler {
 struct Colors {
     //school colors
     static func colorFor(forSchool school:User.School) -> UIColor {
-        if school == .MA {
+        switch User.school{
+        case .MA:
             return UIColor(hexString: "#BE2828")
-        } else {
+        case .Branson:
             return UIColor(hexString: "#017BD6")
+        case .Headlands:
+            //return UIColor(hexString: "#14422b") alternate green color 
+            return UIColor(hexString: "#dc5a33")
         }
     }
     
