@@ -250,7 +250,8 @@ class HomeTableViewController: UITableViewController {
             }
         case .Headlands:
             switch section {
-            default: return false //hide nothing
+            case 2: return true //hide testing
+            default: return false
             }
         }
     }
