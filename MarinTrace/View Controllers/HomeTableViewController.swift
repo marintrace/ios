@@ -32,20 +32,8 @@ class HomeTableViewController: UITableViewController {
         tableView.reloadData()
         
         //configure image to be ma or branson, set nav bar title
-        switch User.school {
-        case .MA:
-            let image = UIImage(named: "profile_ma")?.withRenderingMode(.alwaysOriginal)
-            profileButton.setBackgroundImage(image, for: .normal, barMetrics: .default)
-            self.title = "MA Trace"
-        case .Branson:
-            let image = UIImage(named: "profile_branson")?.withRenderingMode(.alwaysOriginal)
-            profileButton.setBackgroundImage(image, for: .normal, barMetrics: .default)
-            self.title = "Branson Trace"
-        case .Headlands:
-            let image = UIImage(named: "profile_headlands")?.withRenderingMode(.alwaysOriginal)
-            profileButton.setBackgroundImage(image, for: .normal, barMetrics: .default)
-            self.title = "Headlands Prep"
-        }
+        self.title = Titles.titleFor(forSchool: User.school)
+        profileButton.setBackgroundImage(ProfileImages.imageFor(forSchool: User.school), for: .normal, barMetrics: .default)
         
         //round font
         profileButton.setTitleTextAttributes([NSAttributedString.Key.font:FontHelper.roundedFont(ofSize: 17, weight: .medium)], for: .normal)
@@ -237,23 +225,7 @@ class HomeTableViewController: UITableViewController {
     
     //config sections for each school
     private func sectionShouldBeHidden(_ section: Int) -> Bool {
-        switch User.school {
-        case .MA:
-            switch section {
-            //case 0, 1, 2, 3: return true
-            default: return false //hide nothing
-            }
-        case .Branson:
-            switch section {
-            case 2: return true //hide testing
-            default: return false
-            }
-        case .Headlands:
-            switch section {
-            case 2: return true //hide testing
-            default: return false
-            }
-        }
+        SectionVisibility.showSection(forSchool: User.school, section: section)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

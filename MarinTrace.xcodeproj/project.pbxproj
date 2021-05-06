@@ -35,6 +35,7 @@
 		34D297FB253C039300115528 /* versions.bash in Resources */ = {isa = PBXBuildFile; fileRef = 34D297F7253C039300115528 /* versions.bash */; };
 		34D297FC253C039300115528 /* decimalize_git_hash.bash in Resources */ = {isa = PBXBuildFile; fileRef = 34D297F8253C039300115528 /* decimalize_git_hash.bash */; };
 		34D297FD253C039300115528 /* minutes_since_date.bash in Resources */ = {isa = PBXBuildFile; fileRef = 34D297F9253C039300115528 /* minutes_since_date.bash */; };
+		34DB80FD264457D800E6EC3D /* SchoolConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DB80FC264457D800E6EC3D /* SchoolConfig.swift */; };
 		3C67DE643850470DE9A7DE0F /* Pods_MarinTrace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 254F1D42ACBA62F2A0D84621 /* Pods_MarinTrace.framework */; };
 		86266579B4BE42E49DEF93ED /* Pods_MarinTraceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E7909EB79CB02BB3137441 /* Pods_MarinTraceTests.framework */; };
 		9DA9F18DE52141CD58F33483 /* Pods_MarinTrace_MarinTraceUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D239C28CA6992C5BC416D7 /* Pods_MarinTrace_MarinTraceUITests.framework */; };
@@ -96,6 +97,7 @@
 		34D297F7253C039300115528 /* versions.bash */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = versions.bash; sourceTree = "<group>"; };
 		34D297F8253C039300115528 /* decimalize_git_hash.bash */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = decimalize_git_hash.bash; sourceTree = "<group>"; };
 		34D297F9253C039300115528 /* minutes_since_date.bash */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = minutes_since_date.bash; sourceTree = "<group>"; };
+		34DB80FC264457D800E6EC3D /* SchoolConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolConfig.swift; sourceTree = "<group>"; };
 		4EEC7C7C177B4A1E7EC430C7 /* Pods-MarinTraceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarinTraceTests.release.xcconfig"; path = "Target Support Files/Pods-MarinTraceTests/Pods-MarinTraceTests.release.xcconfig"; sourceTree = "<group>"; };
 		649F9834F37521C2A5F77006 /* Pods-MarinTrace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarinTrace.debug.xcconfig"; path = "Target Support Files/Pods-MarinTrace/Pods-MarinTrace.debug.xcconfig"; sourceTree = "<group>"; };
 		8C12207C58F8FD5DFB00AA63 /* Pods-MarinTrace-MarinTraceUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarinTrace-MarinTraceUITests.release.xcconfig"; path = "Target Support Files/Pods-MarinTrace-MarinTraceUITests/Pods-MarinTrace-MarinTraceUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				34D28267251D763000AF2BE2 /* BackupTableViewCell.swift */,
 				3481D0B2248DCE6D005215EE /* Helpers.swift */,
 				340CE276248F3A110094AC52 /* User.swift */,
+				34DB80FC264457D800E6EC3D /* SchoolConfig.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -601,6 +604,7 @@
 				340CE277248F3A110094AC52 /* User.swift in Sources */,
 				3481D0C3248E0636005215EE /* ContactedCohortsViewController.swift in Sources */,
 				34D28268251D763000AF2BE2 /* BackupTableViewCell.swift in Sources */,
+				34DB80FD264457D800E6EC3D /* SchoolConfig.swift in Sources */,
 				340CE279248F407B0094AC52 /* ProfileViewController.swift in Sources */,
 				3481D0C7248EB7D0005215EE /* SymptomTableViewController.swift in Sources */,
 			);

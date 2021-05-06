@@ -24,14 +24,7 @@ class ProfileViewController: UIViewController {
     
     func setupViews() {
         //configure image to be ma or branson
-        switch User.school{
-        case .MA:
-            labelImage.image = UIImage(named: "profile_ma")
-        case .Branson:
-            labelImage.image = UIImage(named: "profile_branson")
-        case .Headlands:
-            labelImage.image = UIImage(named: "profile_headlands")
-        }
+        labelImage.image = ProfileImages.imageFor(forSchool: User.school)
         
         //round text
         initialLabel.font = FontHelper.roundedFont(ofSize: 29, weight: .medium)

@@ -38,6 +38,10 @@ class LoginTableViewController: UITableViewController {
         login(connection: "MT-Email-Pass")
     }
     
+    @IBAction func tildenLogin(_ sender: Any) {
+        login(connection: "MT-Email-Pass")
+    }
+    
     //login, but refresh token because if they're signing up the first  token returned won't have their school role
     func login(connection: String) {
         DataService.logMessage(message: "starting login")

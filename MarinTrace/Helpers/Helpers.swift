@@ -149,26 +149,6 @@ struct NotificationScheduler {
     }*/
 }
 
-struct Colors {
-    //school colors
-    static func colorFor(forSchool school:User.School) -> UIColor {
-        switch User.school{
-        case .MA:
-            return UIColor(hexString: "#BE2828")
-        case .Branson:
-            return UIColor(hexString: "#017BD6")
-        case .Headlands:
-            //return UIColor(hexString: "#14422b") alternate green color 
-            return UIColor(hexString: "#dc5a33")
-        }
-    }
-    
-    static var greenColor = UIColor(hexString: "#27ae60")
-    static var redColor = UIColor(hexString: "#c0392b")
-    static var yellowColor = UIColor(hexString: "#f1c40f")
-    static var greyColor = UIColor(hexString: "#7f8c8d")
-}
-
 struct DateHelper {
     static func stringFromDate(withFormat format:String, date:Date) -> String {
         let formatter = DateFormatter()
