@@ -20,6 +20,8 @@ struct User {
         case Headlands = "headlands"
         case TildenAlbany = "tilden-albany"
         case TildenWalnutCreek = "tilden-walnut-creek"
+        case BransonSummer = "branson-summer"
+        case NGS = "ngs"
     }
     
     //MARK: User Properties
@@ -87,6 +89,10 @@ struct User {
                         school = .TildenAlbany
                     } else if roles.contains("tilden-walnut-creek") {
                         school = .TildenWalnutCreek
+                    } else if roles.contains("branson-summer") {
+                        school = .BransonSummer
+                    } else if roles.contains("ngs") {
+                        school = .NGS
                     }
                     
                     completion(true)

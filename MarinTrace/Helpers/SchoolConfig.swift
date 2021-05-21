@@ -15,7 +15,7 @@ struct Colors {
         switch User.school{
         case .MA:
             return UIColor(hexString: "#BE2828")
-        case .Branson:
+        case .Branson, .BransonSummer, .NGS:
             return UIColor(hexString: "#017BD6")
         case .Headlands:
             //return UIColor(hexString: "#14422b") alternate green color
@@ -45,6 +45,10 @@ struct Titles {
             return "Tilden (Albany)"
         case .TildenWalnutCreek:
             return "Tilden (Walnut Creek)"
+        case .BransonSummer:
+            return "Branson (Summer)"
+        case .NGS:
+            return "NGS"
         }
     }
 }
@@ -55,7 +59,7 @@ struct ProfileImages {
         switch User.school{
         case .MA:
             return UIImage(named: "profile_ma")!.withRenderingMode(.alwaysOriginal)
-        case .Branson:
+        case .Branson, .BransonSummer, .NGS:
             return UIImage(named: "profile_branson")!.withRenderingMode(.alwaysOriginal)
         case .Headlands:
             return UIImage(named: "profile_headlands")!.withRenderingMode(.alwaysOriginal)
@@ -73,7 +77,7 @@ struct SectionVisibility{
             //case 0, 1, 2, 3: return true
             default: return false //hide nothing
             }
-        case .Branson:
+        case .Branson, .BransonSummer, .NGS:
             switch section {
             case 2: return true //hide testing
             default: return false
