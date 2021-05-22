@@ -110,7 +110,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vr0-Q3-POK">
                                                     <rect key="frame" x="14" y="0.0" width="347" height="219"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OBe-fS-aPd">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ngs_logo" translatesAutoresizingMaskIntoConstraints="NO" id="OBe-fS-aPd">
                                                             <rect key="frame" x="53" y="14" width="240" height="138"/>
                                                         </imageView>
                                                     </subviews>
@@ -1379,6 +1379,7 @@
         <image name="branson_logo" width="563.33331298828125" height="254"/>
         <image name="headlands_logo" width="584" height="464"/>
         <image name="ma_logo" width="493.66665649414062" height="493"/>
+        <image name="ngs_logo" width="122.33333587646484" height="45.666667938232422"/>
         <image name="tilden_logo" width="545.33331298828125" height="545.33331298828125"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
