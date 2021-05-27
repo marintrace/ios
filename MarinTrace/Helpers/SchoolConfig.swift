@@ -3,7 +3,7 @@
 //  MarinTrace
 //
 //  Created by Beck Lorsch on 5/6/21.
-//  Copyright © 2021 Marin Trace. All rights reserved.
+//  Copyright © 2021 The MarinTrace Foundation. All rights reserved.
 //
 
 import UIKit
