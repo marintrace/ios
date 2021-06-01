@@ -43,7 +43,13 @@ class LoginTableViewController: UITableViewController {
     }
     
     @IBAction func bransonSummerLogIn(_ sender: Any) {
-        login(connection: "MT-Email-Pass")
+        let alertController = UIAlertController(title: "Email vs. Google Login", message: "If you are an existing Branson user, please make sure to continue to use your old login method (i.e if you always logged in with Google, continue to do so here). If you received an email from us to setup a password, then please login with your email and that password.", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
+            UIAlertAction in
+            self.login(connection: "")
+        }
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
     }
     
     @IBAction func ngsLogin(_ sender: Any) {
