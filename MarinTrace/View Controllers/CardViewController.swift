@@ -106,7 +106,11 @@ class CardViewController: UIViewController {
                 if userStatus.entry {
                     self.permittedLabel.text = "✅ Permitted to enter campus"
                 } else {
-                    self.permittedLabel.text = "❌ Not permitted to enter campus"
+                    if User.isTilden() {
+                        self.permittedLabel.text = "Contact your Head of School to see if you're permitted to enter campus"
+                    } else {
+                        self.permittedLabel.text = "❌ Not permitted to enter campus"
+                    }
                 }
                 
                 //show either location or other criteria
