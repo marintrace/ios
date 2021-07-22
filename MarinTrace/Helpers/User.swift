@@ -31,6 +31,7 @@ struct User {
     static var initials = ""
     static var fullName = ""
     static var email = ""
+    static var vaccinated: Bool?
     
     //MARK: Get User Details
     
@@ -95,7 +96,20 @@ struct User {
                         school = .NGS
                     }
                     
-                    completion(true)
+                    //for tilden custom symptom config that requires vaccination status
+                    if self.isTilden() {
+                        DataService.getUserStatus { (userStatus, error2) in
+                            if let unwrapped = error2 {
+                                completion(false)
+                                DataService.logError(error: unwrapped)
+                            } else if let health = userStatus?.health {
+                                vaccinated = (health.criteria ?? []).contains("Fully Vaccinated")
+                                completion(true)
+                            }
+                        }
+                    } else {
+                        completion(true)
+                    }
                     
                 case .failure(let error):
                     completion(false)
@@ -103,5 +117,10 @@ struct User {
                 }
             }
         }
+    }
+    
+    //shorthand function to determine if user is tilden
+    static func isTilden() -> Bool {
+        return self.school == .TildenAlbany || self.school == .TildenWalnutCreek || self.school == .MA
     }
 }

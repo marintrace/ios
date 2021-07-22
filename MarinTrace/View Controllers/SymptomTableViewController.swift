@@ -17,9 +17,17 @@ class SymptomTableViewController: UITableViewController {
     var selections = [Bool]()
     var travel = false
     var proximity = false
+    
+    var showSymptoms: Bool = true { //hide symptoms for tilden vaccinated individuals
+        didSet {
+            tableView.reloadData()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupTilden()
         
         //initialize selections array with all false
         selections = symptoms.map({_ in false})
@@ -70,6 +78,19 @@ class SymptomTableViewController: UITableViewController {
         tableView.rowHeight = UITableView.automaticDimension
     }
     
+    func setupTilden() {
+        if !User.isTilden() {
+            return
+        }
+        
+        symptoms = ["Fever or chills", "Cough", "Shortness of breath", "New loss of taste or smell", "Sore throat"]
+        screeners[0] = "I have travelled internationally in the last 5 days"
+        
+        if User.vaccinated ?? false { //hide symptoms if vaccinated
+            showSymptoms = false
+        }
+    }
+    
     @IBAction func donePressed(_ sender: Any) {
         let checkedSymptoms = selections.reduce(0) { $0 + ($1 ? 1 : 0) }
         
@@ -104,6 +125,15 @@ class SymptomTableViewController: UITableViewController {
             travel = checked
         } else {
             proximity = checked
+            
+            if User.isTilden() && User.vaccinated ?? false { //adapt symptom questionnaire for tilden if vaccinated
+                if proximity {
+                    showSymptoms = true //show bc exposure
+                } else {
+                    showSymptoms = false //hide bc no exposure
+                    selections = symptoms.map({_ in false}) //reset symptoms
+                }
+            }
         }
     }
     
@@ -116,14 +146,6 @@ class SymptomTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return screeners.count
-        } else {
-            return symptoms.count
-        }
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -178,5 +200,25 @@ class SymptomTableViewController: UITableViewController {
 
         return cell
     }
-
+    
+    //config sections for each school
+    private func sectionShouldBeHidden(_ section: Int) -> Bool {
+        if section == 0 {
+            return false
+        } else {
+            return !showSymptoms
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if sectionShouldBeHidden(section) { //hide some sections depending on school
+            return 0
+        } else {
+            if section == 0 {
+                return screeners.count
+            } else {
+                return symptoms.count
+            }
+        }
+    }
 }
