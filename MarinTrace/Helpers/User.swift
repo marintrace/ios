@@ -99,12 +99,15 @@ struct User {
                     //for tilden custom symptom config that requires vaccination status
                     if self.isTilden() {
                         DataService.getUserStatus { (userStatus, error2) in
-                            if let unwrapped = error2 {
-                                completion(false)
-                                DataService.logError(error: unwrapped)
-                            } else if let health = userStatus?.health {
+                            if let health = userStatus?.health {
                                 vaccinated = (health.criteria ?? []).contains("Fully Vaccinated")
                                 completion(true)
+                            } else {
+                                completion(true)
+                                AlertHelperFunctions.presentAlert(title: "Unable to obtain vaccination status", message: "Your school's health questionnaire is shorter if you are vaccinated. We encountered an error while checking if you were marked as vaccinated, so to allow you to still check-in and not accidentally assume you are vaccinated, you will recieve the longer form.")
+                                if let unwrapped = error2 {
+                                    DataService.logError(error: unwrapped)
+                                }
                             }
                         }
                     } else {
@@ -121,6 +124,6 @@ struct User {
     
     //shorthand function to determine if user is tilden
     static func isTilden() -> Bool {
-        return self.school == .TildenAlbany || self.school == .TildenWalnutCreek || self.school == .MA
+        return self.school == .TildenAlbany || self.school == .TildenWalnutCreek //|| self.school == .MA
     }
 }
