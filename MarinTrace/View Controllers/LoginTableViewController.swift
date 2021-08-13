@@ -27,7 +27,7 @@ class LoginTableViewController: UITableViewController {
 
     //MARK: IBActions
     @IBAction func bransonLogIn(_ sender: Any) {
-        login(connection: "google-oauth2")
+        presentBransonOptions()
     }
     
     @IBAction func maLogIn(_ sender: Any) {
@@ -43,17 +43,21 @@ class LoginTableViewController: UITableViewController {
     }
     
     @IBAction func bransonSummerLogIn(_ sender: Any) {
-        let alertController = UIAlertController(title: "Email vs. Google Login", message: "If you are an existing Branson user, please make sure to continue to use your old login method (i.e if you always logged in with Google, continue to do so here). If you received an email from us to setup a password, then please login with your email and that password.", preferredStyle: .alert)
+        presentBransonOptions()
+    }
+    
+    @IBAction func ngsLogin(_ sender: Any) {
+        login(connection: "MT-Email-Pass")
+    }
+    
+    func presentBransonOptions() {
+        let alertController = UIAlertController(title: "Email vs. Google Login", message: "If you are an existing Branson user from the 20-21 school year, please make sure to continue to use your old login method (i.e if you always logged in with Google, continue to do so here). If you received an email from us to setup a password, then please login with your email and that password.", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
             UIAlertAction in
             self.login(connection: "")
         }
         alertController.addAction(okAction)
         self.present(alertController, animated: true, completion: nil)
-    }
-    
-    @IBAction func ngsLogin(_ sender: Any) {
-        login(connection: "MT-Email-Pass")
     }
     
     //login, but refresh token because if they're signing up the first  token returned won't have their school role
